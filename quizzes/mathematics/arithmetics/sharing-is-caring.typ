@@ -102,11 +102,22 @@
   let eat-count = none
   (random, eat-count) = integer(random, 1, 3)
   let special-eat-count = none
-  (random, special-eat-count) = integer(random, 2, 3)
+  (random, special-eat-count) = integer(random, 0, 3)
 
   par[
     Everyone eats #f-vc(edible, n: eat-count) to celebrate 🎉.\
-    #f-v(person) eats #var(special-eat-count) at once.
+    #{
+      if (special-eat-count == 0) [
+        Except for #f-v(person) who is fasting and refrains from eating any #f-v(edible, n:  2).
+      ]
+      else if (special-eat-count > eat-count) [
+        Except for glutony #f-v(person) who gulps #f-vc(edible, n: special-eat-count) at once.
+      ]
+      else if (special-eat-count < eat-count) [
+        Except for #f-v(person) who is on a diet and limits #reflexive(person) to
+        #f-vc(edible, n: special-eat-count).
+      ]
+    }
   ]
 
   questions = array-take(startAt: 3, question-indices,
