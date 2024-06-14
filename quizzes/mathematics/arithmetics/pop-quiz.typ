@@ -5,47 +5,47 @@
 // TAGS=theoretical,closed_answers
 // LEVEL_SCALE=grades
 // SUPPORTED_LEVELS=g5,g6
-// SUPPORTED_LENGTHS=instant,quick,average
+// SUPPORTED_LENGTHS=instant,quick,medium
 
-#import "@preview/suiji:0.3.0"
-#import "../../../lib/theme.typ": *
 #import "../../../lib/models.typ": *
+#import "../../../lib/random.typ": *
+#import "../../../lib/theme.typ": *
 #import "../../../lib/utils.typ": *
 
 
 #let all-questions = (
   {
-    input(
+    input(1,
       [ What does H.C.F stand for? ],
       [ Highest Common Factor ],
     )
   },
   {
-    input(
+    input(1,
       [ What does L.C.M stand for? ],
       [ Least Common Multiple ],
     )
   },
   {
-    input(
+    input(1,
       [ For a multiple of 3, what is special about the digits? ],
       [ The sum of the digits is a multiple of 3 ],
     )
   },
   {
-    input(
+    input(1,
       [ For a multiple of 5, what is special about the digit in the units place? ],
       [ The digit in the units place is either a 0 or a 5 ],
     )
   },
   {
-    input(
+    input(1,
       [ For a multiple of 9 up to 100, what is special about the digits in the tens and units places? ],
       [ The sum of the digit in the tens and units places is equal to 9 ],
     )
   },
   {
-    input(
+    input(1,
       [ For a multiple of 3, what is special about the digits? ],
       [ The sum of the digits is a multiple of 3 ],
     )
@@ -57,14 +57,11 @@
   level: none,
   length: none,
 ) = {
-  let rng = suiji.gen-rng(seed)
+  let random = random(seed)
 
   let questions = none
-  (rng, questions) = pick(rng, all-questions, count: length)
-
-  for question in questions {
-    question
-  }
+  (random, questions) = sample(random, length, all-questions)
+  questions.join()
 }
 
 

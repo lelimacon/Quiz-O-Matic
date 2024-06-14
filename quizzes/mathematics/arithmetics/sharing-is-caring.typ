@@ -2,38 +2,46 @@
 // CATEGORY=Arithmetics
 // NAME=Sharing is caring
 // DESCRIPTION=Practical problem about multiplications and multiples.
-// TAGS=practical,closed_answers,problem,traps
+// TAGS=practical,closed_answers,problem,traps,plot
 // LEVEL_SCALE=grades
 // SUPPORTED_LEVELS=g5,g6
-// SUPPORTED_LENGTHS=quick,average
+// SUPPORTED_LENGTHS=quick,medium
 
-#import "@preview/suiji:0.3.0"
-#import "../../../lib/theme.typ": *
-#import "../../../lib/models.typ": *
 #import "../../../lib/entities.typ"
+#import "../../../lib/models.typ": *
+#import "../../../lib/random.typ": *
+#import "../../../lib/theme.typ": *
 #import "../../../lib/utils.typ": *
 
 
+// Structure:
+// - 3 1p question
+// - 1 2p questions
+// - 3 1p question
+// - 1 2p questions
 #let generate(
   seed: 0,
   level: none,
   length: none,
 ) = {
-  let rng = suiji.gen-rng(seed)
+  let random = random(seed)
+
+  let question-indices = none
+  (random, question-indices) = sample(random, length - 4, range(6))
 
   let relation = none
-  (rng, relation) = pick(rng, entities.relations)
+  (random, relation) = pick(random, entities.relations)
   let person = none
-  (rng, person) = pick(rng, entities.persons)
+  (random, person) = pick(random, entities.persons)
   let container = none
-  (rng, container) = pick(rng, entities.containers)
+  (random, container) = pick(random, entities.containers.filter(v => v.size == "s"))
   let edible = none
-  (rng, edible) = pick(rng, entities.edibles)
+  (random, edible) = pick(random, entities.edibles)
 
   let relation-count = none
-  (rng, relation-count) = suiji.integers(rng, low: 3, high: 10)
+  (random, relation-count) = integer(random, 3, 10)
   let pack-size = none
-  (rng, pack-size) = suiji.integers(rng, low: 3, high: 10)
+  (random, pack-size) = integer(random, 3, 10)
   let rest = 5
   let total-edibles = rest + relation-count * pack-size
 
@@ -46,38 +54,42 @@
     has #f-vc(edible, n: rest) left for #reflexive(person).
   ]
 
-  hint[Be aware that some questions do not require any calculation!]
+  hint[Be aware that some questions may not require any calculation!]
 
-  {
-    input(
-      [
-        How many #f-v(edible, n: 2) does #f-v(person) have left?
-      ],
-      [
-        $ #rest $
-      ],
+  let questions = array-take(question-indices,
+    (
+      input(1,
+        [
+          How many #f-v(edible, n: 2) does #f-v(person) have left?
+        ],
+        [
+          $ #rest $
+        ],
+      ),
+      input(1,
+        [
+          How many #f-v(edible, n: 2) do each of #f-v(person)'s
+          #f-v(relation, n: relation-count) receive?
+        ],
+        [
+          $ #pack-size $
+        ],
+      ),
+      input(1,
+        [
+          How many #f-v(edible, n: 2) do #f-v(person)'s #f-v(relation, n: relation-count) have
+          in total?
+        ],
+        [
+          $ #relation-count #math.times #pack-size
+          #math.eq #(relation-count * pack-size) $
+        ],
+      ),
     )
-    input(
-      [
-        How many #f-v(edible, n: 2) do each of #f-v(person)'s
-        #f-v(relation, n: relation-count) get?
-      ],
-      [
-        $ #pack-size $
-      ],
-    )
-    input(
-      [
-        How many #f-v(edible, n: 2) do #f-v(person)'s #f-v(relation, n: relation-count) have in total?
-      ],
-      [
-        $ #relation-count #math.times #pack-size
-        #math.eq #(relation-count * pack-size) $
-      ],
-    )
-  }
+  )
+  questions.join()
 
-  input(
+  input(2,
     [
       How many #f-v(edible, n: 2) are there in total?
     ],
@@ -88,47 +100,51 @@
   )
 
   let eat-count = none
-  (rng, eat-count) = suiji.integers(rng, low: 1, high: 3)
+  (random, eat-count) = integer(random, 1, 3)
   let special-eat-count = none
-  (rng, special-eat-count) = suiji.integers(rng, low: 2, high: 3)
+  (random, special-eat-count) = integer(random, 2, 3)
 
   par[
     Everyone eats #f-vc(edible, n: eat-count) to celebrate 🎉.\
     #f-v(person) eats #var(special-eat-count) at once.
   ]
 
-  {
-    input(
-      [
-        How many does #f-v(edible, n: 2) does #f-v(person) have left?
-      ],
-      [
-        $ #rest - #special-eat-count
-        #math.eq #(rest - special-eat-count) $
-      ]
+  questions = array-take(startAt: 3, question-indices,
+    (
+      input(1,
+        [
+          How many does #f-v(edible, n: 2) does #f-v(person) have left?
+        ],
+        [
+          $ #rest - #special-eat-count
+          #math.eq #(rest - special-eat-count) $
+        ]
+      ),
+      input(1,
+        [
+          How many #f-v(edible, n: 2) do each of #f-v(person)'s
+          #f-v(relation, n: 2) have left?
+        ],
+        [
+          $ #pack-size - #eat-count
+          #math.eq #(pack-size - eat-count) $
+        ]
+      ),
+      input(1,
+        [
+          How many #f-v(edible, n: 2) do #f-v(person)'s
+          #f-v(relation, n: 2) have in total?
+        ],
+        [
+          $ #relation-count #math.times \( #pack-size - #eat-count \)
+          #math.eq #(relation-count * (pack-size - eat-count)) $
+        ]
+      ),
     )
-    input(
-      [
-        How many #f-v(edible, n: 2) do each of #f-v(person)'s
-        #f-v(relation, n: 2) have left?
-      ],
-      [
-        $ #pack-size - #eat-count
-        #math.eq #(pack-size - eat-count) $
-      ]
-    )
-    input(
-      [
-        How many #f-v(edible, n: 2) do #f-v(person)'s
-        #f-v(relation, n: 2) have in total?
-      ],
-      [
-        $ #relation-count #math.times \( #pack-size - #eat-count \)
-        #math.eq #(relation-count * (pack-size - eat-count)) $
-      ]
-    )
-  }
-  input(
+  )
+  questions.join()
+
+  input(2,
     [
       How many #f-v(edible, n: 2) are there in total?
     ],
@@ -146,6 +162,6 @@
   generate(
     seed: 42,
     level: level-grades.g5,
-    length: lengths.average,
+    length: lengths.long,
   ),
 )

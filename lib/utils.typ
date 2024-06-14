@@ -2,17 +2,11 @@
 #import "theme.typ": *
 
 
-#let pick(rng, arr, count: 1) = {
-  if (count == 1) {
-    let index = none
-    (rng, index) = suiji.integers(rng, high: arr.len())
-    return (rng, arr.at(index))
-  }
-  else {
-    let indices = none
-    ((.., rng), indices) = suiji.integers(rng, high: arr.len(), size: count)
-    return (rng, indices.map(i => arr.at(i)))
-  }
+#let array-take(indices, array, startAt: 0) = {
+  return array
+    .enumerate()
+    .filter(e => (e.at(0) + startAt) in indices)
+    .map(e => e.at(1))
 }
 
 #let f(
@@ -118,7 +112,7 @@
 
 #let subject(entity) = {
     if (entity.type == "person") {
-      if (entity.sex == "M") { return "he" }
+      if (entity.sex == "m") { return "he" }
       else { return "she" }
     }
     else { return "the" }
@@ -126,7 +120,7 @@
 
 #let object(entity) = {
     if (entity.type == "person") {
-      if (entity.sex == "M") { return "him" }
+      if (entity.sex == "m") { return "him" }
       else { return "her" }
     }
     else { return "its" }
@@ -134,7 +128,7 @@
 
 #let possessive(entity) = {
     if (entity.type == "person") {
-      if (entity.sex == "M") { return "his" }
+      if (entity.sex == "m") { return "his" }
       else { return "her" }
     }
     else { return "its" }
@@ -142,7 +136,7 @@
 
 #let independent-possessive(entity) = {
     if (entity.type == "person") {
-      if (entity.sex == "M") { return "his" }
+      if (entity.sex == "m") { return "his" }
       else { return "hers" }
     }
     else { return "its" }
@@ -150,7 +144,7 @@
 
 #let reflexive(entity) = {
     if (entity.type == "person") {
-      if (entity.sex == "M") { return "himself" }
+      if (entity.sex == "m") { return "himself" }
       else { return "herself" }
     }
     else { return "itself" }

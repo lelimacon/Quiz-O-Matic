@@ -5,15 +5,15 @@
 // TAGS=practical,closed_answers
 // LEVEL_SCALE=grades
 // SUPPORTED_LEVELS=g5,g6
-// SUPPORTED_LENGTHS=average,long,full,double
+// SUPPORTED_LENGTHS=medium,long,full,double
 
-#import "@preview/suiji:0.3.0"
-#import "../../../lib/theme.typ": *
 #import "../../../lib/models.typ": *
+#import "../../../lib/random.typ": *
+#import "../../../lib/theme.typ": *
 
 
 #let generate-operation(
-  rng,
+  random,
   level,
 ) = {
   let operand-count = 2
@@ -21,17 +21,17 @@
   let max-value = 10
 
   let operand = 0
-  (rng, operand) = suiji.integers(rng, low: min-value, high: max-value)
+  (random, operand) = integer(random, min-value, max-value)
   let result = operand
   let operation = [ #result ]
 
   for _ in range(operand-count) {
-    (rng, operand) = suiji.integers(rng, low: min-value, high: max-value)
+    (random, operand) = integer(random, min-value, max-value)
     result = result + operand
     operation = [ #operation #math.plus #operand ]
   }
 
-  return (rng, operation, result)
+  return (random, operation, result)
 }
 
 #let generate(
@@ -39,7 +39,7 @@
   level: none,
   length: none,
 ) = [
-  #let rng = suiji.gen-rng(seed)
+  #let random = random(seed)
 
   #let operation-count = length
   #let operation = "1 + 1"
@@ -55,8 +55,8 @@
     columns: (auto, auto, auto),
     {
       for _ in range(operation-count, step: 3) {
-        (rng, operation, result) = generate-operation(rng, level)
-        input(
+        (random, operation, result) = generate-operation(random, level)
+        input(1,
           [ #operation ],
           [ #result ],
         )
@@ -64,8 +64,8 @@
     },
     {
       for _ in range(operation-count, step: 3) {
-        (rng, operation, result) = generate-operation(rng, level)
-        input(
+        (random, operation, result) = generate-operation(random, level)
+        input(1,
           [ #operation ],
           [ #result ],
         )
@@ -73,8 +73,8 @@
     },
     {
       for _ in range(operation-count, step: 3) {
-        (rng, operation, result) = generate-operation(rng, level)
-        input(
+        (random, operation, result) = generate-operation(random, level)
+        input(1,
           [ #operation ],
           [ #result ],
         )
@@ -90,6 +90,6 @@
   generate(
     seed: 42,
     level: level-grades.kindergarten,
-    length: lengths.average,
+    length: lengths.medium,
   ),
 )

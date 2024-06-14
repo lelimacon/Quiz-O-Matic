@@ -37,13 +37,13 @@
 #let answer(
   body,
 ) = {
-  set text(fill: green, size: 1.4em)
+  set text(fill: green)
 
   body
 }
 
 #let input(
-  height: auto,
+  points,
   label,
   expected,
 ) = {
@@ -51,23 +51,42 @@
 
   label
 
-  box(
-    width: 100%,
-    height: height,
-    stroke: (
-      paint: black,
-      thickness: 2pt,
-    ),
-    inset: (
-      top: 12pt,
-      bottom: 12pt,
-      left: 12pt,
-      right: 12pt,
-    ),
+  grid(
+    columns: (auto, auto),
+    gutter: 2pt,
 
-    {
-      answer(expected)
-    }
+    box(
+      fill: black,
+      stroke: (
+        paint: black,
+        thickness: 2pt,
+      ),
+      inset: (
+        top: 4pt,
+        bottom: 4pt,
+        left: 4pt,
+        right: 4pt,
+      ),
+
+      text(fill: white, [#points])
+    ),
+    box(
+      width: 100%,
+      stroke: (
+        paint: black,
+        thickness: 2pt,
+      ),
+      inset: (
+        top: 12pt,
+        bottom: 12pt,
+        left: 12pt,
+        right: 12pt,
+      ),
+
+      {
+        answer(expected)
+      }
+    ),
   )
 }
 
@@ -75,7 +94,7 @@
   body,
 ) = {
   block(
-    stroke: blue,
+    stroke: orange,
     width: 100%,
     inset: (
       top: 12pt,
@@ -85,7 +104,7 @@
     ),
 
     {
-      set text(fill: blue)
+      set text(fill: orange)
 
       "💡"
       h(6pt)

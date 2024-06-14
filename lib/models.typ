@@ -22,19 +22,19 @@
 // Common European Framework of Reference for Languages.
 // A1, A2, B1, B2, C1, C2.
 #let level-cefr = (
-  A1: 1,
-  A2: 2,
-  B1: 3,
-  B2: 4,
-  C1: 5,
-  C2: 6,
+  a1: 1,
+  a2: 2,
+  b1: 3,
+  b2: 4,
+  c1: 5,
+  c2: 6,
 )
 
 // Question time to solve approximation (in minutes).
 #let lengths = (
   instant: 1,
   quick: 2,
-  average: 5,
+  medium: 5,
   long: 10,
   full: 30,
   double: 60,
