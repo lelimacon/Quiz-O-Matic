@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz-O-Matic</title>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
+      id="typst"
+    ></script>
+    <script type="text/javascript" src="out/app.js"></script>
+  </head>
+
+  <body>
+
+    <div id="app"></div>
+    <textarea id="input" style="width: 100%"></textarea>
+    <div id="content"></div>
+
+
+    <script type="text/javascript">
+      const input = document.getElementById('input');
+      input.value = 'Hello, Typst!';
+      document.getElementById('typst').addEventListener('load', function () {
+        $typst.setCompilerInitOptions({
+          getModule: () =>
+            'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm',
+        });
+        $typst.setRendererInitOptions({
+          getModule: () =>
+            'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer_bg.wasm',
+        });
+
+        const compile = function (mainContent) {
+          $typst.svg({ mainContent }).then(svg => {
+            console.log(`rendered! SvgElement { len: ${svg.length} }`);
+            // append svg text
+            document.getElementById('content').innerHTML = svg;
+          });
+        };
+        input.oninput = () => compile(input.value);
+        compile(input.value);
+      });
+    </script>
+
+
+    <script type="text/javascript">
+      function localizeDate(lang, year, month)
+      {
+        const dateTimeFormat = new Intl.DateTimeFormat(lang, {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        return dateTimeFormat.format(new Date(year, month));
+      }
+
+      customElements.define('intl-date',
+        class extends HTMLElement {
+          // things required by Custom Elements
+          constructor() { super(); }
+          connectedCallback() { this.setTextContent(); }
+          attributeChangedCallback() { this.setTextContent(); }
+          static get observedAttributes() { return ['lang','year','month']; }
+
+          // Our function to set the textContent based on attributes.
+          setTextContent()
+          {
+            const lang = this.getAttribute('lang');
+            const year = this.getAttribute('year');
+            const month = this.getAttribute('month');
+            this.textContent = localizeDate(lang, year, month);
+          }
+        }
+      );
+
+      var app = Elm.Main.init({
+        node: document.getElementById('app')
+      });
+
+    </script>
+
+  </body>
+</html>
