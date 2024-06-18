@@ -7,10 +7,10 @@
 // SUPPORTED_LEVELS=g5,g6
 // SUPPORTED_LENGTHS=instant,quick,medium
 
-#import "../../../lib/models.typ": *
-#import "../../../lib/random.typ": *
-#import "../../../lib/theme.typ": *
-#import "../../../lib/utils.typ": *
+#import "../../../models.typ": *
+#import "../../../random.typ": *
+#import "../../../theme.typ": *
+#import "../../../utils.typ": *
 
 
 #let all-questions = (

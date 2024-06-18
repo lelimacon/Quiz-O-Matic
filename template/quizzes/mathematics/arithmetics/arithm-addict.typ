@@ -7,9 +7,9 @@
 // SUPPORTED_LEVELS=g5,g6
 // SUPPORTED_LENGTHS=medium,long,full,double
 
-#import "../../../lib/models.typ": *
-#import "../../../lib/random.typ": *
-#import "../../../lib/theme.typ": *
+#import "../../../models.typ": *
+#import "../../../random.typ": *
+#import "../../../theme.typ": *
 
 
 #let generate-operation(

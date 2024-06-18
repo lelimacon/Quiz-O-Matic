@@ -1,5 +1,4 @@
 
-
 #let persons = (
   (type: "person", sex: "m", name: "Ali", emoji: "👨"),
   (type: "person", sex: "m", name: "Jax", emoji: "🫅"),

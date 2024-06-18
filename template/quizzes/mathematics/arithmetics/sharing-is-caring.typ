@@ -7,11 +7,11 @@
 // SUPPORTED_LEVELS=g5,g6
 // SUPPORTED_LENGTHS=quick,medium
 
-#import "../../../lib/entities.typ"
-#import "../../../lib/models.typ": *
-#import "../../../lib/random.typ": *
-#import "../../../lib/theme.typ": *
-#import "../../../lib/utils.typ": *
+#import "../../../entities.typ"
+#import "../../../models.typ": *
+#import "../../../random.typ": *
+#import "../../../theme.typ": *
+#import "../../../utils.typ": *
 
 
 // Structure:

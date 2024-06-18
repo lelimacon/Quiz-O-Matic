@@ -1,0 +1,14 @@
+version: '3'
+
+tasks:
+
+  generate:
+    desc: Generate Quiz PDF from CSV
+    cmds:
+      - '{{.SHELL}} mkdir -p out'
+      - typst compile --root . template/main.typ out/quiz.pdf
+
+  clean:
+    desc: Remove all generated PDFs
+    cmds:
+      - '{{.SHELL}} find "template" -name *.pdf -type f -delete'

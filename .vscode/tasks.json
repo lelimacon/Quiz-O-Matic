@@ -4,19 +4,19 @@
         {
             "label": "app:build",
             "type": "shell",
-            "command": "make",
-            "args": ["app_build"],
+            "command": "task",
+            "args": ["build"],
         },
         {
             "label": "quiz:generate",
             "type": "shell",
-            "command": "make",
-            "args": ["quiz_generate"],
+            "command": "task",
+            "args": ["template:generate"],
         },
         {
             "label": "clean",
             "type": "shell",
-            "command": "make",
+            "command": "task",
             "args": ["clean"],
         },
     ]

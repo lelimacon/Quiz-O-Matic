@@ -1,1 +1,9 @@
+
+# Taskfile.
+.task/
+
+# Output folder.
+out/
+
+# Typst outputs.
 *.pdf

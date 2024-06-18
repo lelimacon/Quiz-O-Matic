@@ -1,0 +1,41 @@
+version: '3'
+
+includes:
+  template: ./template/taskfile.yml
+
+vars:
+  # Shell workaround.
+  SHELL: '{{if eq .OS "Windows_NT"}}wsl{{end}}'
+
+tasks:
+
+  build:
+    desc: Build the app
+    cmds:
+      - task: app:build
+      - '{{.SHELL}} cp -ar app/www out'
+      - '{{.SHELL}} cp -ar template out/www/template'
+
+  app:build:
+    desc: Build the app
+    dir: ./app
+    watch: true
+    cmds:
+      - elm make src/Main.elm --output ../out/www/app.js
+    sources:
+      - app/src/**/*.elm
+    generates:
+      - out/www/app.js
+
+  clean:
+    desc: Remove ALL generated files
+    cmds:
+      - task: template:clean
+      - task: app:clean
+      - '{{.SHELL}} rm -rf out/'
+
+  app:clean:
+    desc: Remove Elm generated files
+    dir: ./app
+    cmds:
+      - '{{.SHELL}} rm -r -f elm-stuff/'

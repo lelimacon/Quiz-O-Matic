@@ -22,12 +22,12 @@
 #let rows = csv(
   delimiter: ";",
   row-type: dictionary,
-  "main.csv"
+  "data.csv"
 )
 
 #let exercises = rows.map(row =>
   print-quiz(
-    "../quizzes/" + row.at("subject") + "/" + row.at("category") + "/" + row.at("name") + ".typ",
+    "quizzes/" + row.at("subject") + "/" + row.at("category") + "/" + row.at("name") + ".typ",
     int(row.at("seed")),
     int(row.at("level")),
     int(row.at("length")),

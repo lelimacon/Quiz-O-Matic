@@ -5,8 +5,8 @@
 			"name": "App",
 			"type": "firefox",
 			"request": "launch",
-			"url": "file://${workspaceFolder}/app/out/index.html",
-			"webRoot": "${workspaceFolder}/app/out",
+			"url": "file://${workspaceFolder}/out/www/index.html",
+			"webRoot": "${workspaceFolder}/out/www",
 			"preLaunchTask": "app:build",
 		},
 	]
