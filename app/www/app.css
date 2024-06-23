@@ -9,6 +9,10 @@ body {
     background-color: hotpink;
 }
 
+label {
+    display: block;
+}
+
 .container {
     height: 100%;
     display: flex;

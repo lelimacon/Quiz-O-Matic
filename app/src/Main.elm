@@ -17,43 +17,53 @@ main =
 
 
 type alias Model =
-  { content : String
+  { seed : String
   }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-  ( { content = "toto" }
+  ( { seed = "42" }
   , Cmd.none
   )
 
 
 type Msg
-  = ContentChanged String
+  = SeedChanged String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
-    ContentChanged content ->
-      ( { model | content = content }
+    SeedChanged seed ->
+      ( { model | seed = seed }
       , Cmd.none
       )
 
 
+getData : Model -> String
+getData model = "subject;category;name;seed;level;length\nmathematics;arithmetics;sharing-is-caring;" ++ model.seed ++ ";5;10"
+
 view : Model -> Html Msg
 view model =
   div [ class "container" ]
-    [ div [ class "aside" ] [
-      textarea
-        [ placeholder "Document content"
-        , value model.content
-        , onInput ContentChanged
+    [ div [ class "aside" ]
+      [ label [
+        for "seed"
+        ] [
+          text "Seed"
+        ]
+      , input
+        [ id "seed"
+        , name "seed"
+        , placeholder "Seed"
+        , value model.seed
+        , onInput SeedChanged
         ] []
     ]
     , div [ class "preview" ] [
       node "typst-view"
-        [ attribute "content" model.content ]
+        [ attribute "data" (getData model) ]
         []
       ]
     ]
