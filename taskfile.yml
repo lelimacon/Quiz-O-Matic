@@ -9,33 +9,55 @@ vars:
 
 tasks:
 
-  build:
-    desc: Build the app
-    cmds:
-      - task: app:build
-      - '{{.SHELL}} cp -ar app/www out'
-      - '{{.SHELL}} cp -ar template out/www/template'
-
   app:build:
-    desc: Build the app
+    desc: Build the app to out folder
     dir: ./app
-    watch: true
     cmds:
       - elm make src/Main.elm --output ../out/www/app.js
+      - '{{.SHELL}} cp -ar www ../out/'
+      - '{{.SHELL}} cp -ar ../template/ ../out/www/'
+
+  app:run:
+    desc: Run the app (requires serve)
+    cmds:
+      - task: app:build
+      - serve out/www/
+
+  app:watch:
+    desc: Watch the app
+    watch: true
     sources:
       - app/src/**/*.elm
     generates:
       - out/www/app.js
+    cmds:
+      - task: app:build
+
+  app:build-docker:
+    desc: Run the app with Docker
+    cmds:
+      - docker compose build app
+
+  app:run-docker:
+    desc: Run the app with Docker
+    cmds:
+      - docker compose up -d app
 
   clean:
     desc: Remove ALL generated files
     cmds:
+      - '{{.SHELL}} rm -rf out/'
       - task: template:clean
       - task: app:clean
-      - '{{.SHELL}} rm -rf out/'
+      - task: app:clean-docker
 
   app:clean:
     desc: Remove Elm generated files
     dir: ./app
     cmds:
       - '{{.SHELL}} rm -r -f elm-stuff/'
+
+  app:clean-docker:
+    desc: Remove containers
+    cmds:
+      - docker compose down app
