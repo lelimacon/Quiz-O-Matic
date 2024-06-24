@@ -27,7 +27,7 @@
   let random = random(seed)
 
   let question-indices = none
-  (random, question-indices) = sample(random, length - 4, range(6))
+  (random, question-indices) = sample(random, length - 4, range(7))
 
   let relation = none
   (random, relation) = pick(random, entities.relations)
@@ -122,6 +122,14 @@
 
   questions = array-take(startAt: 3, question-indices,
     (
+      input(1,
+        [
+          How many does #f-v(edible, n: 2) did #f-v(person) eat?
+        ],
+        [
+          $ #special-eat-count $
+        ]
+      ),
       input(1,
         [
           How many does #f-v(edible, n: 2) does #f-v(person) have left?
