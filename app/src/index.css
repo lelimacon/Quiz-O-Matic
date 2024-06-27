@@ -13,27 +13,32 @@ label {
     display: block;
 }
 
-.container {
+qom-app {
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.aside {
+.panel {
     padding: 12px;
+    flex-grow: 1;
 }
 
-.preview {
-    display: flex;
-    padding: 12px;
+.separator {
+    width: 6px;
+    background-color: #fff2;
+    cursor: ew-resize;
 }
+    .separator:hover {
+        background-color: #fff6;
+    }
 
-typst-view {
+qom-preview {
     overflow-y: auto;
 }
 
-typst-view svg {
+qom-preview svg {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
