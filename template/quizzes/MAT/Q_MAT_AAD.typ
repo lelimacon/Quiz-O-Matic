@@ -1,15 +1,15 @@
-// SUBJECT=Mathematics
-// CATEGORY=Arithmetics
-// NAME=Arithm-Addict
-// DESCRIPTION=Practical quiz for Maths beginners, where every question is an operation to solve.
-// TAGS=practical,closed_answers
-// LEVEL_SCALE=grades
-// SUPPORTED_LEVELS=g5,g6
-// SUPPORTED_LENGTHS=medium,long,full,double
+// code=Q_MAT_AAD
+// subject=mat
+// name=Arithm-Addict
+// description=Practical quiz for Maths beginners, where every question is an operation to solve.
+// tags=practical,closed_answers,arithmetic
+// levelScale=grades
+// supportedLevels=g5,g6
+// supportedLengths=medium,long,full,double
 
-#import "../../../models.typ": *
-#import "../../../random.typ": *
-#import "../../../theme.typ": *
+#import "../../models.typ": *
+#import "../../random.typ": *
+#import "../../theme.typ": *
 
 
 #let generate-operation(

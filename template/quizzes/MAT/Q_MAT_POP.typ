@@ -1,16 +1,16 @@
-// SUBJECT=Mathematics
-// CATEGORY=Arithmetics
-// NAME=Pop-Quiz!
-// DESCRIPTION=Theoretical questions about multiples and divisors.
-// TAGS=theoretical,closed_answers
-// LEVEL_SCALE=grades
-// SUPPORTED_LEVELS=g5,g6
-// SUPPORTED_LENGTHS=instant,quick,medium
+// code=Q_MAT_POP
+// subject=mat
+// name=Pop-Quiz!
+// description=Theoretical questions about multiples and divisors.
+// tags=theoretical,closed_answers,arithmetic
+// levelScale=grades
+// supportedLevels=g5,g6
+// supportedLengths=instant,quick,medium
 
-#import "../../../models.typ": *
-#import "../../../random.typ": *
-#import "../../../theme.typ": *
-#import "../../../utils.typ": *
+#import "../../models.typ": *
+#import "../../random.typ": *
+#import "../../theme.typ": *
+#import "../../utils.typ": *
 
 
 #let all-questions = (

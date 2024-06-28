@@ -49,5 +49,5 @@ window.customElements.define("qom-app", class extends HTMLElement
     }
 
     getData = (seed) =>
-        "subject;category;name;seed;level;length\nmathematics;arithmetics;sharing-is-caring;" + seed + ";5;10"
+        `Q_MAT_POP ${seed} 5 2,Q_MAT_SIC ${seed} 5 5`
 })

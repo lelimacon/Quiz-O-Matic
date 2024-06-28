@@ -25,13 +25,16 @@
   "data.csv"
 )
 
-#let exercises = rows.map(row =>
-  print-quiz(
-    "quizzes/" + row.at("subject") + "/" + row.at("category") + "/" + row.at("name") + ".typ",
+#let exercises = rows.map(row => {
+  let code = row.at("code")
+  let subject = code.slice(2, count: 3)
+
+  return print-quiz(
+    "quizzes/" + subject + "/" + code + ".typ",
     int(row.at("seed")),
     int(row.at("level")),
     int(row.at("length")),
   )
-)
+})
 
 #exercises.join()

@@ -1,24 +1,24 @@
-// SUBJECT=Mathematics
-// CATEGORY=Arithmetics
-// NAME=Sharing is caring
-// DESCRIPTION=Practical problem about multiplications and multiples.
-// TAGS=practical,closed_answers,problem,traps,plot
-// LEVEL_SCALE=grades
-// SUPPORTED_LEVELS=g5,g6
-// SUPPORTED_LENGTHS=quick,medium
+// code=Q_MAT_SIC
+// subject=mat
+// name=Sharing is caring
+// description=Practical problem about multiplications and multiples.
+// tags=practical,closed_answers,problem,traps,plot,arithmetic
+// levelScale=grades
+// supportedLevels=g5,g6
+// supportedLengths=quick,medium
 
-#import "../../../entities.typ"
-#import "../../../models.typ": *
-#import "../../../random.typ": *
-#import "../../../theme.typ": *
-#import "../../../utils.typ": *
+#import "../../entities.typ"
+#import "../../models.typ": *
+#import "../../random.typ": *
+#import "../../theme.typ": *
+#import "../../utils.typ": *
 
 
 // Structure:
-// - 3 1p question
-// - 1 2p questions
-// - 3 1p question
-// - 1 2p questions
+// - 3x 1p question
+// - 1x 2p questions
+// - 3x 1p question
+// - 1x 2p questions
 #let generate(
   seed: 0,
   level: none,

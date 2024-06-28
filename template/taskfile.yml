@@ -7,6 +7,7 @@ tasks:
     cmds:
       - '{{.SHELL}} mkdir -p out/www/'
       - '{{.SHELL}} cp -ar template/ out/www/'
+      - node ops/gen-library.mjs
 
   generate:
     desc: Generate Quiz PDF from CSV
