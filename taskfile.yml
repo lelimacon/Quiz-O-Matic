@@ -1,6 +1,7 @@
 version: '3'
 
 includes:
+  app: ./app/taskfile.yml
   template: ./template/taskfile.yml
 
 vars:
@@ -9,38 +10,28 @@ vars:
 
 tasks:
 
-  app:build:
+  build:
     desc: Build the app to out folder
     cmds:
-      - '{{.SHELL}} mkdir -p out/www/'
-      - '{{.SHELL}} cp -ar app/src/. out/www/'
-      - '{{.SHELL}} cp -ar template/ out/www/'
+      - task: app:build
+      - task: template:build
 
-  app:watch:
-    desc: Watch the app
+  watch:
+    desc: Rebuild when sources change
     watch: true
     sources:
       - app/src/**/*
+      - template/**/*
     generates:
       - out/www/app.js
     cmds:
-      - task: app:build
+      - task: build
 
-  app:serve:
-    desc: Serve the app (requires serve-handler)
+  serve:
+    desc: Serve the output app (requires serve-handler)
     cmds:
-      - task: app:build
+      - task: build
       - serve --no-clipboard "out/www/"
-
-  app:build-docker:
-    desc: Run the app with Docker
-    cmds:
-      - docker compose build app
-
-  app:run-docker:
-    desc: Run the app with Docker
-    cmds:
-      - docker compose up -d app
 
   clean:
     desc: Remove ALL generated files
@@ -48,8 +39,3 @@ tasks:
       - '{{.SHELL}} rm -rf out/'
       - task: template:clean
       - task: app:clean-docker
-
-  app:clean-docker:
-    desc: Remove containers
-    cmds:
-      - docker compose down app

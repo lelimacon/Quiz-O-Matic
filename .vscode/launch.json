@@ -7,7 +7,7 @@
 			"request": "launch",
 			"url": "file://${workspaceFolder}/out/www/index.html",
 			"webRoot": "${workspaceFolder}/out/www",
-			"preLaunchTask": "app:build",
+			"preLaunchTask": "build",
 		},
 	]
 }

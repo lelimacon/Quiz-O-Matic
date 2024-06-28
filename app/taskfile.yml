@@ -1,0 +1,24 @@
+version: '3'
+
+tasks:
+
+  build:
+    desc: Build the app to out folder
+    cmds:
+      - '{{.SHELL}} mkdir -p out/www/'
+      - '{{.SHELL}} cp -ar app/src/. out/www/'
+
+  build-docker:
+    desc: Run the app with Docker
+    cmds:
+      - docker compose -f ops/compose.yml build app
+
+  run-docker:
+    desc: Run the app with Docker
+    cmds:
+      - docker compose up -f ops/compose.yml -d app
+
+  clean-docker:
+    desc: Remove containers
+    cmds:
+      - docker compose -f ops/compose.yml down app

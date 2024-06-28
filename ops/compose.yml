@@ -4,9 +4,9 @@ services:
     app:
         image: quiz-app
         container_name: app
-        env_file: app/.env
+        env_file: ../app/.env
         build:
-            context: .
+            context: ../
             dockerfile: app/ops/Dockerfile
         restart: no
         ports:

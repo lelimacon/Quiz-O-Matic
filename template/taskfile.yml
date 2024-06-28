@@ -2,6 +2,12 @@ version: '3'
 
 tasks:
 
+  build:
+    desc: Build the app to out folder
+    cmds:
+      - '{{.SHELL}} mkdir -p out/www/'
+      - '{{.SHELL}} cp -ar template/ out/www/'
+
   generate:
     desc: Generate Quiz PDF from CSV
     cmds:
