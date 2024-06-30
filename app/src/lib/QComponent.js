@@ -1,7 +1,7 @@
-import Store from "./Store.js"
+import QStore from "./QStore.js"
 
 
-export default class QomComponent extends HTMLElement
+export default class QComponent extends HTMLElement
 {
     constructor(props = {})
     {
@@ -10,7 +10,7 @@ export default class QomComponent extends HTMLElement
         this.render = this.render || function() {}
   
         const self = this
-        if (props.store instanceof Store)
+        if (props.store instanceof QStore)
         {
             props.store.events.subscribe("stateChanged", () => self.render())
         }

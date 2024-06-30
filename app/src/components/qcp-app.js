@@ -1,8 +1,8 @@
 import { html } from "../lib/utils.js"
-import QomComponent from "../lib/QomComponent.js"
+import QComponent from "../lib/QComponent.js"
 
 
-window.customElements.define("qom-app", class extends QomComponent
+window.customElements.define("qcp-app", class extends QComponent
 {
     constructor()
     {
@@ -11,26 +11,26 @@ window.customElements.define("qom-app", class extends QomComponent
         this.innerHTML =
             html`
             <div class="panel library">
-                <qom-library-filters
+                <qco-library-filters
                     name="filters"
                     lengths="40"
-                ></qom-library-filters>
-                <qom-library></qom-library>
+                ></qco-library-filters>
+                <qco-library></qco-library>
             </div>
             <div class="separator"></div>
             <div class="panel outline">
                 <button name="changeSeed">change seed</button>
-                <qom-outline seed="42"></qom-outline>
+                <qco-outline seed="42"></qco-outline>
             </div>
             <div class="separator"></div>
             <div class="panel preview">
-                <qom-preview data="${this.getData("42")}"></qom-preview>
+                <qca-preview data="${this.getData("42")}"></qca-preview>
             </div>
             `
 
         this.$filters = this.querySelector("[name='filters']")
-        this.$outline = this.querySelector("qom-outline")
-        this.$preview = this.querySelector("qom-preview")
+        this.$outline = this.querySelector("qco-outline")
+        this.$preview = this.querySelector("qca-preview")
     }
 
     $filters = undefined

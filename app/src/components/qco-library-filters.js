@@ -1,8 +1,8 @@
 import { html } from "../lib/utils.js"
-import QomComponent from "../lib/QomComponent.js"
+import QComponent from "../lib/QComponent.js"
 
 
-window.customElements.define("qom-library-filters", class extends QomComponent
+window.customElements.define("qco-library-filters", class extends QComponent
 {
     static observedAttributes =
     [

@@ -1,9 +1,9 @@
 import { html } from "../lib/utils.js"
-import QomComponent from "../lib/QomComponent.js"
+import QComponent from "../lib/QComponent.js"
 import qsLibrary from "../store/QsLibrary.js"
 
 
-window.customElements.define("qom-library", class extends QomComponent
+window.customElements.define("qco-library", class extends QComponent
 {
     constructor()
     {

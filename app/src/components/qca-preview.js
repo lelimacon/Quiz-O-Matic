@@ -36,7 +36,7 @@ const init = async () =>
 
 await init()
 
-customElements.define("qom-preview", class extends HTMLElement
+customElements.define("qca-preview", class extends HTMLElement
 {
     static observedAttributes =
     [

@@ -1,4 +1,4 @@
-import Store from "../lib/Store.js"
+import QStore from "../lib/QStore.js"
 
 
 const initialState =
@@ -61,7 +61,7 @@ const effects =
 ]
 
 
-class QsLibrary extends Store
+class QsLibrary extends QStore
 {
     constructor()
     {

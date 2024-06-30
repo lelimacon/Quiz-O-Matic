@@ -1,14 +1,14 @@
-import PubSub from "./PubSub.js"
+import QPubSub from "./QPubSub.js"
 
 
-export default class Store
+export default class QStore
 {
     constructor(params)
     {
         this.actions = params.actions || {}
         this.reducers = params.reducers || {}
         this.effects = params.effects || {}
-        this.events = new PubSub()
+        this.events = new QPubSub()
 
         const self = this
         this.state = {}

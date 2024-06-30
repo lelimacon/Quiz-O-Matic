@@ -1,4 +1,4 @@
-export default class PubSub
+export default class QPubSub
 {
     constructor()
     {
