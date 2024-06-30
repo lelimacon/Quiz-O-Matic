@@ -44,20 +44,23 @@ qca-preview svg {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-qco-library .libraryRowContainer {
+qco-library .libraryRowContainer,
+qco-outline .libraryRowContainer {
     display: flex;
     flex-direction: row;
     border-top: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
     background-color: white;
 }
-    qco-library .libraryRowInfo {
+    qco-library .libraryRowInfo,
+    qco-outline .libraryRowInfo {
         flex-grow: 1;
         padding: 6px 8px;
         box-shadow: 0 0 5px rgba(0,0,0,0.4);
         clip-path: inset(0px -5px 0px 0px);
     }
-    qco-library .libraryRowActions {
+    qco-library .libraryRowActions,
+    qco-outline .libraryRowActions {
         display: flex;
         flex-direction: column;
         padding: 3px 8px;

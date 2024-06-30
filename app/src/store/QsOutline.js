@@ -3,33 +3,17 @@ import QStore from "../lib/QStore.js"
 
 const initialState =
 {
-    isLoading: false,
     items: [],
 }
 
 const actions =
 {
-    load: "load",
-    loaded: "loaded",
     addItem: "addItem",
     clearItem: "clearItem",
 }
 
 const reducers =
 {
-    load: (state, _) =>
-    {
-        state.isLoading = true
-        return state
-    },
-
-    loaded: (state, payload) =>
-    {
-        state.isLoading = false
-        state.items = payload.items
-        return state
-    },
-
     addItem: (state, payload) =>
     {
         state.items.push(payload.item)
@@ -45,23 +29,10 @@ const reducers =
 
 const effects =
 [
-    {
-        action: actions.load,
-        effect: async (store, payload) =>
-        {
-            // Demo sleep.
-            await new Promise(r => setTimeout(r, 500))
-
-            const libraryJson = await fetch("library.json").then(r => r.text())
-            const items = JSON.parse(libraryJson)
-
-            store.dispatch(actions.loaded, { items })
-        },
-    },
 ]
 
 
-class QsLibrary extends QStore
+class QsOutline extends QStore
 {
     constructor()
     {
@@ -94,4 +65,4 @@ class QsLibrary extends QStore
 }
 
 
-export default new QsLibrary()
+export default new QsOutline()

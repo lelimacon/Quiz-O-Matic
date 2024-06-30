@@ -1,6 +1,7 @@
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
 import qsLibrary from "../store/QsLibrary.js"
+import qsOutline from "../store/QsOutline.js"
 
 
 window.customElements.define("qco-library", class extends QComponent
@@ -24,48 +25,47 @@ window.customElements.define("qco-library", class extends QComponent
             html`
             ${qsLibrary.state.isLoading ? html`<p>loading...</p>` : ""}
 
-            <button name="addItem" aria-label="Add new item">add</button>
-
             <div>
                 ${qsLibrary.state.items.length === 0
                     ? html`<p>Nothing here</p>`
                     : qsLibrary.state.items
-                        .map(item =>
-                            html`
-                            <div class="libraryRowContainer">
-                                <div class="libraryRowInfo">
-                                    <qca-test></qca-test>
-                                    <qca-ex-info
-                                        code="${item.code}"
-                                        subject="${item.subject}"
-                                        name="${item.name}"
-                                        description="${item.description}"
-                                        tags="${item.tags}"
-                                        levelScale="${item.levelScale}"
-                                        supportedLevels="${item.supportedLevels}"
-                                        supportedLengths="${item.supportedLengths}"
-                                    ></qca-ex-info>
-                                </div>
-                                <div class="libraryRowActions">
-                                    <button name="removeItem" aria-label="Delete this item">×</button>
-                                </div>
-                            </div>
-                            `)
+                        .map(item => this.renderExercise(item))
                         .join('')
                 }
             </div>
             `
 
-        this.querySelector("[name='addItem']").addEventListener("click", () =>
-        {
-            qsLibrary.addItem({ code: "New Item" })
-        })
-        this.querySelectorAll("[name='removeItem']").forEach((button, index) =>
+        this.querySelectorAll("[name='addItem']").forEach((button, index) =>
         {
             button.addEventListener("click", () =>
             {
-                qsLibrary.clearItem(index)
+                const item = qsLibrary.state.items[index]
+                item.selectedLevel = item.supportedLevels.split(",")[0]
+                item.selectedLength = item.supportedLengths.split(",")[0]
+                qsOutline.addItem(item)
             })
         })
     }
+
+    renderExercise = (item) =>
+        html`
+        <div class="libraryRowContainer">
+            <div class="libraryRowInfo">
+                <qca-test></qca-test>
+                <qca-ex-info
+                    code="${item.code}"
+                    subject="${item.subject}"
+                    name="${item.name}"
+                    description="${item.description}"
+                    tags="${item.tags}"
+                    levelScale="${item.levelScale}"
+                    supportedLevels="${item.supportedLevels}"
+                    supportedLengths="${item.supportedLengths}"
+                ></qca-ex-info>
+            </div>
+            <div class="libraryRowActions">
+                <button name="addItem" aria-label="Add item to library">+</button>
+            </div>
+        </div>
+        `
 })
