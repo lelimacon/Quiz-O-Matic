@@ -18,22 +18,3 @@ const format = (strings, substitutions) =>
 
 const sanitizeHtml = (values) =>
     values.map(value => DOMPurify.sanitize(value))
-
-
-export class QomElement extends HTMLElement
-{
-    constructor()
-    {
-        super()
-    }
-
-    attributeChangedCallback(name, oldValue, newValue)
-    {
-        if (oldValue === newValue)
-            return
-    
-        //console.log(`ATTRIBUTE changed: ${name} (${oldValue} -> ${newValue})`)
-    
-        this[name] = newValue
-    }
-}

@@ -1,5 +1,5 @@
 import "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
-// https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
+// DOC: https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
 
 
 const init = async () =>
@@ -30,9 +30,6 @@ const init = async () =>
     {
         await add(quiz.path)
     }
-    //await add("/quizzes/mathematics/arithmetics/arithm-addict.typ")
-    //await add("/quizzes/mathematics/arithmetics/pop-quiz.typ")
-    //await add("/quizzes/mathematics/arithmetics/sharing-is-caring.typ")
 
     console.log("typst ready")
 }
@@ -78,4 +75,4 @@ customElements.define("qom-preview", class extends HTMLElement
     
         return svg
     }
-});
+})

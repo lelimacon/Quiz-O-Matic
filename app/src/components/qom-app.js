@@ -1,7 +1,8 @@
-import { html } from "../lib.js"
+import { html } from "../lib/utils.js"
+import QomComponent from "../lib/QomComponent.js"
 
 
-window.customElements.define("qom-app", class extends HTMLElement
+window.customElements.define("qom-app", class extends QomComponent
 {
     constructor()
     {
@@ -14,6 +15,7 @@ window.customElements.define("qom-app", class extends HTMLElement
                     name="filters"
                     lengths="40"
                 ></qom-library-filters>
+                <qom-library></qom-library>
             </div>
             <div class="separator"></div>
             <div class="panel outline">

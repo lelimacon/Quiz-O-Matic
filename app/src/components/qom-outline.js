@@ -1,7 +1,8 @@
-import { QomElement, html } from "../lib.js"
+import { html } from "../lib/utils.js"
+import QomComponent from "../lib/QomComponent.js"
 
 
-window.customElements.define("qom-outline", class extends QomElement
+window.customElements.define("qom-outline", class extends QomComponent
 {
     static observedAttributes =
     [
