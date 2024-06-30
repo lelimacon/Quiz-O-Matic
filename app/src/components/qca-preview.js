@@ -19,7 +19,7 @@ const init = async () =>
     const add = async (path) => $typst.addSource(path, await getDoc(path))
 
     await add("/main.typ")
-    await add("/models.typ")
+    await add("/constants.typ")
     await add("/random.typ")
     await add("/theme.typ")
     await add("/utils.typ")
@@ -65,13 +65,13 @@ customElements.define("qca-preview", class extends HTMLElement
             .replaceAll(",", "\n")
             .replaceAll(" ", ";")
         const csv = `code;seed;level;length\n${formattedData}`
-        console.log("CSV", csv)
+        //console.log("CSV", csv)
 
         const encoder = new TextEncoder()
         $typst.mapShadow('/data.csv', encoder.encode(csv))
     
         const svg = await $typst.svg()
-        console.log("rendered")
+        //console.log("rendered")
     
         return svg
     }

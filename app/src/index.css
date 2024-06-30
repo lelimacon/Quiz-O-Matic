@@ -7,6 +7,8 @@
 body {
     height: 100vh;
     background-color: rgb(255, 210, 227);
+    font-family: "Playwrite IT Moderna", Verdana;
+    font-size: 12px;
 }
 
 label {
@@ -21,11 +23,10 @@ qcp-app {
 }
 
 .panel {
-    padding: 12px;
     flex-grow: 1;
 }
 
-.separator {
+qcp-app > .separator {
     width: 6px;
     background-color: #fff2;
     cursor: ew-resize;
@@ -42,3 +43,60 @@ qca-preview svg {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+qco-library .libraryRowContainer {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    background-color: white;
+}
+    qco-library .libraryRowInfo {
+        flex-grow: 1;
+        padding: 6px 8px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.4);
+        clip-path: inset(0px -5px 0px 0px);
+    }
+    qco-library .libraryRowActions {
+        display: flex;
+        flex-direction: column;
+        padding: 3px 8px;
+        background-color: #efefef;
+    }
+
+qca-ex-info .header {
+    display: flex;
+    flex-direction: row;
+}
+    qca-ex-info .header .subject {
+        font-weight: bold;
+    }
+    qca-ex-info .header .supportedLengths {
+        margin: 0 6px;
+    }
+    qca-ex-info .header .supportedLevels {
+        margin: 0 6px;
+    }
+    qca-ex-info .header .separator {
+        font-weight: bold;
+        margin: 0 4px;
+    }
+    qca-ex-info .header .space {
+        flex-grow: 1;
+    }
+    qca-ex-info .name {
+        font-size: 1.4em;
+    }
+    qca-ex-info .description {
+        font-size: 0.9em;
+        color: #666;
+        margin-bottom: 6px;
+    }
+    qca-ex-info .tag {
+        margin-right: 3px;
+        padding: 1px 3px;
+        border: 1px solid #666;
+        border-radius: 3px;
+        font-size: 0.9em;
+        color: #666;
+    }

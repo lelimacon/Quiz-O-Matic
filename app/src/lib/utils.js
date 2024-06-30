@@ -16,5 +16,23 @@ const format = (strings, substitutions) =>
     return result
 }
 
+const dompurifySettings =
+{
+    CUSTOM_ELEMENT_HANDLING: {
+        tagNameCheck: /^qc.-/,
+        attributeNameCheck: (_) => true,
+        allowCustomizedBuiltInElements: true,
+    },
+}
+
 const sanitizeHtml = (values) =>
-    values.map(value => DOMPurify.sanitize(value))
+    values.map(value => DOMPurify.sanitize(value, dompurifySettings))
+
+export const hasSetter = (obj, setterName) =>
+{
+    const prototype = Object.getPrototypeOf(obj)
+    const property = Object.getOwnPropertyDescriptor(prototype, setterName)
+    if (!property)
+        return false
+    return !!property["set"]
+}

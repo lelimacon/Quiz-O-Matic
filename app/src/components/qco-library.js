@@ -26,20 +26,34 @@ window.customElements.define("qco-library", class extends QComponent
 
             <button name="addItem" aria-label="Add new item">add</button>
 
-            <ul>
+            <div>
                 ${qsLibrary.state.items.length === 0
                     ? html`<p>Nothing here</p>`
                     : qsLibrary.state.items
                         .map(item =>
                             html`
-                            <li>
-                                ${item.code}
-                                <button name="removeItem" aria-label="Delete this item">×</button>
-                            </li>
+                            <div class="libraryRowContainer">
+                                <div class="libraryRowInfo">
+                                    <qca-test></qca-test>
+                                    <qca-ex-info
+                                        code="${item.code}"
+                                        subject="${item.subject}"
+                                        name="${item.name}"
+                                        description="${item.description}"
+                                        tags="${item.tags}"
+                                        levelScale="${item.levelScale}"
+                                        supportedLevels="${item.supportedLevels}"
+                                        supportedLengths="${item.supportedLengths}"
+                                    ></qca-ex-info>
+                                </div>
+                                <div class="libraryRowActions">
+                                    <button name="removeItem" aria-label="Delete this item">×</button>
+                                </div>
+                            </div>
                             `)
                         .join('')
                 }
-            </ul>
+            </div>
             `
 
         this.querySelector("[name='addItem']").addEventListener("click", () =>

@@ -8,7 +8,7 @@
 // supportedLengths=quick,medium
 
 #import "../../entities.typ"
-#import "../../models.typ": *
+#import "../../constants.typ": *
 #import "../../random.typ": *
 #import "../../theme.typ": *
 #import "../../utils.typ": *

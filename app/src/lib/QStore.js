@@ -14,13 +14,11 @@ export default class QStore
         this.state = {}
         this.state = new Proxy(params.initialState || {},
         {
-            //set: function(state)
             set: function(state, key, value)
             {
                 state[key] = value
 
-                console.log(`stateChanged: ${key} = ${value}`)
-                //console.log("stateChanged", state)
+                //console.log(`stateChanged: ${key} = ${value}`)
                 self.events.publish('stateChanged', self.state)
 
                 return true

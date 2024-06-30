@@ -7,7 +7,7 @@
 // supportedLevels=g5,g6
 // supportedLengths=medium,long,full,double
 
-#import "../../models.typ": *
+#import "../../constants.typ": *
 #import "../../random.typ": *
 #import "../../theme.typ": *
 
