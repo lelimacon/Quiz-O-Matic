@@ -2,6 +2,16 @@
 #import "theme.typ": *
 
 
+#set page(
+  margin: (
+    top: 60pt,
+    bottom: 60pt,
+    left: 40pt,
+    right: 40pt,
+  ),
+)
+
+
 #let print-quiz(
   path,
   seed,

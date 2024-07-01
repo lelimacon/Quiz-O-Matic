@@ -36,3 +36,26 @@ export const hasSetter = (obj, setterName) =>
         return false
     return !!property["set"]
 }
+
+/**
+ * @param {String} html String representing a single or multiple elements.
+ * @return {Element | HTMLCollection | null}
+ */
+export const elementFromHTML = (html) =>
+{
+    if (!html)
+    {
+        return null
+    }
+
+    const template = document.createElement('template')
+    template.innerHTML = html
+    const result = template.content.children
+
+    if (result.length === 1)
+    {
+        return result[0]
+    }
+
+    return result
+}

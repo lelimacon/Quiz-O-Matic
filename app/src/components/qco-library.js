@@ -39,11 +39,18 @@ window.customElements.define("qco-library", class extends QComponent
         {
             button.addEventListener("click", () =>
             {
-                const item = qsLibrary.state.items[index]
-                item.seed = Math.floor(Math.random() * 1000)
-                item.selectedLevel = item.supportedLevels.split(",")[0]
-                item.selectedLength = item.supportedLengths.split(",")[0]
-                qsOutline.addItem(item)
+                const libraryExercise = qsLibrary.state.items[index]
+
+                const outlineExercise =
+                {
+                    ...libraryExercise,
+
+                    seed: Math.floor(Math.random() * 1000),
+                    selectedLevel: libraryExercise.supportedLevels.split(",")[0],
+                    selectedLength: libraryExercise.supportedLengths.split(",")[0],
+                }
+
+                qsOutline.addItem(outlineExercise)
             })
         })
     }
