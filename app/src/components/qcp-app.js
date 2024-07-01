@@ -14,21 +14,26 @@ window.customElements.define("qcp-app", class extends QComponent
                 class="panel library"
                 style="width: 500px;"
             >
+                <h1>Library</h1>
                 <qco-library-filters
-                    name="filters"
                     lengths="40"
                 ></qco-library-filters>
                 <qco-library></qco-library>
             </div>
+
             <div class="separator"></div>
+
             <div
                 class="panel outline"
                 style="width: 500px;"
             >
-                <button name="changeSeed">change seed</button>
-                <qco-outline seed="42"></qco-outline>
+                <h1>Configuration</h1>
+                <h1>Outline</h1>
+                <qco-outline></qco-outline>
             </div>
+
             <div class="separator"></div>
+
             <div
                 class="panel preview"
                 style="flex-grow: 1"
@@ -36,22 +41,5 @@ window.customElements.define("qcp-app", class extends QComponent
                 <qco-preview></qco-preview>
             </div>
             `
-
-        this.$filters = this.querySelector("[name='filters']")
-        this.$outline = this.querySelector("qco-outline")
-        this.$preview = this.querySelector("qco-preview")
-    }
-
-    $filters = undefined
-    $outline = undefined
-    $preview = undefined
-
-    connectedCallback()
-    {
-        this.querySelector("[name='changeSeed']").onclick = () =>
-        {
-            const seed = parseInt(this.$outline.getAttribute("seed"))
-            this.$outline.setAttribute("seed", seed + 1)
-        }
     }
 })

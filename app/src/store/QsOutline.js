@@ -10,6 +10,7 @@ const actions =
 {
     addItem: "addItem",
     clearItem: "clearItem",
+    changeSeed: "changeSeed",
 }
 
 const reducers =
@@ -23,6 +24,13 @@ const reducers =
     clearItem: (state, payload) =>
     {
         state.items.splice(payload.index, 1)
+        return state
+    },
+
+    changeSeed: (state, payload) =>
+    {
+        console.log("changeSeed", payload)
+        state.items[payload.index].seed = payload.seed
         return state
     },
 }
@@ -61,6 +69,11 @@ class QsOutline extends QStore
     clearItem(index)
     {
         this.dispatch(actions.clearItem, { index })
+    }
+
+    changeSeed(index, seed)
+    {
+        this.dispatch(actions.changeSeed, { index, seed })
     }
 }
 

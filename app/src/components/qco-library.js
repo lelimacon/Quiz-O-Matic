@@ -57,23 +57,19 @@ window.customElements.define("qco-library", class extends QComponent
 
     renderExercise = (item) =>
         html`
-        <div class="libraryRowContainer">
-            <div class="libraryRowInfo">
-                <qca-test></qca-test>
-                <qca-ex-info
-                    code="${item.code}"
-                    subject="${item.subject}"
-                    name="${item.name}"
-                    description="${item.description}"
-                    tags="${item.tags}"
-                    levelScale="${item.levelScale}"
-                    supportedLevels="${item.supportedLevels}"
-                    supportedLengths="${item.supportedLengths}"
-                ></qca-ex-info>
-            </div>
-            <div class="libraryRowActions">
-                <button name="addItem" aria-label="Add item to library">+</button>
-            </div>
-        </div>
+        <qca-ex-info
+            code="${item.code}"
+            subject="${item.subject}"
+            name="${item.name}"
+            description="${item.description}"
+            tags="${item.tags}"
+            levelScale="${item.levelScale}"
+            supportedLevels="${item.supportedLevels}"
+            supportedLengths="${item.supportedLengths}"
+        >
+            <qca-ex-info.action>
+                <button name="addItem" aria-label="Add exercise to quiz">+</button>
+            </qca-ex-info.action>
+        </qca-ex-info>
         `
 })

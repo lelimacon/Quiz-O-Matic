@@ -7,7 +7,7 @@ window.customElements.define("qco-outline", class extends QComponent
 {
     static observedAttributes =
     [
-        "seed",
+        "theme",
     ]
 
     constructor()
@@ -19,35 +19,35 @@ window.customElements.define("qco-outline", class extends QComponent
 
         this.innerHTML =
             html`
-            <label for="seed">Seed</label>
+            <label for="theme">Theme</label>
             <input
-                id="seed"
-                name="seed"
-                value="${this.seed}"
+                id="theme"
+                name="theme"
+                value="${this.theme}"
             />
             <div name="exercises"></div>
             `
 
-        this.$seed = this.querySelector("[name='seed']")
+        this.$theme = this.querySelector("[name='theme']")
         this.$exercises = this.querySelector("[name='exercises']")
     }
 
     connectedCallback()
     {
-        this.$seed.oninput = e =>
+        this.$theme.oninput = e =>
         {
-            this.seed = e.target.value
+            this.theme = e.target.value
         }
     }
 
-    $seed = undefined
+    $theme = undefined
     $exercises = undefined
 
-    get seed() { return this.getAttribute("seed") ?? "" }
-    set seed(value)
+    get theme() { return this.getAttribute("theme") ?? "" }
+    set theme(value)
     {
-        this.setAttribute("seed", value)
-        this.$seed.value = value
+        this.setAttribute("theme", value)
+        this.$theme.value = value
     }
 
     render()
@@ -55,10 +55,17 @@ window.customElements.define("qco-outline", class extends QComponent
         this.$exercises.innerHTML = qsOutline.state.items.length === 0
             ? html`<p>Add exercises from the library</p>`
             : qsOutline.state.items
-                .map(item => this.renderExercise(item))
+                .map((item, i) => this.renderExercise(item, i + 1))
                 .join('')
 
-        this.$exercises.querySelectorAll("[name='removeItem']").forEach((button, index) =>
+        this.$exercises.querySelectorAll("[name='seed']").forEach((input, index) =>
+        {
+            input.oninput = e =>
+            {
+                qsOutline.changeSeed(index, e.target.value)
+            }
+        })
+        this.$exercises.querySelectorAll("[name='removeExercise']").forEach((button, index) =>
         {
             button.addEventListener("click", () =>
             {
@@ -67,25 +74,27 @@ window.customElements.define("qco-outline", class extends QComponent
         })
     }
 
-    renderExercise = (item) =>
+    renderExercise = (exercise, index) =>
         html`
-        <div class="libraryRowContainer">
-            <div class="libraryRowInfo">
-                <qca-test></qca-test>
-                <qca-ex-info
-                    code="${item.code}"
-                    subject="${item.subject}"
-                    name="${item.name}"
-                    description="${item.description}"
-                    tags="${item.tags}"
-                    levelScale="${item.levelScale}"
-                    supportedLevels="${item.supportedLevels}"
-                    supportedLengths="${item.supportedLengths}"
-                ></qca-ex-info>
-            </div>
-            <div class="libraryRowActions">
-                <button name="removeItem" aria-label="Delete this item">×</button>
-            </div>
-        </div>
+        <qca-ex-info
+            index="${index}"
+            code="${exercise.code}"
+            subject="${exercise.subject}"
+            name="${exercise.name}"
+            description="${exercise.description}"
+            tags="${exercise.tags}"
+            levelScale="${exercise.levelScale}"
+            supportedLevels="${exercise.supportedLevels}"
+            supportedLengths="${exercise.supportedLengths}"
+            selectedLevel="${exercise.selectedLevel}"
+            selectedLength="${exercise.selectedLength}"
+        >
+            <qca-ex-info.action>
+                <input name="seed" value=${exercise.seed}>
+            </qca-ex-info.action>
+            <qca-ex-info.action>
+                <button name="removeExercise" aria-label="Remove exercise from quiz">×</button>
+            </qca-ex-info.action>
+        </qca-ex-info>
         `
 })
