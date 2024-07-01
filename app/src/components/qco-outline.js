@@ -48,12 +48,6 @@ window.customElements.define("qco-outline", class extends QComponent
     {
         this.setAttribute("seed", value)
         this.$seed.value = value
-
-        this.dispatchEvent(new CustomEvent("outlineChanged",
-        {
-            bubbles: true,
-            detail: { seed: this.seed },
-        }))
     }
 
     render()

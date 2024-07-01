@@ -46,3 +46,16 @@ export const lengths =
     full: 30,
     double: 60,
 }
+
+export const getLevelIndex = (levelScale, levelString) =>
+{
+    switch(levelScale)
+    {
+        case "grades":
+            return levelGrades[levelString]
+        case "cerf":
+            return levelCefr[levelString]
+        default:
+            throw `Level scale not recognized: ${levelScale}`
+    }
+}

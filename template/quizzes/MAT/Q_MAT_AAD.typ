@@ -12,6 +12,15 @@
 #import "../../theme.typ": *
 
 
+#let generate-title(
+  seed: 0,
+  level: none,
+  length: none,
+) = {
+  return "Arithm-Addict"
+}
+
+
 #let generate-operation(
   random,
   level,
@@ -85,11 +94,13 @@
 
 
 // Preview.
-#exercise(
-  "Arithm-Addict",
-  generate(
-    seed: 42,
-    level: level-grades.kindergarten,
-    length: lengths.medium,
-  ),
-)
+#{
+  let seed = 42
+  let level = level-grades.kindergarten
+  let length = lengths.medium
+
+  exercise(
+    generate-title(seed: seed, level: level, length: length),
+    generate(seed: seed, level: level, length: length),
+  )
+}

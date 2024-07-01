@@ -46,7 +46,7 @@
 
 #let sample(random, count, array) = {
   if (type(count) != int or count <= 0) {
-    panic("Expected 'count' to be an int greater than 0", count)
+    panic("Expected 'count' to be an int strictly greater than 0", count)
   }
 
   let items = none

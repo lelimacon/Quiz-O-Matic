@@ -1,6 +1,10 @@
 import "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
 // DOC: https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
 
+import { lengths, getLevelIndex } from "../lib/constants.js"
+import qsOutline from "../store/QsOutline.js"
+import QComponent from "../lib/QComponent.js"
+
 
 const init = async () =>
 {
@@ -36,35 +40,27 @@ const init = async () =>
 
 await init()
 
-customElements.define("qca-preview", class extends HTMLElement
-{
-    static observedAttributes =
-    [
-        "data",
-    ]
 
+customElements.define("qco-preview", class extends QComponent
+{
     constructor()
     {
-        super()
+        super
+        ({
+            store: qsOutline,
+        })
     }
 
-    async connectedCallback()
+    async render()
     {
-        this.innerHTML = await this.render()
-    }
+        const level = (e) => getLevelIndex(e.levelScale, e.selectedLevel)
+        const length = (e) => lengths[e.selectedLength]
 
-    async attributeChangedCallback()
-    {
-        this.innerHTML = await this.render()
-    }
+        const data = qsOutline.state.items
+            .map(e => `${e.code};${e.seed};${level(e)};${length(e)}`)
+            .join("\n")
 
-    render = async () =>
-    {
-        const data = this.getAttribute("data")
-        const formattedData = data
-            .replaceAll(",", "\n")
-            .replaceAll(" ", ";")
-        const csv = `code;seed;level;length\n${formattedData}`
+        const csv = `code;seed;level;length\n${data}`
         //console.log("CSV", csv)
 
         const encoder = new TextEncoder()
@@ -73,6 +69,6 @@ customElements.define("qca-preview", class extends HTMLElement
         const svg = await $typst.svg()
         //console.log("rendered")
     
-        return svg
+        this.innerHTML = svg
     }
 })

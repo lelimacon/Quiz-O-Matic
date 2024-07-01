@@ -13,6 +13,15 @@
 #import "../../utils.typ": *
 
 
+#let generate-title(
+  seed: 0,
+  level: none,
+  length: none,
+) = {
+  return "Pop-Quiz!"
+}
+
+
 #let all-questions = (
   {
     input(1,
@@ -66,11 +75,13 @@
 
 
 // Preview.
-#exercise(
-  "Pop-Quiz!",
-  generate(
-    seed: 42,
-    level: level-grades.g5,
-    length: lengths.quick,
-  ),
-)
+#{
+  let seed = 42
+  let level = level-grades.g5
+  let length = lengths.quick
+
+  exercise(
+    generate-title(seed: seed, level: level, length: length),
+    generate(seed: seed, level: level, length: length),
+  )
+}

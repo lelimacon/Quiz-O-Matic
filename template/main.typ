@@ -10,7 +10,11 @@
 ) = {
   let module = import path: *
   exercise(
-    "TODO: Exercise title",
+    generate-title(
+      seed: seed,
+      level: level,
+      length: length,
+    ),
     generate(
       seed: seed,
       level: level,

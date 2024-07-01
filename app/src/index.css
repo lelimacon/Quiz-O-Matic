@@ -35,11 +35,11 @@ qcp-app > .separator {
         background-color: #fff6;
     }
 
-qca-preview {
+qco-preview {
     overflow-y: auto;
 }
 
-qca-preview svg {
+qco-preview svg {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

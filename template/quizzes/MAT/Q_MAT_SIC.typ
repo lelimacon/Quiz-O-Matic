@@ -5,13 +5,32 @@
 // tags=practical,closed_answers,problem,traps,plot,arithmetic
 // levelScale=grades
 // supportedLevels=g5,g6
-// supportedLengths=quick,medium
+// supportedLengths=medium,long
 
 #import "../../entities.typ"
 #import "../../constants.typ": *
 #import "../../random.typ": *
 #import "../../theme.typ": *
 #import "../../utils.typ": *
+
+
+#let generate-title(
+  seed: 0,
+  level: none,
+  length: none,
+) = {
+  let random = random(seed)
+
+  let person = none
+  (random, person) = pick(random, entities.persons)
+  let relation = none
+  (random, relation) = pick(random, entities.relations)
+
+  return [
+    #f(person)'s #f(relation, n: 2) say:
+    Sharing is caring
+  ]
+}
 
 
 // Structure:
@@ -26,13 +45,10 @@
 ) = {
   let random = random(seed)
 
-  let question-indices = none
-  (random, question-indices) = sample(random, length - 4, range(7))
-
-  let relation = none
-  (random, relation) = pick(random, entities.relations)
   let person = none
   (random, person) = pick(random, entities.persons)
+  let relation = none
+  (random, relation) = pick(random, entities.relations)
   let container = none
   (random, container) = pick(random, entities.containers.filter(v => v.size == "s"))
   let edible = none
@@ -44,6 +60,9 @@
   (random, pack-size) = integer(random, 3, 10)
   let rest = 5
   let total-edibles = rest + relation-count * pack-size
+
+  let question-indices = none
+  (random, question-indices) = sample(random, length - 4, range(7))
 
   par[
     #f-ve(person) has #f-vae(container) full of #f-ve(edible, n: total-edibles),
@@ -176,11 +195,13 @@
 
 
 // Preview.
-#exercise(
-  "Sharing is caring",
-  generate(
-    seed: 42,
-    level: level-grades.g5,
-    length: lengths.long,
-  ),
-)
+#{
+  let seed = 42
+  let level = level-grades.g5
+  let length = lengths.medium
+
+  exercise(
+    generate-title(seed: seed, level: level, length: length),
+    generate(seed: seed, level: level, length: length),
+  )
+}
