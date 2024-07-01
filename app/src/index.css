@@ -21,10 +21,9 @@ qcp-app {
     flex-direction: row;
     justify-content: center;
 }
-
-.panel {
-    flex-grow: 1;
-}
+    qcp-app > .panel {
+        overflow-y: auto;
+    }
 
 qcp-app > .separator {
     width: 6px;
@@ -36,13 +35,15 @@ qcp-app > .separator {
     }
 
 qco-preview {
-    overflow-y: auto;
+    display: block;
+    padding: 8px 0;
 }
-
-qco-preview > .page {
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
+    qco-preview > .page {
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin: 4px 8px;
+        width: calc(100% - 16px);
+    }
 
 qco-library .libraryRowContainer,
 qco-outline .libraryRowContainer {

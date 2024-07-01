@@ -10,7 +10,10 @@ window.customElements.define("qcp-app", class extends QComponent
 
         this.innerHTML =
             html`
-            <div class="panel library">
+            <div
+                class="panel library"
+                style="width: 500px;"
+            >
                 <qco-library-filters
                     name="filters"
                     lengths="40"
@@ -18,12 +21,18 @@ window.customElements.define("qcp-app", class extends QComponent
                 <qco-library></qco-library>
             </div>
             <div class="separator"></div>
-            <div class="panel outline">
+            <div
+                class="panel outline"
+                style="width: 500px;"
+            >
                 <button name="changeSeed">change seed</button>
                 <qco-outline seed="42"></qco-outline>
             </div>
             <div class="separator"></div>
-            <div class="panel preview">
+            <div
+                class="panel preview"
+                style="flex-grow: 1"
+            >
                 <qco-preview></qco-preview>
             </div>
             `

@@ -56,9 +56,9 @@ customElements.define("qco-preview", class extends QComponent
     {
         const csv = this.generateCsv()
         const svg = await this.generateSvg(csv)
-        const svgs = this.splitSvg(svg)
-    
-        this.innerHTML = svgs.join("")
+        const html = this.processSvg(svg)
+
+        this.innerHTML = html
     }
 
     generateCsv()
@@ -83,16 +83,21 @@ customElements.define("qco-preview", class extends QComponent
         return svg
     }
 
-    splitSvg(svg)
+    processSvg(svg)
     {
         const $svg = elementFromHTML(svg)
         $svg.classList.add("page")
+        $svg.setAttribute("viewBox", "0 0 596.000 842.000")
+        $svg.removeAttribute("width")
+        $svg.removeAttribute("height")
+        $svg.removeAttribute("data-width")
+        $svg.removeAttribute("data-height")
 
         const $pages = $svg.querySelectorAll(".typst-page")
 
         if ($pages.length === 1)
         {
-            return [$svg.outerHTML]
+            return $svg.outerHTML
         }
 
         for (const $page of $pages)
@@ -110,16 +115,11 @@ customElements.define("qco-preview", class extends QComponent
             $page.removeAttribute("transform")
 
             const $pageSvg = elementFromHTML(emptySvg)
-            $pageSvg.setAttribute("viewBox", "0 0 596.000 842.000")
-            $pageSvg.setAttribute("width", "596.000")
-            $pageSvg.setAttribute("height", "842.000")
-            $pageSvg.setAttribute("data-width", "596.000")
-            $pageSvg.setAttribute("data-height", "842.000")
             $pageSvg.append($page)
 
             svgs.push($pageSvg.outerHTML)
         }
 
-        return svgs
+        return svgs.join("")
     }
 })
