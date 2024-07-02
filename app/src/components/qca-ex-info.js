@@ -52,7 +52,7 @@ window.customElements.define("qca-ex-info", class extends QComponent
     {
         this.innerHTML =
             html`
-            <div class="header">
+            <div class="header theme-inverted">
                 ${!this.index ? "" :
                     html`<div class="index">#${this.index}</div>`
                 }

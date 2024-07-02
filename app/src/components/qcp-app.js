@@ -14,6 +14,12 @@ window.customElements.define("qcp-app", class extends QComponent
                 class="panel library"
                 style="width: 500px;"
             >
+                <qca-switch
+                    name="themeSwitch"
+                    iconOn="moon-sat"
+                    iconOff="sea-and-sun"
+                ></qca-switch>
+
                 <h1>Library</h1>
                 <qco-library-filters
                     lengths="40"
@@ -41,5 +47,26 @@ window.customElements.define("qcp-app", class extends QComponent
                 <qco-preview></qco-preview>
             </div>
             `
+
+        this.$themeSwitch = this.querySelector("[name='themeSwitch']")
+        this.$themeSwitch.addEventListener("qe_isChecked_changed", (e) =>
+        {
+            this.theme = e.detail.isChecked ? "dark" : "light"
+        })
+
+        this.theme = "light"
+    }
+
+    $theme = undefined
+    $themeSwitch = undefined
+
+    get theme() { return this.getAttribute("theme") ?? "" }
+    set theme(value)
+    {
+        this.setAttribute("theme", value)
+
+        this.classList.remove("theme-light", "theme-dark")
+        this.classList.add(`theme-${value}`)
+        this.$themeSwitch.setAttribute("isChecked", value == "dark" ? "true" : "false")
     }
 })

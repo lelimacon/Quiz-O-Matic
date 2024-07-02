@@ -90,7 +90,7 @@ window.customElements.define("qco-outline", class extends QComponent
             selectedLength="${exercise.selectedLength}"
         >
             <qca-ex-info.action>
-                <input name="seed" value=${exercise.seed}>
+                <input name="seed" value=${exercise.seed} />
             </qca-ex-info.action>
             <qca-ex-info.action>
                 <button name="removeExercise" aria-label="Remove exercise from quiz">×</button>
