@@ -68,7 +68,9 @@ window.customElements.define("qco-library", class extends QComponent
             supportedLengths="${item.supportedLengths}"
         >
             <qca-ex-info.action>
-                <button name="addItem" aria-label="Add exercise to quiz">+</button>
+                <button name="addItem" aria-label="Add exercise to quiz">
+                    <span class="iconoir-plus-square"></span>
+                </button>
             </qca-ex-info.action>
         </qca-ex-info>
         `

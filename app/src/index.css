@@ -47,6 +47,23 @@ label {
     display: block;
 }
 
+button {
+    all: unset;
+    display: flex;
+    color: var(--qs-fg);
+    background-color: var(--qs-bg-soft);
+    cursor: pointer;
+}
+    button:hover {
+        background-color: var(--qs-bg-strong);
+    }
+    button:focus {
+        outline: 1px solid var(--qs-b-strong);
+    }
+    button span {
+        font-size: 1.6em;
+    }
+
 qcp-app {
     height: 100%;
     display: flex;
@@ -65,6 +82,7 @@ qcp-app > .separator {
     .separator:hover {
         background-color: var(--qs-b-strong);
     }
+
 
 qco-preview {
     display: block;
@@ -135,9 +153,6 @@ qca-ex-info .tag {
     font-size: 0.9em;
     color: var(--qs-fg-soft);
 }
-
-
-
 
 
 qca-switch {

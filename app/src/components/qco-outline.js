@@ -93,7 +93,9 @@ window.customElements.define("qco-outline", class extends QComponent
                 <input name="seed" value=${exercise.seed} />
             </qca-ex-info.action>
             <qca-ex-info.action>
-                <button name="removeExercise" aria-label="Remove exercise from quiz">×</button>
+                <button name="removeExercise" aria-label="Remove exercise from quiz">
+                    <span class="iconoir-xmark-square"></span>
+                </button>
             </qca-ex-info.action>
         </qca-ex-info>
         `
