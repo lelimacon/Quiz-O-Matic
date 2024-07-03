@@ -67,11 +67,11 @@ window.customElements.define("qco-library", class extends QComponent
             supportedLevels="${item.supportedLevels}"
             supportedLengths="${item.supportedLengths}"
         >
-            <qca-ex-info.action>
+            <qca-ex-info.header-rhs>
                 <button name="addItem" aria-label="Add exercise to quiz">
-                    <span class="iconoir-plus-square"></span>
+                    <span class="iconoir-plus"></span>
                 </button>
-            </qca-ex-info.action>
+            </qca-ex-info.header-rhs>
         </qca-ex-info>
         `
 })

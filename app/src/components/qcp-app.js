@@ -49,7 +49,7 @@ window.customElements.define("qcp-app", class extends QComponent
             `
 
         this.$themeSwitch = this.querySelector("[name='themeSwitch']")
-        this.$themeSwitch.addEventListener("qe_isChecked_changed", (e) =>
+        this.$themeSwitch.addEventListener("qe_isCheckedChanged", (e) =>
         {
             this.theme = e.detail.isChecked ? "dark" : "light"
         })

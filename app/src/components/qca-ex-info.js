@@ -8,7 +8,6 @@ window.customElements.define("qca-ex-info", class extends QComponent
 {
     static observedAttributes =
     [
-        "index",
         "code",
         "subject",
         "name",
@@ -27,16 +26,23 @@ window.customElements.define("qca-ex-info", class extends QComponent
 
         for (const $child of this.children)
         {
-            if ($child.tagName === "QCA-EX-INFO.ACTION")
+            if ($child.tagName === "QCA-EX-INFO.HEADER-LHS")
             {
-                this.actions.push($child)
+                for (const $item of $child.childNodes)
+                    this.$headerLhs.push($item)
+            }
+            else if ($child.tagName === "QCA-EX-INFO.HEADER-RHS")
+            {
+                for (const $item of $child.childNodes)
+                    this.$headerRhs.push($item)
             }
         }
     }
 
-    actions = []
+    $headerLhs = []
+    $headerRhs = []
 
-    get index() { return this.getAttribute("index") ?? "" }
+    get isInteractive() { return this.getAttribute("isInteractive") === "true" }
     get code() { return this.getAttribute("code") ?? "" }
     get subject() { return this.getAttribute("subject") ?? "" }
     get name() { return this.getAttribute("name") ?? "" }
@@ -45,22 +51,45 @@ window.customElements.define("qca-ex-info", class extends QComponent
     get levelScale() { return this.getAttribute("levelScale") ?? "" }
     get supportedLevels() { return this.getAttribute("supportedLevels") ?? "" }
     get supportedLengths() { return this.getAttribute("supportedLengths") ?? "" }
+
     get selectedLevel() { return this.getAttribute("selectedLevel") ?? "" }
+    set selectedLevel(value)
+    {
+        this.setAttribute("selectedLevel", value)
+
+        this.dispatchEvent(new CustomEvent("qe-selectedLevelChanged",
+        {
+            bubbles: false,
+            detail: { value },
+        }))
+    }
+
     get selectedLength() { return this.getAttribute("selectedLength") ?? "" }
+    set selectedLength(value)
+    {
+        this.setAttribute("selectedLength", value)
+
+        this.dispatchEvent(new CustomEvent("qe-selectedLengthChanged",
+        {
+            bubbles: false,
+            detail: { value },
+        }))
+    }
 
     render()
     {
         this.innerHTML =
             html`
-            <div class="header theme-inverted">
-                ${!this.index ? "" :
-                    html`<div class="index">#${this.index}</div>`
-                }
+            <div class="header">
                 <div class="code">${this.code}</div>
                 <div class="space"></div>
-                <div class="supportedLengths"></div>
-                <div class="separator">•</div>
-                <div class="supportedLevels"></div>
+                <span class="iconoir-timer"></span>
+                <div class="supportedLengths">
+                </div>
+                <div class="separator"></div>
+                <span class="iconoir-hammer"></span>
+                <div class="supportedLevels">
+                </div>
             </div>
             <div class="body">
                 <div class="name">${this.name}</div>
@@ -86,8 +115,14 @@ window.customElements.define("qca-ex-info", class extends QComponent
                     class="selectable${selectedCss}"
                     title="${length} ≈ ${minutes} minutes"
                 >${minutes}'</span>
-                `)
+                `
+            )
             $lengths.append($length)
+
+            if (this.isInteractive)
+            {
+                $length.addEventListener("click", () => this.selectedLength = length)
+            }
         }
 
         const $levels = this.querySelector(".supportedLevels")
@@ -97,13 +132,27 @@ window.customElements.define("qca-ex-info", class extends QComponent
             const $level = elementFromHTML(
                 html`
                 <span class="selectable${selectedCss}">${level}</span>
-                `)
+                `
+            )
             $levels.append($level)
+
+            if (this.isInteractive)
+            {
+                $level.addEventListener("click", () => this.selectedLevel = level)
+            }
         }
 
-        for (const action of this.actions)
+        const $header = this.querySelector(".header")
+
+        const $firstItem = $header.children[0]
+        for (const $item of this.$headerLhs)
         {
-            this.querySelector(".header").append(action)
+            $header.insertBefore($item, $firstItem)
+        }
+
+        for (const $item of this.$headerRhs)
+        {
+            $header.appendChild($item)
         }
     }
 })

@@ -11,6 +11,8 @@ const actions =
     addItem: "addItem",
     clearItem: "clearItem",
     changeSeed: "changeSeed",
+    changeLength: "changeLength",
+    changeLevel: "changeLevel",
 }
 
 const reducers =
@@ -29,8 +31,19 @@ const reducers =
 
     changeSeed: (state, payload) =>
     {
-        console.log("changeSeed", payload)
         state.items[payload.index].seed = payload.seed
+        return state
+    },
+
+    changeLength: (state, payload) =>
+    {
+        state.items[payload.index].selectedLength = payload.length
+        return state
+    },
+
+    changeLevel: (state, payload) =>
+    {
+        state.items[payload.index].selectedLevel = payload.level
         return state
     },
 }
@@ -74,6 +87,16 @@ class QsOutline extends QStore
     changeSeed(index, seed)
     {
         this.dispatch(actions.changeSeed, { index, seed })
+    }
+
+    changeLength(index, length)
+    {
+        this.dispatch(actions.changeLength, { index, length })
+    }
+
+    changeLevel(index, level)
+    {
+        this.dispatch(actions.changeLevel, { index, level })
     }
 }
 

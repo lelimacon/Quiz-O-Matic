@@ -58,26 +58,40 @@ window.customElements.define("qco-outline", class extends QComponent
                 .map((item, i) => this.renderExercise(item, i + 1))
                 .join('')
 
-        this.$exercises.querySelectorAll("[name='seed']").forEach((input, index) =>
+        this.$exercises.querySelectorAll("[name='seed']").forEach(($input, index) =>
         {
-            input.oninput = e =>
+            $input.oninput = e =>
             {
                 qsOutline.changeSeed(index, e.target.value)
             }
         })
-        this.$exercises.querySelectorAll("[name='removeExercise']").forEach((button, index) =>
+        this.$exercises.querySelectorAll("[name='removeExercise']").forEach(($button, index) =>
         {
-            button.addEventListener("click", () =>
+            $button.addEventListener("click", () =>
             {
                 qsOutline.clearItem(index)
             })
         })
+
+        let index = 0
+        for (const $exercise of this.$exercises.children)
+        {
+            const currentIndex = index
+            $exercise.addEventListener("qe-selectedLengthChanged", (e) =>
+            {
+                qsOutline.changeLength(currentIndex, e.detail.value)
+            })
+            $exercise.addEventListener("qe-selectedLevelChanged", (e) =>
+            {
+                qsOutline.changeLevel(currentIndex, e.detail.value)
+            })
+            index++
+        }
     }
 
     renderExercise = (exercise, index) =>
         html`
         <qca-ex-info
-            index="${index}"
             code="${exercise.code}"
             subject="${exercise.subject}"
             name="${exercise.name}"
@@ -88,15 +102,22 @@ window.customElements.define("qco-outline", class extends QComponent
             supportedLengths="${exercise.supportedLengths}"
             selectedLevel="${exercise.selectedLevel}"
             selectedLength="${exercise.selectedLength}"
+            isInteractive="true"
         >
-            <qca-ex-info.action>
-                <input name="seed" value=${exercise.seed} />
-            </qca-ex-info.action>
-            <qca-ex-info.action>
+            <qca-ex-info.header-lhs>
+                <div class="index">#${index}</div>
+            </qca-ex-info.header-lhs>
+            <qca-ex-info.header-rhs>
+                <span class="iconoir-sigma-function" title="seed"></span>
+                <input
+                    name="seed"
+                    value=${exercise.seed}
+                    style="width: 36px"
+                />
                 <button name="removeExercise" aria-label="Remove exercise from quiz">
-                    <span class="iconoir-xmark-square"></span>
+                    <span class="iconoir-xmark"></span>
                 </button>
-            </qca-ex-info.action>
+            </qca-ex-info.header-rhs>
         </qca-ex-info>
         `
 })

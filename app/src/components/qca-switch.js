@@ -40,7 +40,7 @@ window.customElements.define("qca-switch", class extends QComponent
         this.setAttribute("isChecked", value)
         this.renderIcon()
 
-        this.dispatchEvent(new CustomEvent("qe_isChecked_changed",
+        this.dispatchEvent(new CustomEvent("qe_isCheckedChanged",
         {
             bubbles: false,
             detail: { isChecked: value },
@@ -68,7 +68,7 @@ window.customElements.define("qca-switch", class extends QComponent
             <label>
                 <input type="checkbox">
                 <span class="slider">
-                    <span class="knob theme-inverted">
+                    <span class="knob">
                         <span></span>
                     </span>
                 </span>
