@@ -66,7 +66,7 @@ window.customElements.define("qca-switch", class extends QComponent
         this.innerHTML =
             html`
             <label>
-                <input type="checkbox">
+                <input type="checkbox" />
                 <span class="slider">
                     <span class="knob">
                         <span></span>
@@ -78,8 +78,8 @@ window.customElements.define("qca-switch", class extends QComponent
         this.style.setProperty("--qca-switch-width", this.width)
         this.style.setProperty("--qca-switch-height", this.height)
 
-        const $theme = this.querySelector("input")
-        $theme.addEventListener("click", () => this.isChecked = $theme.checked)
+        const $input = this.querySelector("input")
+        $input.addEventListener("click", () => this.isChecked = $input.checked)
 
         this.$knobIcon = this.querySelector(".knob span")
         this.renderIcon()

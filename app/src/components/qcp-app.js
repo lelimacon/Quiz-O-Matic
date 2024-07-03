@@ -18,6 +18,7 @@ window.customElements.define("qcp-app", class extends QComponent
                     name="themeSwitch"
                     iconOn="moon-sat"
                     iconOff="sea-and-sun"
+                    title="Light switch"
                 ></qca-switch>
 
                 <h1>Library</h1>

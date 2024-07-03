@@ -62,6 +62,7 @@ window.customElements.define("qco-outline", class extends QComponent
         {
             $input.oninput = e =>
             {
+                console.log("SEED INPUT", e)
                 qsOutline.changeSeed(index, e.target.value)
             }
         })
@@ -77,11 +78,11 @@ window.customElements.define("qco-outline", class extends QComponent
         for (const $exercise of this.$exercises.children)
         {
             const currentIndex = index
-            $exercise.addEventListener("qe-selectedLengthChanged", (e) =>
+            $exercise.addEventListener("qe_selectedLengthChanged", (e) =>
             {
                 qsOutline.changeLength(currentIndex, e.detail.value)
             })
-            $exercise.addEventListener("qe-selectedLevelChanged", (e) =>
+            $exercise.addEventListener("qe_selectedLevelChanged", (e) =>
             {
                 qsOutline.changeLevel(currentIndex, e.detail.value)
             })
@@ -108,12 +109,13 @@ window.customElements.define("qco-outline", class extends QComponent
                 <div class="index">#${index}</div>
             </qca-ex-info.header-lhs>
             <qca-ex-info.header-rhs>
-                <span class="iconoir-sigma-function" title="seed"></span>
-                <input
+                <qca-input
                     name="seed"
                     value=${exercise.seed}
-                    style="width: 36px"
-                />
+                    title="Seed (random component)"
+                    leading-icon="dice-${digitToText(exercise.seed % 6 + 1)}"
+                ></qca-input>
+                <div class="separator"></div>
                 <button name="removeExercise" aria-label="Remove exercise from quiz">
                     <span class="iconoir-xmark"></span>
                 </button>
@@ -121,3 +123,16 @@ window.customElements.define("qco-outline", class extends QComponent
         </qca-ex-info>
         `
 })
+
+const digitToText = (digit) =>
+{
+    switch(digit)
+    {
+        case 1: return "one"
+        case 2: return "two"
+        case 3: return "three"
+        case 4: return "four"
+        case 5: return "five"
+        case 6: return "six"
+    }
+}

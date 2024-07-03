@@ -57,7 +57,7 @@ window.customElements.define("qca-ex-info", class extends QComponent
     {
         this.setAttribute("selectedLevel", value)
 
-        this.dispatchEvent(new CustomEvent("qe-selectedLevelChanged",
+        this.dispatchEvent(new CustomEvent("qe_selectedLevelChanged",
         {
             bubbles: false,
             detail: { value },
@@ -69,7 +69,7 @@ window.customElements.define("qca-ex-info", class extends QComponent
     {
         this.setAttribute("selectedLength", value)
 
-        this.dispatchEvent(new CustomEvent("qe-selectedLengthChanged",
+        this.dispatchEvent(new CustomEvent("qe_selectedLengthChanged",
         {
             bubbles: false,
             detail: { value },
@@ -84,12 +84,10 @@ window.customElements.define("qca-ex-info", class extends QComponent
                 <div class="code">${this.code}</div>
                 <div class="space"></div>
                 <span class="iconoir-timer"></span>
-                <div class="supportedLengths">
-                </div>
+                <div class="supportedLengths"></div>
                 <div class="separator"></div>
                 <span class="iconoir-hammer"></span>
-                <div class="supportedLevels">
-                </div>
+                <div class="supportedLevels"></div>
             </div>
             <div class="body">
                 <div class="name">${this.name}</div>

@@ -46,13 +46,6 @@
     padding: 0;
 }
 
-body {
-    height: 100vh;
-    background-color: var(--qs-bg);
-    font-family: "Roboto Condensed", Verdana;
-    font-size: 12px;
-}
-
 label {
     display: block;
 }
@@ -76,7 +69,7 @@ button {
         outline: 2px solid var(--qs-b-strong);
     }
     button span {
-        font-size: 1.6em;
+        font-size: 1.4em;
     }
 
 input {
@@ -98,10 +91,13 @@ input {
 
 
 qcp-app {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: var(--qs-bg);
+    font-family: "Roboto Condensed", Verdana;
+    font-size: 12px;
 }
     qcp-app > .panel {
         overflow-y: auto;
@@ -128,14 +124,17 @@ qco-preview {
         width: calc(100% - 16px);
     }
 
+qca-ex-info {
+    display: block;
+    background-color: var(--qs-bg);
+}
 qca-ex-info .header {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 6px 12px;
-    background-color: var(--qs-bg-soft);
     color: var(--qs-fg-strong);
-    border-top: 1px solid var(--qs-b-soft);
+    border-top: 3px solid var(--qs-b-soft);
     border-bottom: 1px solid var(--qs-b-soft);
 }
     qca-ex-info .header .separator {
@@ -172,7 +171,6 @@ qca-ex-info .selectable {
     }
 qca-ex-info > .body {
     padding: 6px 6px 8px 6px;
-    background-color: var(--qs-bg-strong);
 }
 qca-ex-info .name {
     font-size: 1.4em;
@@ -247,8 +245,42 @@ qca-switch .slider .knob {
     border-radius: 2px;
     background-color: var(--qs-bg-soft);
     color: var(--qs-fg-strong);
+    font-size: 1.4em;
 }
 
 qca-switch input:checked + .slider .knob {
     transform: translateX(calc(var(--qca-switch-width) - var(--qca-switch-height)));
+}
+
+
+qca-input {
+    width: 56px;
+}
+qca-input label {
+    position: relative;
+    display: flex;
+}
+qca-input input {
+    width: 100%;
+}
+qca-input label.hasLeadingIcon input {
+    padding-left: 26px;
+}
+qca-input label.hasTrailingIcon input {
+    padding-right: 26px;
+}
+
+qca-input .icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+}
+qca-input .leadingIcon {
+    left: 6px;
+}
+qca-input .trailingIcon {
+    right: 6px;
 }

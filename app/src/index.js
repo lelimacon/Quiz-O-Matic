@@ -1,4 +1,5 @@
 import "./components/qca-ex-info.js"
+import "./components/qca-input.js"
 import "./components/qca-switch.js"
 import "./components/qco-library.js"
 import "./components/qco-library-filters.js"

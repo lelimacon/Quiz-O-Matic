@@ -5,14 +5,15 @@ import { hasSetter } from "./utils.js"
 export default class QComponent extends HTMLElement
 {
     isConnected = false
+    hasEarlyRender = false
 
     constructor(props = {})
     {
         super()
 
-        this.render = this.render || function() {}
-  
-        if (props.store instanceof QStore)
+        this.hasEarlyRender = props.hasEarlyRender
+
+        if (this.render && props.store instanceof QStore)
         {
             const self = this
             props.store.events.subscribe("stateChanged", () => self.render())
@@ -25,12 +26,14 @@ export default class QComponent extends HTMLElement
     connectedCallback()
     {
         this.isConnected = true
-        this.render()
+
+        if (this.render)
+            this.render()
     }
 
     attributeChangedCallback(name, oldValue, newValue)
     {
-        if (!this.isConnected)
+        if (!this.isConnected && !this.hasEarlyRender)
             return
 
         if (oldValue === newValue)
@@ -38,10 +41,11 @@ export default class QComponent extends HTMLElement
     
         if (hasSetter(this, name))
         {
-            console.log(`ATTRIBUTE changed: ${name} (${oldValue} -> ${newValue})`)
+            //console.log(`ATTRIBUTE changed: ${name} (${oldValue} -> ${newValue})`)
             this[name] = newValue
         }
 
-        this.render()
+        if (this.render)
+            this.render()
     }
 }
