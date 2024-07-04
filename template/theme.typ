@@ -2,20 +2,18 @@
 
 
 #let quiz(
-  margin-vertical: 40pt,
-  margin-horizontal: 20pt,
   body
 ) = {
   set page(
     margin: (
-      top: margin-vertical,
-      bottom: margin-vertical,
-      left: margin-horizontal,
-      right: margin-horizontal,
+    top: 60pt,
+    bottom: 60pt,
+    left: 40pt,
+    right: 40pt,
     ),
   )
 
-  set heading(numbering: "1.")
+  set heading(numbering: "I.")
   set text(size: 12pt)
   show heading.where(level: 1): set text(size: 22pt)
   show heading.where(level: 2): set text(size: 16pt)
@@ -39,20 +37,20 @@
 ) = {
   set text(fill: green)
 
-  body
+  [ #body <answer> ]
 }
+
+#let index = state("exercise-index", 1)
 
 #let input(
   points,
   label,
   expected,
-) = {
-  //set text(weight: "bold")
+) = [
+  #label <label>
 
-  label
-
-  grid(
-    columns: (auto, auto),
+  #grid(
+    columns: (auto, auto, auto),
     gutter: 2pt,
 
     box(
@@ -68,27 +66,49 @@
         right: 4pt,
       ),
 
-      text(fill: white, [#points])
+      text(fill: white, [\# #context index.get()])
     ),
+
+    [
+      #box(
+        width: 100%,
+        stroke: (
+          paint: black,
+          thickness: 2pt,
+        ),
+        inset: (
+          top: 12pt,
+          bottom: 12pt,
+          left: 12pt,
+          right: 12pt,
+        ),
+
+        {
+          answer(expected)
+        }
+      ) <input-body>
+    ],
+
     box(
-      width: 100%,
+      fill: black,
       stroke: (
         paint: black,
         thickness: 2pt,
       ),
       inset: (
-        top: 12pt,
-        bottom: 12pt,
-        left: 12pt,
-        right: 12pt,
+        top: 4pt,
+        bottom: 4pt,
+        left: 4pt,
+        right: 4pt,
       ),
 
-      {
-        answer(expected)
-      }
+      text(fill: white, [\/ #points])
     ),
-  )
-}
+
+    context index.update(x => x + 1)
+
+  ) <input>
+]
 
 #let hint(
   body,

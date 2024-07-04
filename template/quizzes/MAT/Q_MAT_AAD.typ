@@ -43,6 +43,23 @@
   return (random, operation, result)
 }
 
+#let generate-question(
+  random,
+  level,
+) = {
+  let operation = "1 + 1"
+  let result = 2
+
+  (random, operation, result) = generate-operation(random, level)
+
+  let input = input(1,
+    block[ $ #operation $ ],
+    block[ $ #result $ ],
+  )
+
+  return (random, input)
+}
+
 #let generate(
   seed: 0,
   level: none,
@@ -51,8 +68,7 @@
   #let random = random(seed)
 
   #let operation-count = length
-  #let operation = "1 + 1"
-  #let result = 2
+  #let input = none
 
   🧮 Calculate the result of the following operations :
 
@@ -62,31 +78,23 @@
     gutter: 40pt,
 
     columns: (auto, auto, auto),
+
     {
       for _ in range(operation-count, step: 3) {
-        (random, operation, result) = generate-operation(random, level)
-        input(1,
-          [ #operation ],
-          [ #result ],
-        )
+        (random, input) = generate-question(random, level)
+        input
       }
     },
     {
       for _ in range(operation-count, step: 3) {
-        (random, operation, result) = generate-operation(random, level)
-        input(1,
-          [ #operation ],
-          [ #result ],
-        )
+        (random, input) = generate-question(random, level)
+        input
       }
     },
     {
       for _ in range(operation-count, step: 3) {
-        (random, operation, result) = generate-operation(random, level)
-        input(1,
-          [ #operation ],
-          [ #result ],
-        )
+        (random, input) = generate-question(random, level)
+        input
       }
     }
   )

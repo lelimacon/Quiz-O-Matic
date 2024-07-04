@@ -81,7 +81,7 @@
         [
           How many #f-v(edible, n: 2) does #f-v(person) have left?
         ],
-        [
+        block[
           $ #rest $
         ],
       ),
@@ -90,7 +90,7 @@
           How many #f-v(edible, n: 2) do each of #f-v(person)'s
           #f-v(relation, n: relation-count) receive?
         ],
-        [
+        block[
           $ #pack-size $
         ],
       ),
@@ -99,7 +99,7 @@
           How many #f-v(edible, n: 2) do #f-v(person)'s #f-v(relation, n: relation-count) have
           in total?
         ],
-        [
+        block[
           $ #relation-count #math.times #pack-size
           #math.eq #(relation-count * pack-size) $
         ],
@@ -112,7 +112,7 @@
     [
       How many #f-v(edible, n: 2) are there in total?
     ],
-    [
+    block[
       $ #rest #math.plus #relation-count #math.times #pack-size
       #math.eq #total-edibles $
     ],
@@ -153,7 +153,7 @@
         [
           How many does #f-v(edible, n: 2) does #f-v(person) have left?
         ],
-        [
+        block[
           $ #rest - #special-eat-count
           #math.eq #(rest - special-eat-count) $
         ]
@@ -163,7 +163,7 @@
           How many #f-v(edible, n: 2) do each of #f-v(person)'s
           #f-v(relation, n: 2) have left?
         ],
-        [
+        block[
           $ #pack-size - #eat-count
           #math.eq #(pack-size - eat-count) $
         ]
@@ -173,7 +173,7 @@
           How many #f-v(edible, n: 2) do #f-v(person)'s
           #f-v(relation, n: 2) have in total?
         ],
-        [
+        block[
           $ #relation-count #math.times \( #pack-size - #eat-count \)
           #math.eq #(relation-count * (pack-size - eat-count)) $
         ]
@@ -186,7 +186,7 @@
     [
       How many #f-v(edible, n: 2) are there in total?
     ],
-    [
+    block[
       $ #rest - #special-eat-count + #relation-count #math.times \( #pack-size - #eat-count \)
       #math.eq #(rest - special-eat-count + relation-count * (pack-size - eat-count)) $
     ]
