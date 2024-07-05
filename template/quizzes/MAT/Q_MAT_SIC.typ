@@ -27,7 +27,7 @@
   (random, relation) = pick(random, entities.relations)
 
   return [
-    #f(person)'s #f(relation, n: 2) say:
+    #f(person)'s #f(relation, n: 2) agree:
     Sharing is caring
   ]
 }

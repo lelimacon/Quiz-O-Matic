@@ -1,0 +1,9 @@
+{
+    "theme": "plain",
+    "mode": 2,
+    "exercises": [
+        { "code": "Q_MAT_AAD", "seed": 42, "level": 6, "length": 5 },
+        { "code": "Q_MAT_POP", "seed": 42, "level": 6, "length": 1 },
+        { "code": "Q_MAT_SIC", "seed": 42, "level": 6, "length": 5 }
+    ]
+}

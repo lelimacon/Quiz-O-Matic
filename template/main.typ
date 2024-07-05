@@ -26,39 +26,58 @@
   )
 }
 
-#let rows = csv(
-  delimiter: ";",
-  row-type: dictionary,
-  "data.csv"
+#let print-exercises(
+  exercises
+) = {
+  return exercises
+    .map(row => {
+      let code = row.at("code")
+      let subject = code.slice(2, count: 3)
+
+      return print-quiz(
+        "quizzes/" + subject + "/" + code + ".typ",
+        int(row.at("seed")),
+        int(row.at("level")),
+        int(row.at("length")),
+      )
+    })
+    .join()
+}
+
+#let mode = (
+  questions-then-answers: 1,
+  questions-with-answers: 2,
+  questions-only: 3,
+  answers-only: 4,
 )
 
-#let print-exercises(
-) = {
-  let exercises = rows.map(row => {
-    let code = row.at("code")
-    let subject = code.slice(2, count: 3)
+#let data = json("data.json")
 
-    return print-quiz(
-      "quizzes/" + subject + "/" + code + ".typ",
-      int(row.at("seed")),
-      int(row.at("level")),
-      int(row.at("length")),
-    )
-  })
 
-  exercises.join()
+// Questions.
+#if (data.mode != mode.answers-only) {
+  show <answer>: it => {
+    if data.mode == mode.questions-with-answers {
+      it
+    }
+    else {
+      hide(it)
+    }
+  }
+
+  print-exercises(data.exercises)
 }
 
-#{
-  show <answer>: it => hide(it)
 
-  print-exercises()
+// Page break.
+#if (data.mode == mode.questions-then-answers) {
+  pagebreak()
 }
 
-#pagebreak()
 
-
-#{
+// Answers.
+#if (data.mode == mode.questions-then-answers or
+     data.mode == mode.answers-only) {
   let index = state("exercise-index", 1)
   context index.update(x => 1)
 
@@ -99,7 +118,7 @@
       )
     ]
 
-    let inputs = filterInputs(print-exercises())
+    let inputs = filterInputs(print-exercises(data.exercises))
 
     inputs
       .map(i => box(i))

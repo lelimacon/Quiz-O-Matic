@@ -54,30 +54,37 @@ customElements.define("qco-preview", class extends QComponent
 
     async render()
     {
-        const csv = this.generateCsv()
-        const svg = await this.generateSvg(csv)
+        const data = this.generateData()
+        const svg = await this.generateSvg(data)
         const html = this.processSvg(svg)
 
         this.innerHTML = html
     }
 
-    generateCsv()
+    generateData()
     {
-        const level = (e) => getLevelIndex(e.levelScale, e.selectedLevel)
-        const length = (e) => lengths[e.selectedLength]
+        const exercises = qsOutline.state.items.map(e =>
+        { return {
+            code: e.code,
+            seed: e.seed,
+            level: getLevelIndex(e.levelScale, e.selectedLevel),
+            length: lengths[e.selectedLength],
+        }})
 
-        const data = qsOutline.state.items
-            .map(e => `${e.code};${e.seed};${level(e)};${length(e)}`)
-            .join("\n")
+        const data =
+        {
+            theme,
+            mode: 2,
+            exercises,
+        }
 
-        const csv = `code;seed;level;length\n${data}`
-        return csv
+        return data
     }
 
-    async generateSvg(csv)
+    async generateSvg(data)
     {
         const encoder = new TextEncoder()
-        $typst.mapShadow('/data.csv', encoder.encode(csv))
+        $typst.mapShadow('/data.json', encoder.encode(JSON.stringify(data)))
     
         const svg = await $typst.svg()
         return svg
