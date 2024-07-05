@@ -45,10 +45,10 @@
 }
 
 #let mode = (
-  questions-then-answers: 1,
-  questions-with-answers: 2,
-  questions-only: 3,
-  answers-only: 4,
+  questions-then-answers: 0,
+  questions-with-answers: 1,
+  questions-only: 2,
+  answers-only: 3,
 )
 
 #let data = json("data.json")
@@ -86,12 +86,12 @@
   let filterInputs(
     content
   ) = {
-    if label in content.fields() and content.label == <input> {
-      return (content,)
-    }
-
     if type(content) != "content" {
       return ()
+    }
+
+    if label in content.fields() and content.label == <input> {
+      return (content,)
     }
 
     if "body" in content.fields() {

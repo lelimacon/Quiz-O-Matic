@@ -3,7 +3,7 @@ import "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/al
 
 import { elementFromHTML } from "../lib/utils.js"
 import { lengths, getLevelIndex } from "../lib/constants.js"
-import qsOutline from "../store/QsOutline.js"
+import qsQuiz from "../store/QsQuiz.js"
 import QComponent from "../lib/QComponent.js"
 
 
@@ -48,8 +48,10 @@ customElements.define("qco-preview", class extends QComponent
     {
         super
         ({
-            store: qsOutline,
         })
+
+        //qsParameters.events.subscribe("stateChanged", () => this.render())
+        qsQuiz.events.subscribe("stateChanged", () => this.render())
     }
 
     async render()
@@ -63,7 +65,11 @@ customElements.define("qco-preview", class extends QComponent
 
     generateData()
     {
-        const exercises = qsOutline.state.items.map(e =>
+        const mode = parseInt(qsQuiz.state.mode)
+
+        const theme = "plain"
+
+        const exercises = qsQuiz.state.items.map(e =>
         { return {
             code: e.code,
             seed: e.seed,
@@ -71,12 +77,7 @@ customElements.define("qco-preview", class extends QComponent
             length: lengths[e.selectedLength],
         }})
 
-        const data =
-        {
-            theme,
-            mode: 2,
-            exercises,
-        }
+        const data = { theme, mode, exercises }
 
         return data
     }

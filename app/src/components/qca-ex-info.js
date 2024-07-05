@@ -24,6 +24,9 @@ window.customElements.define("qca-ex-info", class extends QComponent
     {
         super()
 
+        this.$headerLhs = []
+        this.$headerRhs = []
+
         for (const $child of this.children)
         {
             if ($child.tagName === "QCA-EX-INFO.HEADER-LHS")

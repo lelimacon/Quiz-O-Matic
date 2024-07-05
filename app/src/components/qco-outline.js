@@ -1,60 +1,33 @@
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
-import qsOutline from "../store/QsOutline.js"
+import qsQuiz from "../store/QsQuiz.js"
 
 
 window.customElements.define("qco-outline", class extends QComponent
 {
-    static observedAttributes =
-    [
-        "theme",
-    ]
-
     constructor()
     {
         super
         ({
-            store: qsOutline,
         })
+
+        qsQuiz.events.subscribe("stateChanged", () => this.render())
 
         this.innerHTML =
             html`
-            <label for="theme">Theme</label>
-            <input
-                id="theme"
-                name="theme"
-                value="${this.theme}"
-            />
             <div name="exercises"></div>
             `
 
-        this.$theme = this.querySelector("[name='theme']")
         this.$exercises = this.querySelector("[name='exercises']")
     }
 
-    connectedCallback()
-    {
-        this.$theme.oninput = e =>
-        {
-            this.theme = e.target.value
-        }
-    }
-
-    $theme = undefined
     $exercises = undefined
-
-    get theme() { return this.getAttribute("theme") ?? "" }
-    set theme(value)
-    {
-        this.setAttribute("theme", value)
-        this.$theme.value = value
-    }
 
     render()
     {
-        this.$exercises.innerHTML = qsOutline.state.items.length === 0
+        this.$exercises.innerHTML = qsQuiz.state.items.length === 0
             ? html`<p>Add exercises from the library</p>`
-            : qsOutline.state.items
+            : qsQuiz.state.items
                 .map((item, i) => this.renderExercise(item, i + 1))
                 .join('')
 
@@ -63,14 +36,14 @@ window.customElements.define("qco-outline", class extends QComponent
             $input.oninput = e =>
             {
                 console.log("SEED INPUT", e)
-                qsOutline.changeSeed(index, e.target.value)
+                qsQuiz.changeSeed(index, e.target.value)
             }
         })
         this.$exercises.querySelectorAll("[name='removeExercise']").forEach(($button, index) =>
         {
             $button.addEventListener("click", () =>
             {
-                qsOutline.clearItem(index)
+                qsQuiz.clearItem(index)
             })
         })
 
@@ -80,11 +53,11 @@ window.customElements.define("qco-outline", class extends QComponent
             const currentIndex = index
             $exercise.addEventListener("qe_selectedLengthChanged", (e) =>
             {
-                qsOutline.changeLength(currentIndex, e.detail.value)
+                qsQuiz.changeLength(currentIndex, e.detail.value)
             })
             $exercise.addEventListener("qe_selectedLevelChanged", (e) =>
             {
-                qsOutline.changeLevel(currentIndex, e.detail.value)
+                qsQuiz.changeLevel(currentIndex, e.detail.value)
             })
             index++
         }

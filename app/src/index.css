@@ -1,7 +1,9 @@
 .theme-light,
 .theme-dark .theme-inverted {
     --qs-action: blueviolet;
+    --qs-action-bg: rgb(233, 216, 250);
     --qs-emphasis: crimson;
+    --qs-emphasis-bg: #ffbfcc;
 
     --qs-fg-strong: #09090b;
     --qs-fg: #27272a;
@@ -18,7 +20,9 @@
 .theme-dark,
 .theme-light .theme-inverted {
     --qs-action: blueviolet;
+    --qs-action-bg: rgb(43, 1, 82);
     --qs-emphasis: crimson;
+    --qs-emphasis-bg: #79031b;
 
     --qs-fg-strong: #fafafa;
     --qs-fg: #f4f4f5;
@@ -284,3 +288,25 @@ qca-input .leadingIcon {
 qca-input .trailingIcon {
     right: 6px;
 }
+
+qca-list {
+    display: block;
+    border: 1px solid var(--qs-action);
+    border-radius: 2px;
+    background-color: var(--qs-bg-strong);
+}
+
+qca-list qca-list\.item {
+    display: block;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0px 4px;
+    cursor: pointer;
+}
+    qca-list qca-list\.item:hover {
+        background-color: var(--qs-action-bg);
+    }
+    qca-list qca-list\.item.selected {
+        background-color: var(--qs-emphasis-bg);
+    }

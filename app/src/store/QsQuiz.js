@@ -3,11 +3,13 @@ import QStore from "../lib/QStore.js"
 
 const initialState =
 {
+    mode: 0,
     items: [],
 }
 
 const actions =
 {
+    setMode: "setMode",
     addItem: "addItem",
     clearItem: "clearItem",
     changeSeed: "changeSeed",
@@ -17,6 +19,12 @@ const actions =
 
 const reducers =
 {
+    setMode: (state, payload) =>
+    {
+        state.mode = payload.mode
+        return state
+    },
+
     addItem: (state, payload) =>
     {
         state.items.push(payload.item)
@@ -53,7 +61,7 @@ const effects =
 ]
 
 
-class QsOutline extends QStore
+class QsQuiz extends QStore
 {
     constructor()
     {
@@ -64,6 +72,11 @@ class QsOutline extends QStore
             reducers,
             effects,
         })
+    }
+
+    setMode(mode)
+    {
+        this.dispatch(actions.setMode, { mode })
     }
 
     load()
@@ -101,4 +114,4 @@ class QsOutline extends QStore
 }
 
 
-export default new QsOutline()
+export default new QsQuiz()

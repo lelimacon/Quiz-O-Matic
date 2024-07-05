@@ -35,6 +35,7 @@ window.customElements.define("qcp-app", class extends QComponent
                 style="width: 500px;"
             >
                 <h1>Configuration</h1>
+                <qco-configuration></qco-configuration>
                 <h1>Outline</h1>
                 <qco-outline></qco-outline>
             </div>

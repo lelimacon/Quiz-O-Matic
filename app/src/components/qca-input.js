@@ -35,7 +35,7 @@ window.customElements.define("qca-input", class extends QComponent
             `
 
         this.$label = this.querySelector("label")
-        this.$input = this.querySelector("input")        
+        this.$input = this.querySelector("input")
         this.$leadingIcon = this.querySelector(".leadingIcon span")
         this.$trailingIcon = this.querySelector(".trailingIcon span")
 

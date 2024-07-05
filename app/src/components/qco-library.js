@@ -1,7 +1,7 @@
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
 import qsLibrary from "../store/QsLibrary.js"
-import qsOutline from "../store/QsOutline.js"
+import qsQuiz from "../store/QsQuiz.js"
 
 
 window.customElements.define("qco-library", class extends QComponent
@@ -10,8 +10,9 @@ window.customElements.define("qco-library", class extends QComponent
     {
         super
         ({
-            store: qsLibrary,
         })
+
+        qsLibrary.events.subscribe("stateChanged", () => this.render())
     }
 
     connectedCallback()
@@ -50,7 +51,7 @@ window.customElements.define("qco-library", class extends QComponent
                     selectedLength: libraryExercise.supportedLengths.split(",")[0],
                 }
 
-                qsOutline.addItem(outlineExercise)
+                qsQuiz.addItem(outlineExercise)
             })
         })
     }

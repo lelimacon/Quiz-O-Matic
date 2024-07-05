@@ -1,8 +1,14 @@
 import DOMPurify from "https://cdn.jsdelivr.net/npm/dompurify@3.1.5/+esm"
 
 
-export const html = (strings, ...substitutions) => format(strings, sanitizeHtml(substitutions))
+export const html = (strings, ...substitutions) => format(strings, sanitizeHtmlValues(substitutions))
 export const css = (strings, ...substitutions) => format(strings, substitutions)
+
+export const log_html = (strings, ...substitutions) =>
+{
+    console.log("HTML", strings, substitutions)
+    return format(strings, sanitizeHtmlValues(substitutions))
+}
 
 const format = (strings, substitutions) =>
 {
@@ -25,8 +31,17 @@ const dompurifySettings =
     },
 }
 
-const sanitizeHtml = (values) =>
-    values.map(value => DOMPurify.sanitize(value, dompurifySettings))
+const sanitizeHtmlValues = (values) =>
+    values.map(value => sanitizeHtmlValue(value))
+
+const sanitizeHtmlValue = (value) =>
+{
+    // Special case for 0, common integer.
+    if (value === 0)
+        return "0"
+
+    return DOMPurify.sanitize(value, dompurifySettings)
+}
 
 export const hasSetter = (obj, setterName) =>
 {

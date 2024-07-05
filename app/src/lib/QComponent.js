@@ -1,4 +1,3 @@
-import QStore from "./QStore.js"
 import { hasSetter } from "./utils.js"
 
 
@@ -12,12 +11,6 @@ export default class QComponent extends HTMLElement
         super()
 
         this.hasEarlyRender = props.hasEarlyRender
-
-        if (this.render && props.store instanceof QStore)
-        {
-            const self = this
-            props.store.events.subscribe("stateChanged", () => self.render())
-        }
 
         // TODO: Run under condition.
         //this.render()
