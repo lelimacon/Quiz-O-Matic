@@ -17,7 +17,6 @@ window.customElements.define("qca-list", class extends QComponent
             hasEarlyRender: true,
         })
 
-        this.$ul = this.querySelector("ul")
         this.$items = this.querySelectorAll("qca-list\\.item")
 
         this.$items.forEach(($item, index) =>
@@ -35,10 +34,9 @@ window.customElements.define("qca-list", class extends QComponent
         })
     }
 
-    _selectedIndices = []
-
-    $ul = undefined
     $items = []
+
+    _selectedIndices = []
 
     get "is-multi-select"() { return this.getAttribute("is-multi-select") == "true" }
 

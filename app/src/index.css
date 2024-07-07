@@ -68,6 +68,7 @@ button {
 }
     button:hover {
         border-color: var(--qs-b-strong);
+        background-color: var(--qs-emphasis-bg);
     }
     button:focus {
         outline: 2px solid var(--qs-b-strong);
@@ -103,17 +104,81 @@ qcp-app {
     font-family: "Roboto Condensed", Verdana;
     font-size: 12px;
 }
-    qcp-app > .panel {
-        overflow-y: auto;
+
+qcp-app > .drawer > .hidden {
+    display: none;
+}
+
+qcp-app > .appBar {
+    width: 46px;
+    border-right: 1px solid var(--qs-b-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+    qcp-app > .appBar > qca-tabs > qca-tabs\.tab {
+        margin: 2px 3px;
+        padding: 6px 2px;
+        display: flex;
+        border-radius: 8px;
+        justify-content: center;
+        color: var(--qs-action);
+        font-size: 1.8em;
+    }
+    qcp-app > .appBar > .separator {
+        width: calc(100% - 16px);
+        height: 1px;
+        margin: 4px 0;
+        background-color: var(--qs-b-soft);
     }
 
+qcp-app > .drawer {
+    width: 400px;
+}
+    qcp-app > .drawer.hidden {
+        display: none;
+    }
+    qcp-app > .drawer > qca-router > qca-router\.page {
+        overflow-y: auto;
+    }
+    qcp-app > .drawer > .separator {
+        width: 100%;
+    }
+
+qcp-app > .separator,
+qcp-app > .drawer > .separator {
+    background-color: var(--qs-action-bg);
+    position: relative;
+}
 qcp-app > .separator {
+    width: 1px;
+    height: 100%;
+}
+qcp-app > .drawer > .separator {
+    height: 1px;
+    width: 100%;
+}
+
+qcp-app > .separator > .hover,
+qcp-app > .drawer > .separator > .hover {
+    position: absolute;
+    content: "";
+}
+qcp-app > .separator > .hover {
+    height: 100%;
     width: 6px;
-    background-color: var(--qs-b-soft);
+    margin-left: -3px;
     cursor: ew-resize;
 }
-    .separator:hover {
-        background-color: var(--qs-b-strong);
+qcp-app > .drawer > .separator > .hover {
+    width: 100%;
+    height: 6px;
+    margin-top: -3px;
+    cursor: ns-resize;
+}
+    qcp-app > .separator > .hover:hover,
+    qcp-app > .drawer > .separator > .hover:hover {
+        background-color: var(--qs-action);
     }
 
 
@@ -227,6 +292,7 @@ qca-switch .slider {
 }
     qca-switch:hover .slider {
         border-color: var(--qs-b-strong);
+        background-color: var(--qs-emphasis-bg);
     }
     qca-switch:has(input:focus) .slider {
         outline: 2px solid var(--qs-b-strong);
@@ -289,6 +355,7 @@ qca-input .trailingIcon {
     right: 6px;
 }
 
+
 qca-list {
     display: block;
     border: 1px solid var(--qs-action);
@@ -310,3 +377,35 @@ qca-list qca-list\.item {
     qca-list qca-list\.item.selected {
         background-color: var(--qs-emphasis-bg);
     }
+
+
+qca-tabs {
+    display: block;
+    width: 40px;
+}
+
+qca-tabs > qca-tabs\.tab {
+    display: block;
+    display: flex;
+    align-items: center;
+    padding: 0px 4px;
+    cursor: pointer;
+}
+    qca-tabs > qca-tabs\.tab:hover {
+        background-color: var(--qs-action-bg);
+    }
+    qca-tabs > qca-tabs\.tab.selected {
+        background-color: var(--qs-emphasis-bg);
+    }
+    /*
+    qca-tabs[orientation='horizontal'] qca-tabs\.tab.selected {
+        border-bottom: 2px solid var(--qs-emphasis);
+    }
+    qca-tabs[orientation='vertical'] qca-tabs\.tab.selected {
+        border-right: 2px solid var(--qs-emphasis);
+    }
+    */
+
+qca-router > qca-router\.page.hidden {
+    display: none;
+}
