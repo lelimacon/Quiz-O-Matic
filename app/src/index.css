@@ -44,6 +44,11 @@
     color: var(--qs-fg);
 }
 
+.theme-dark svg,
+.theme-light .theme-inverted svg {
+    filter: invert(100%);
+}
+
 
 * {
     margin: 0;
@@ -147,7 +152,7 @@ qcp-app > .drawer {
 
 qcp-app > .separator,
 qcp-app > .drawer > .separator {
-    background-color: var(--qs-action-bg);
+    background-color: var(--qs-action);
     position: relative;
 }
 qcp-app > .separator {
@@ -179,6 +184,14 @@ qcp-app > .drawer > .separator > .hover {
     qcp-app > .separator > .hover:hover,
     qcp-app > .drawer > .separator > .hover:hover {
         background-color: var(--qs-action);
+    }
+
+qcp-app .panelHeader {
+    padding: 8px 12px;
+}
+    qcp-app .panelHeader > h1 {
+        font-size: 0.9em;
+        text-transform: uppercase;
     }
 
 
