@@ -1,6 +1,7 @@
 import "./components/qca-ex-info.js"
 import "./components/qca-input.js"
 import "./components/qca-list.js"
+import "./components/qca-popover.js"
 import "./components/qca-router.js"
 import "./components/qca-switch.js"
 import "./components/qca-tabs.js"

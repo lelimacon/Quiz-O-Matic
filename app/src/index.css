@@ -422,3 +422,26 @@ qca-tabs > qca-tabs\.tab {
 qca-router > qca-router\.page.hidden {
     display: none;
 }
+
+
+qca-popover:has(qca-popover\.body[open])::before {
+    position: absolute;
+    background-color: #00000024;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+qca-popover > qca-popover\.anchor {
+}
+
+qca-popover > qca-popover\.body {
+    display: none;
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+    qca-popover > qca-popover\.body[open] {
+        display: block;
+    }

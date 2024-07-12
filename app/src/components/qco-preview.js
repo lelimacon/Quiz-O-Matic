@@ -50,8 +50,8 @@ customElements.define("qco-preview", class extends QComponent
         ({
         })
 
-        //qsParameters.events.subscribe("stateChanged", () => this.render())
-        qsQuiz.events.subscribe("stateChanged", () => this.render())
+        //qsParameters.events.subscribe("qe_stateChanged", () => this.render())
+        qsQuiz.events.subscribe("qe_stateChanged", () => this.render())
     }
 
     async render()

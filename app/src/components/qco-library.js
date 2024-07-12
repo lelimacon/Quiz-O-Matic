@@ -12,7 +12,7 @@ window.customElements.define("qco-library", class extends QComponent
         ({
         })
 
-        qsLibrary.events.subscribe("stateChanged", () => this.render())
+        qsLibrary.events.subscribe("qe_stateChanged", () => this.render())
     }
 
     connectedCallback()

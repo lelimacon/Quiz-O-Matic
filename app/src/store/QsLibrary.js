@@ -50,7 +50,7 @@ const effects =
         effect: async (store, payload) =>
         {
             // Demo sleep.
-            await new Promise(r => setTimeout(r, 500))
+            //await new Promise(r => setTimeout(r, 500))
 
             const libraryJson = await fetch("library.json").then(r => r.text())
             const items = JSON.parse(libraryJson)

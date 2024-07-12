@@ -19,7 +19,7 @@ export default class QStore
                 state[key] = value
 
                 //console.log(`stateChanged: ${key} = ${value}`)
-                self.events.publish('stateChanged', self.state)
+                self.events.publish("qe_stateChanged", self.state)
 
                 return true
             }
@@ -50,6 +50,9 @@ export default class QStore
 
         // TODO: Apply reducers from other stores.
         // TODO: Apply effects from other stores.
+
+        // Publish action event.
+        this.events.publish(`qe_${action}`, payload)
 
         return true
     }
