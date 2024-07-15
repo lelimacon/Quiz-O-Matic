@@ -55,6 +55,13 @@
     padding: 0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
 label {
     display: block;
 }
@@ -377,9 +384,8 @@ qca-list {
 }
 
 qca-list qca-list\.item {
-    display: block;
-    height: 24px;
     display: flex;
+    height: 24px;
     align-items: center;
     padding: 0px 4px;
     cursor: pointer;
@@ -424,8 +430,13 @@ qca-router > qca-router\.page.hidden {
 }
 
 
+qca-popover {
+    display: block;
+    position: relative;
+}
+
 qca-popover:has(qca-popover\.body[open])::before {
-    position: absolute;
+    position: fixed;
     background-color: #00000024;
     content: "";
     top: 0;
@@ -438,10 +449,61 @@ qca-popover > qca-popover\.anchor {
 }
 
 qca-popover > qca-popover\.body {
+    z-index: 999;
     display: none;
     position: absolute;
+    left: 0;
+    min-width: 100%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
     qca-popover > qca-popover\.body[open] {
         display: block;
     }
+
+
+qca-select {
+    display: block;
+    position: relative;
+}
+
+qca-select:has(.body[open])::before {
+    position: fixed;
+    background-color: #00000024;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+qca-select > .anchor {
+}
+
+qca-select > .body {
+    z-index: 999;
+    display: none;
+    position: absolute;
+    left: 0;
+    min-width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid var(--qs-action);
+    border-radius: 2px;
+    background-color: var(--qs-bg-strong);
+}
+    qca-select > .body[open] {
+        display: block;
+    }
+
+    qca-select > .body > qca-select\.item {
+        display: flex;
+        height: 24px;
+        align-items: center;
+        padding: 0px 4px;
+        cursor: pointer;
+    }
+        qca-select > .body > qca-select\.item:hover {
+            background-color: var(--qs-action-bg);
+        }
+        qca-select > .body > qca-select\.item.selected {
+            background-color: var(--qs-emphasis-bg);
+        }
