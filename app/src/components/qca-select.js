@@ -24,7 +24,6 @@ window.customElements.define("qca-select", class extends QComponent
             html`
             <qca-input
                 class="anchor"
-                title="Click to change mode"
                 trailing-icon="arrow-down-tag"
             ></qca-input>
             <div class="body">

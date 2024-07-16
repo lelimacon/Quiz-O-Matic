@@ -13,12 +13,10 @@ window.customElements.define("qco-preview-toolbar", class extends QComponent
 
         this.innerHTML =
             html`
-            <div class="panelHeader">
-                <h1>Preview</h1>
-            </div>
-
             <qca-select
+                class="zoom"
                 name="zoom"
+                title="Zoom level"
                 is-multi-select="false"
                 selected-values="${qsPreview.state.zoom}"
             >
@@ -34,7 +32,7 @@ window.customElements.define("qco-preview-toolbar", class extends QComponent
             </qca-select>
             `
 
-        this.$zoom = this.querySelector("[name='zoom']")
+        this.$zoom = this.querySelector(".zoom")
     }
 
     $zoom = undefined

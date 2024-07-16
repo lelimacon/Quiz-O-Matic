@@ -51,7 +51,7 @@ customElements.define("qco-preview", class extends QComponent
         ({
         })
 
-        this.updateZoom(100)
+        this.updateZoom(50)
 
         qsQuiz.events.subscribe("qe_stateChanged", (e) => this.render())
         qsPreview.events.subscribe("qe_setZoom", (e) => this.updateZoom(e.zoom))

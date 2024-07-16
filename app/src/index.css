@@ -9,8 +9,8 @@
     --qs-fg: #27272a;
     --qs-fg-soft: #52525b;
 
-    --qs-bg-strong: #fafafa;
-    --qs-bg: #e4e4e7;
+    --qs-bg-strong: #ffffff;
+    --qs-bg: #f4f4f5;
     --qs-bg-soft: #d4d4d8;
 
     --qs-b-strong: #3f3f46;
@@ -39,8 +39,8 @@
 .theme-light,
 .theme-dark,
 .theme-inverted {
-    border-color: var(--qs-b-soft);
-    background-color: var(--qs-bg-soft);
+    border-color: var(--qs-b);
+    background-color: var(--qs-bg);
     color: var(--qs-fg);
 }
 
@@ -110,89 +110,74 @@ input {
 qcp-app {
     height: 100vh;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
     background-color: var(--qs-bg);
     font-family: "Roboto Condensed", Verdana;
     font-size: 12px;
 }
 
-qcp-app > .column {
+qcp-app > .content {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
+}
+
+qcp-app > .content > .preview {
+    flex-grow: 1;
+}
+
+qcp-app > .content > .column {
     overflow-y: auto;
 }
 
-qcp-app > .drawer > .hidden {
+qcp-app > .content > .drawer > .hidden {
     display: none;
 }
 
-qcp-app > .appBar {
-    width: 40px;
-    min-width: 40px;
-    border-right: 1px solid var(--qs-b-soft);
+qcp-app > .header {
+    height: 40px;
+    min-height: 40px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    padding: 0 4px;
 }
-    qcp-app > .appBar > qca-tabs > qca-tabs\.tab {
-        margin: 2px 3px;
-        padding: 6px 2px;
+    qcp-app > .header > qca-tabs > qca-tabs\.tab {
+        margin: 0;
+        padding: 6px 6px;
         display: flex;
-        border-radius: 8px;
         justify-content: center;
         color: var(--qs-action);
         font-size: 1.8em;
     }
-    qcp-app > .appBar > .separator {
-        width: calc(100% - 16px);
-        height: 1px;
-        margin: 4px 0;
-        background-color: var(--qs-b-soft);
+    qcp-app > .header > .space {
+        flex-grow: 1;
     }
 
-qcp-app > .drawer {
+qcp-app > .content > .drawer {
     width: 400px;
     min-width: 400px;
 }
-    qcp-app > .drawer.hidden {
+    qcp-app > .content > .drawer.hidden {
         display: none;
     }
-    qcp-app > .drawer > .separator {
-        width: 100%;
-    }
 
-qcp-app > .separator,
-qcp-app > .drawer > .separator {
-    background-color: var(--qs-action);
+qcp-app > .content > .separator {
     position: relative;
-}
-qcp-app > .separator {
     width: 1px;
     height: 100%;
 }
-qcp-app > .drawer > .separator {
-    height: 1px;
-    width: 100%;
-}
 
-qcp-app > .separator > .hover,
-qcp-app > .drawer > .separator > .hover {
+qcp-app > .content > .separator > .hover {
     position: absolute;
     content: "";
-}
-qcp-app > .separator > .hover {
     height: 100%;
     width: 6px;
     margin-left: -3px;
     cursor: ew-resize;
 }
-qcp-app > .drawer > .separator > .hover {
-    width: 100%;
-    height: 6px;
-    margin-top: -3px;
-    cursor: ns-resize;
-}
-    qcp-app > .separator > .hover:hover,
-    qcp-app > .drawer > .separator > .hover:hover {
+    qcp-app > .content > .separator > .hover:hover {
         background-color: var(--qs-action);
     }
 
@@ -208,10 +193,12 @@ qcp-app .panelBody {
     padding: 3px 6px;
 }
 
+/*
 qcp-app > .content {
     flex-grow: 1;
     max-width: calc(100% - 440px);
 }
+*/
 
 
 qco-preview {
@@ -233,7 +220,11 @@ qco-preview {
 qco-preview-toolbar {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
+    qco-preview-toolbar > .zoom {
+        width: 80px;
+    }
 
 
 qca-ex-info {
@@ -241,15 +232,16 @@ qca-ex-info {
     margin: 4px 0 6px 0;
     border: 1px solid var(--qs-b-soft);
     border-radius: 4px;
-    background-color: var(--qs-bg);
 }
 qca-ex-info .header {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 6px 12px;
-    color: var(--qs-fg-strong);
     border-bottom: 1px solid var(--qs-b-soft);
+    border-radius: 4px 4px 0 0;
+    background-color: var(--qs-bg-soft);
+    color: var(--qs-fg-strong);
 }
     qca-ex-info .header .separator {
         font-weight: bold;
@@ -426,9 +418,14 @@ qca-list qca-list\.item {
 
 
 qca-tabs {
-    display: block;
-    width: 40px;
+    display: flex;
 }
+    qca-tabs[orientation='horizontal'] {
+        flex-direction: row;
+    }
+    qca-tabs[orientation='vertical'] {
+        flex-direction: column;
+    }
 
 qca-tabs > qca-tabs\.tab {
     display: block;
@@ -441,16 +438,14 @@ qca-tabs > qca-tabs\.tab {
         background-color: var(--qs-action-bg);
     }
     qca-tabs > qca-tabs\.tab.selected {
-        background-color: var(--qs-emphasis-bg);
+        color: var(--qs-emphasis) !important;
     }
-    /*
-    qca-tabs[orientation='horizontal'] qca-tabs\.tab.selected {
+    qca-tabs[orientation='horizontal'] > qca-tabs\.tab.selected {
         border-bottom: 2px solid var(--qs-emphasis);
     }
-    qca-tabs[orientation='vertical'] qca-tabs\.tab.selected {
+    qca-tabs[orientation='vertical'] > qca-tabs\.tab.selected {
         border-right: 2px solid var(--qs-emphasis);
     }
-    */
 
 qca-router > qca-router\.page.hidden {
     display: none;

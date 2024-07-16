@@ -3,7 +3,7 @@ import QStore from "../lib/QStore.js"
 
 const initialState =
 {
-    zoom: 100,
+    zoom: 50,
 }
 
 const actions =
