@@ -12,6 +12,7 @@ import "./components/qco-library.js"
 import "./components/qco-library-filters.js"
 import "./components/qco-outline.js"
 import "./components/qco-preview.js"
+import "./components/qco-preview-toolbar.js"
 import "./components/qco-settings.js"
 
 import "./components/qcp-app.js"

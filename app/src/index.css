@@ -117,12 +117,17 @@ qcp-app {
     font-size: 12px;
 }
 
+qcp-app > .column {
+    overflow-y: auto;
+}
+
 qcp-app > .drawer > .hidden {
     display: none;
 }
 
 qcp-app > .appBar {
-    width: 46px;
+    width: 40px;
+    min-width: 40px;
     border-right: 1px solid var(--qs-b-soft);
     display: flex;
     flex-direction: column;
@@ -146,12 +151,10 @@ qcp-app > .appBar {
 
 qcp-app > .drawer {
     width: 400px;
+    min-width: 400px;
 }
     qcp-app > .drawer.hidden {
         display: none;
-    }
-    qcp-app > .drawer > qca-router > qca-router\.page {
-        overflow-y: auto;
     }
     qcp-app > .drawer > .separator {
         width: 100%;
@@ -201,20 +204,43 @@ qcp-app .panelHeader {
         text-transform: uppercase;
     }
 
+qcp-app .panelBody {
+    padding: 3px 6px;
+}
+
+qcp-app > .content {
+    flex-grow: 1;
+    max-width: calc(100% - 440px);
+}
+
 
 qco-preview {
-    display: block;
     padding: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
 }
     qco-preview > .page {
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         margin: 4px 8px;
-        width: calc(100% - 16px);
+        width: var(--qs-preview-zoom);
+        min-width: var(--qs-preview-zoom);
     }
+
+
+qco-preview-toolbar {
+    display: flex;
+    align-items: center;
+}
+
 
 qca-ex-info {
     display: block;
+    margin: 4px 0 6px 0;
+    border: 1px solid var(--qs-b-soft);
+    border-radius: 4px;
     background-color: var(--qs-bg);
 }
 qca-ex-info .header {
@@ -223,7 +249,6 @@ qca-ex-info .header {
     align-items: center;
     padding: 6px 12px;
     color: var(--qs-fg-strong);
-    border-top: 3px solid var(--qs-b-soft);
     border-bottom: 1px solid var(--qs-b-soft);
 }
     qca-ex-info .header .separator {
@@ -260,6 +285,8 @@ qca-ex-info .selectable {
     }
 qca-ex-info > .body {
     padding: 6px 6px 8px 6px;
+    border-radius: 0 0 4px 4px;
+    background-color: var(--qs-bg-strong);
 }
 qca-ex-info .name {
     font-size: 1.4em;

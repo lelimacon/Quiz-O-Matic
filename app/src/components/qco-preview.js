@@ -3,8 +3,9 @@ import "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/al
 
 import { elementFromHTML } from "../lib/utils.js"
 import { lengths, getLevelIndex } from "../lib/constants.js"
-import qsQuiz from "../store/QsQuiz.js"
 import QComponent from "../lib/QComponent.js"
+import qsQuiz from "../store/QsQuiz.js"
+import qsPreview from "../store/QsPreview.js"
 
 
 const init = async () =>
@@ -50,8 +51,10 @@ customElements.define("qco-preview", class extends QComponent
         ({
         })
 
-        //qsParameters.events.subscribe("qe_stateChanged", () => this.render())
-        qsQuiz.events.subscribe("qe_stateChanged", () => this.render())
+        this.updateZoom(100)
+
+        qsQuiz.events.subscribe("qe_stateChanged", (e) => this.render())
+        qsPreview.events.subscribe("qe_setZoom", (e) => this.updateZoom(e.zoom))
     }
 
     async render()
@@ -61,6 +64,15 @@ customElements.define("qco-preview", class extends QComponent
         const html = this.processSvg(svg)
 
         this.innerHTML = html
+    }
+
+    updateZoom(zoom)
+    {
+        const zoomStr = zoom == -1
+            ? `calc(100% - 16px)`
+            : `calc(${zoom / 100.0} * 842px)`
+
+        this.style.setProperty("--qs-preview-zoom", zoomStr)
     }
 
     generateData()

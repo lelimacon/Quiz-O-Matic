@@ -8,6 +8,7 @@ window.customElements.define("qca-select", class extends QComponent
     [
         //"is-multi-select",
         "selected-indices",
+        "selected-values",
     ]
 
     constructor()
@@ -24,7 +25,7 @@ window.customElements.define("qca-select", class extends QComponent
             <qca-input
                 class="anchor"
                 title="Click to change mode"
-                trailing-icon="arrow-union-vertical"
+                trailing-icon="arrow-down-tag"
             ></qca-input>
             <div class="body">
             </div>
@@ -73,16 +74,22 @@ window.customElements.define("qca-select", class extends QComponent
     $input = undefined
     $items = []
 
-    _selectedIndices = []
-
     get "is-multi-select"() { return this.getAttribute("is-multi-select") === "" || this.getAttribute("is-multi-select") == "true" }
 
     get "selected-indices"() { return this.getAttribute("selected-indices") }
     set "selected-indices"(value)
     {
-        this.setAttribute("selected-indices", value)
+        //this.setAttribute("selected-indices", value)
 
         this.updateSelectedIndices(value.split(",").map(e => parseInt(e)))
+    }
+
+    get "selected-values"() { return this.getAttribute("selected-values") }
+    set "selected-values"(value)
+    {
+        //this.setAttribute("selected-indices", value)
+
+        this.updateSelectedValues(value.split(","))
     }
 
     get "is-open"() { return this.getAttribute("is-open") === "" || this.getAttribute("is-open") === "true" }
@@ -93,10 +100,12 @@ window.customElements.define("qca-select", class extends QComponent
         if (value)
         {
             this.$body.setAttribute("open", "")
+            this.$input["trailing-icon"] = "arrow-up-tag"
         }
         else
         {
             this.$body.removeAttribute("open")
+            this.$input["trailing-icon"] = "arrow-down-tag"
         }
 
         this.dispatchEvent(new CustomEvent("qe_isOpenChanged",
@@ -108,26 +117,71 @@ window.customElements.define("qca-select", class extends QComponent
 
     updateSelectedIndices(selectedIndices)
     {
-        this._selectedIndices = selectedIndices
-
-        this.$items.forEach(($item, index) =>
-        {
-            if (selectedIndices.includes(index))
-                $item.classList.add("selected")
-            else
-                $item.classList.remove("selected")
-        })
-
-        const itemLabels = this.$items
-            .map(item => item.innerText)
-            .filter((item, index) => selectedIndices.includes(index))
-
-        this.$input.value = itemLabels.join(", ")
+        this.updateSelection(selectedIndices)
 
         this.dispatchEvent(new CustomEvent("qe_selectedIndicesChanged",
         {
             bubbles: false,
             detail: { selectedIndices },
+        }))
+    }
+
+    updateSelectedValues(selectedValues)
+    {
+        const selectedIndices = this.$items
+            .map(($item) => $item.getAttribute("value"))
+            .map((value, index) => selectedValues.includes(value) ? index : -1)
+            .filter((index) => index >= 0)
+
+        this.updateSelection(selectedIndices)
+
+        this.dispatchEvent(new CustomEvent("qe_selectedValuesChanged",
+        {
+            bubbles: false,
+            detail: { selectedValues },
+        }))
+    }
+
+    updateSelection(selectedIndices)
+    {
+        const selectedValues = []
+        const selectedLabels = []
+
+        for (let index = 0; index < this.$items.length; index++)
+        {
+            const $item = this.$items[index]
+
+            const isSelected = selectedIndices.includes(index)
+
+            if (selectedIndices.includes(index))
+                $item.classList.add("selected")
+            else
+                $item.classList.remove("selected")
+
+            if (!isSelected)
+                continue
+
+            const value = $item.getAttribute("value")
+            const label = $item.innerText
+
+            selectedValues.push(value)
+            selectedLabels.push(label)
+        }
+
+        //console.log("updateSelection", selectedIndices, selectedValues)
+
+        this.$input.value = selectedLabels.join(", ")
+
+        this.dispatchEvent(new CustomEvent("qe_selectedIndicesChanged",
+        {
+            bubbles: false,
+            detail: { selectedIndices },
+        }))
+
+        this.dispatchEvent(new CustomEvent("qe_selectionChanged",
+        {
+            bubbles: false,
+            detail: { selectedIndices, selectedValues },
         }))
     }
 })

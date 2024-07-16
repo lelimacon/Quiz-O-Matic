@@ -11,7 +11,7 @@ window.customElements.define("qco-outline", class extends QComponent
         ({
         })
 
-        qsQuiz.events.subscribe("stateChanged", () => this.render())
+        qsQuiz.events.subscribe("qe_stateChanged", () => this.render())
 
         this.innerHTML =
             html`
