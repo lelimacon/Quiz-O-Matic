@@ -161,7 +161,7 @@ window.customElements.define("qca-select", class extends QComponent
                 continue
 
             const value = $item.getAttribute("value")
-            const label = $item.innerText
+            const label = $item.getAttribute("label") ?? $item.innerText
 
             selectedValues.push(value)
             selectedLabels.push(label)
@@ -170,12 +170,6 @@ window.customElements.define("qca-select", class extends QComponent
         //console.log("updateSelection", selectedIndices, selectedValues)
 
         this.$input.value = selectedLabels.join(", ")
-
-        this.dispatchEvent(new CustomEvent("qe_selectedIndicesChanged",
-        {
-            bubbles: false,
-            detail: { selectedIndices },
-        }))
 
         this.dispatchEvent(new CustomEvent("qe_selectionChanged",
         {

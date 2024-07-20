@@ -1,3 +1,4 @@
+import metadata from "../metadata.js"
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
 import qsQuiz from "../store/QsQuiz.js"
@@ -27,11 +28,33 @@ window.customElements.define("qco-configuration", class extends QComponent
             </qca-select>
 
             <label for="theme">Theme</label>
-            <input
+            <qca-select
                 id="theme"
                 name="theme"
-                value="${this.theme}"
-            />
+                is-multi-select="false"
+                selected-values="${qsQuiz.state.theme.code}"
+            >
+                ${
+                    metadata.themes.map(theme =>
+                        html`
+                        <qca-select.item
+                            value="${theme.code}"
+                            label="${theme.name}"
+                        >
+                            <div class="name">${theme.name}</div>
+                            <div class="description">${theme.description}</div>
+                            <div class="tags">
+                                ${
+                                    theme.tags
+                                        .split(",")
+                                        .map(tag => html`<div class="tag">${tag}</div>`)
+                                        .join("")
+                                }
+                            </div>
+                        </qca-select.item>`
+                    )
+                }
+            </qca-select>
             `
 
         this.$mode = this.querySelector("[name='mode']")
@@ -45,20 +68,26 @@ window.customElements.define("qco-configuration", class extends QComponent
 
     connectedCallback()
     {
-        this.$mode.addEventListener("qe_selectedIndicesChanged", (e) =>
+        this.$mode.addEventListener("qe_selectionChanged", (e) =>
         {
             //console.log("qe_selectedIndicesChanged", e)
             const mode = e.detail.selectedIndices[0]
             qsQuiz.setMode(mode)
         })
-        this.$theme.oninput = e =>
+        this.$theme.addEventListener("qe_selectionChanged", (e) =>
         {
-            qsQuiz.setTheme(e.target.value)
-        }
+            const code = e.detail.selectedValues[0]
+            const options = {}
+            qsQuiz.setTheme(code, options)
+        })
 
         qsQuiz.events.subscribe("qe_setMode", (e) =>
         {
             this.$mode.setAttribute("selected-indices", e.mode)
+        })
+        qsQuiz.events.subscribe("qe_setTheme", (e) =>
+        {
+            this.$mode.setAttribute("selected-value", e.theme)
         })
     }
 })

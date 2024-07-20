@@ -4,12 +4,18 @@ import QStore from "../lib/QStore.js"
 const initialState =
 {
     mode: 0,
-    items: [],
+    theme:
+    {
+        code: "T_PLN",
+        options: {},
+    },
+    exercises: [],
 }
 
 const actions =
 {
     setMode: "setMode",
+    setTheme: "setTheme",
     addItem: "addItem",
     clearItem: "clearItem",
     changeSeed: "changeSeed",
@@ -25,33 +31,43 @@ const reducers =
         return state
     },
 
+    setTheme: (state, payload) =>
+    {
+        state.theme =
+        {
+            code: payload.code,
+            options: payload.options,
+        }
+        return state
+    },
+
     addItem: (state, payload) =>
     {
-        state.items.push(payload.item)
+        state.exercises.push(payload.item)
         return state
     },
 
     clearItem: (state, payload) =>
     {
-        state.items.splice(payload.index, 1)
+        state.exercises.splice(payload.index, 1)
         return state
     },
 
     changeSeed: (state, payload) =>
     {
-        state.items[payload.index].seed = payload.seed
+        state.exercises[payload.index].seed = payload.seed
         return state
     },
 
     changeLength: (state, payload) =>
     {
-        state.items[payload.index].selectedLength = payload.length
+        state.exercises[payload.index].selectedLength = payload.length
         return state
     },
 
     changeLevel: (state, payload) =>
     {
-        state.items[payload.index].selectedLevel = payload.level
+        state.exercises[payload.index].selectedLevel = payload.level
         return state
     },
 }
@@ -79,12 +95,9 @@ class QsQuiz extends QStore
         this.dispatch(actions.setMode, { mode })
     }
 
-    load()
+    setTheme(code, options)
     {
-        if (this.state.isLoading)
-            return
-
-        this.dispatch(actions.load, {})
+        this.dispatch(actions.setTheme, { code, options })
     }
 
     addItem(item)

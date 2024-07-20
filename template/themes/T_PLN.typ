@@ -1,22 +1,35 @@
-#import "@preview/suiji:0.3.0"
+// code=T_PLN
+// name=Plain
+// description=Default print-friendly theme.
+// tags=plain,print-friendly,bw
 
-
-#let quiz(
+#let apply(
   body
 ) = {
   set page(
     margin: (
-    top: 60pt,
-    bottom: 60pt,
-    left: 40pt,
-    right: 40pt,
+      top: 60pt,
+      bottom: 60pt,
+      left: 40pt,
+      right: 40pt,
     ),
   )
 
-  set heading(numbering: "I.")
-  set text(size: 12pt)
+  show heading.where(level: 1): set heading(numbering: "I.")
   show heading.where(level: 1): set text(size: 22pt)
-  show heading.where(level: 2): set text(size: 16pt)
+
+  show heading.where(level: 2): set heading(numbering: "1 |")
+  show heading.where(level: 2): set text(size: 14pt)
+
+  set text(size: 12pt)
+
+  show emph: it => {
+    text(
+      fill: blue,
+      weight: "semibold",
+      it.body,
+    )
+  }
 
   body
 }
@@ -25,10 +38,10 @@
   title,
   body,
 ) = {
-  heading(level: 1, {
-    //context counter(heading).get()
-    title
-  })
+  heading(
+    level: 1,
+    title,
+  )
   body
 }
 
@@ -133,12 +146,35 @@
   )
 }
 
-#let var(
-  body,
-) = {
-  text(
-    fill: blue,
-    weight: "semibold",
-    [#body],
+
+// Preview.
+#{
+  show: apply
+
+  exercise(
+    "Joe's paradox",
+    [
+      _Joe_ goes to the beach with his _2 sisters_.
+      #input(1,
+        [Why?],
+        [Anyone's guess],
+      )
+      _Joe_ comes back empty-handed.
+      #input(1,
+        [How many _sisters_ are left?],
+        block[$ 2 - 2 = 0 $],
+      )
+    ]
+  )
+
+  exercise(
+    "Other Exercise",
+    [
+      #lorem(24)
+      == Sub-title
+      #lorem(24)
+      == Sub-title
+      #lorem(24)
+    ]
   )
 }

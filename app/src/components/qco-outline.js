@@ -25,9 +25,9 @@ window.customElements.define("qco-outline", class extends QComponent
 
     render()
     {
-        this.$exercises.innerHTML = qsQuiz.state.items.length === 0
+        this.$exercises.innerHTML = qsQuiz.state.exercises.length === 0
             ? html`<p>Add exercises from the library</p>`
-            : qsQuiz.state.items
+            : qsQuiz.state.exercises
                 .map((item, i) => this.renderExercise(item, i + 1))
                 .join('')
 

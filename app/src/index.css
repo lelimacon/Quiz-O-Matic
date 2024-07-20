@@ -518,9 +518,8 @@ qca-select > .body {
 
     qca-select > .body > qca-select\.item {
         display: flex;
-        height: 24px;
-        align-items: center;
-        padding: 0px 4px;
+        flex-direction: column;
+        padding: 6px 4px;
         cursor: pointer;
     }
         qca-select > .body > qca-select\.item:hover {
@@ -529,3 +528,26 @@ qca-select > .body {
         qca-select > .body > qca-select\.item.selected {
             background-color: var(--qs-emphasis-bg);
         }
+
+
+qco-configuration qca-select\.item > .name {
+    font-size: 1.4em;
+    color: var(--qs-fg-strong);
+}
+qco-configuration qca-select\.item > .description {
+    font-size: 0.9em;
+    color: var(--qs-fg-soft);
+    margin-bottom: 6px;
+}
+qco-configuration qca-select\.item > .tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+qco-configuration qca-select\.item > .tags > .tag {
+    margin-right: 3px;
+    padding: 1px 3px;
+    border: 1px solid var(--qs-b-soft);
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: var(--qs-fg-soft);
+}

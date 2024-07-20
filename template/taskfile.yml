@@ -3,11 +3,11 @@ version: '3'
 tasks:
 
   build:
-    desc: Build the app to out folder
+    desc: Generate indexes and copy templates to output folder
     cmds:
       - '{{.SHELL}} mkdir -p out/www/'
       - '{{.SHELL}} cp -ar template/ out/www/'
-      - node ops/gen-library.mjs
+      - node ops/gen-metadata.mjs
 
   generate:
     desc: Generate Quiz PDF from CSV

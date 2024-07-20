@@ -27,9 +27,9 @@ window.customElements.define("qco-library", class extends QComponent
             ${qsLibrary.state.isLoading ? html`<p>loading...</p>` : ""}
 
             <div>
-                ${qsLibrary.state.items.length === 0
+                ${qsLibrary.state.exercises.length === 0
                     ? html`<p>Nothing here</p>`
-                    : qsLibrary.state.items
+                    : qsLibrary.state.exercises
                         .map(item => this.renderExercise(item))
                         .join('')
                 }
@@ -40,7 +40,7 @@ window.customElements.define("qco-library", class extends QComponent
         {
             button.addEventListener("click", () =>
             {
-                const libraryExercise = qsLibrary.state.items[index]
+                const libraryExercise = qsLibrary.state.exercises[index]
 
                 const outlineExercise =
                 {

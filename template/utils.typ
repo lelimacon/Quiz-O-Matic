@@ -1,5 +1,4 @@
 #import "@preview/suiji:0.3.0"
-#import "theme.typ": *
 
 
 #let array-take(indices, array, startAt: 0) = {
@@ -48,7 +47,7 @@
     }
 
     if (variable) {
-      return {s-article;var({s-main;s-emoji})}
+      return {s-article;emph({s-main;s-emoji})}
     }
     else {
       return {s-article;s-main;s-emoji}

@@ -1,6 +1,7 @@
 import "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
 // DOC: https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
 
+import metadata from "../metadata.js"
 import { elementFromHTML } from "../lib/utils.js"
 import { lengths, getLevelIndex } from "../lib/constants.js"
 import QComponent from "../lib/QComponent.js"
@@ -25,18 +26,20 @@ const init = async () =>
     const add = async (path) => $typst.addSource(path, await getDoc(path))
 
     await add("/main.typ")
+
     await add("/constants.typ")
+    await add("/entities.typ")
+    await add("/generator.typ")
     await add("/random.typ")
     await add("/theme.typ")
     await add("/utils.typ")
-    await add("/entities.typ")
 
-    const library = JSON.parse(await fetch(`library.json`).then(r => r.text()))
-    for (const quiz of library)
-    {
-        await add(quiz.path)
-    }
+    for (const exercise of metadata.exercises)
+        await add(exercise.path)
 
+    for (const theme of metadata.themes)
+        await add(theme.path)
+    
     console.log("typst ready")
 }
 
@@ -78,10 +81,9 @@ customElements.define("qco-preview", class extends QComponent
     generateData()
     {
         const mode = parseInt(qsQuiz.state.mode)
+        const theme = qsQuiz.state.theme
 
-        const theme = "plain"
-
-        const exercises = qsQuiz.state.items.map(e =>
+        const exercises = qsQuiz.state.exercises.map(e =>
         { return {
             code: e.code,
             seed: e.seed,

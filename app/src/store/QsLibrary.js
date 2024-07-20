@@ -1,10 +1,11 @@
+import metadata from "../metadata.js"
 import QStore from "../lib/QStore.js"
 
 
 const initialState =
 {
     isLoading: false,
-    items: [],
+    exercises: [],
 }
 
 const actions =
@@ -26,19 +27,19 @@ const reducers =
     loaded: (state, payload) =>
     {
         state.isLoading = false
-        state.items = payload.items
+        state.exercises = payload.exercises
         return state
     },
 
     addItem: (state, payload) =>
     {
-        state.items.push(payload.item)
+        state.exercises.push(payload.item)
         return state
     },
 
     clearItem: (state, payload) =>
     {
-        state.items.splice(payload.index, 1)
+        state.exercises.splice(payload.index, 1)
         return state
     },
 }
@@ -52,10 +53,9 @@ const effects =
             // Demo sleep.
             //await new Promise(r => setTimeout(r, 500))
 
-            const libraryJson = await fetch("library.json").then(r => r.text())
-            const items = JSON.parse(libraryJson)
+            const exercises = metadata.exercises
 
-            store.dispatch(actions.loaded, { items })
+            store.dispatch(actions.loaded, { exercises })
         },
     },
 ]

@@ -1,6 +1,9 @@
 {
     "mode": 0,
-    "theme": "plain",
+    "theme": {
+        "code": "T_PLN",
+        "options": {}
+    },
     "exercises": [
         { "code": "Q_MAT_AAD", "seed": 42, "level": 6, "length": 5 },
         { "code": "Q_MAT_POP", "seed": 42, "level": 6, "length": 1 },
