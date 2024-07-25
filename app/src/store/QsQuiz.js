@@ -4,10 +4,16 @@ import QStore from "../lib/QStore.js"
 const initialState =
 {
     mode: 0,
+    title: "Your Final Test",
+    subtitle: "Until next one!",
+    date: "2049-01-01",
     theme:
     {
         code: "T_PLN",
-        options: {},
+        options: {
+            primaryColor: "#0074d9",
+            secondaryColor: "#239dad",
+        },
     },
     exercises: [],
 }
@@ -16,6 +22,9 @@ const actions =
 {
     setMode: "setMode",
     setTheme: "setTheme",
+    setTitle: "setTitle",
+    setSubtitle: "setSubtitle",
+    setDate: "setDate",
     addItem: "addItem",
     clearItem: "clearItem",
     changeSeed: "changeSeed",
@@ -98,6 +107,21 @@ class QsQuiz extends QStore
     setTheme(code, options)
     {
         this.dispatch(actions.setTheme, { code, options })
+    }
+
+    setTitle(title)
+    {
+        this.dispatch(actions.setTheme, { title })
+    }
+
+    setSubtitle(subtitle)
+    {
+        this.dispatch(actions.setTheme, { subtitle })
+    }
+
+    setDate(date)
+    {
+        this.dispatch(actions.setTheme, { date })
     }
 
     addItem(item)

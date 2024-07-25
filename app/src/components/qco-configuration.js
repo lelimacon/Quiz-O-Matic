@@ -77,7 +77,7 @@ window.customElements.define("qco-configuration", class extends QComponent
         this.$theme.addEventListener("qe_selectionChanged", (e) =>
         {
             const code = e.detail.selectedValues[0]
-            const options = {}
+            const options = qsQuiz.state.theme.options
             qsQuiz.setTheme(code, options)
         })
 

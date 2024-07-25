@@ -1,0 +1,9 @@
+code = "T_PLN"
+name = "Plain"
+description = "Default print-friendly theme."
+tags = "plain,print-friendly,bw"
+assets = []
+
+[defaults]
+primaryColor = "#0074d9" # blue
+secondaryColor = "#239dad" # eastern

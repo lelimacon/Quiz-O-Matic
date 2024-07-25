@@ -15,6 +15,7 @@
   }
 
   theme.exercise(
+    exercise.length,
     ex.generate-title(
       seed: exercise.seed,
       level: exercise.level,

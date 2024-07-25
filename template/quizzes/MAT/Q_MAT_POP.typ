@@ -77,17 +77,21 @@
 
 
 // Preview.
-#{
+#let preview() = {
   let seed = 42
   let level = level-grades.g5
   let length = lengths.quick
 
-  import "../../themes/T_PLN.typ" as theme
+  import "../../themes/T_PLN/T_PLN.typ" as theme
 
   show: theme.apply
 
   theme.exercise(
+    length,
     generate-title(seed: seed, level: level, length: length),
     generate(theme, seed: seed, level: level, length: length),
   )
 }
+
+// Keep commented to avoid breaking imports.
+//#preview()

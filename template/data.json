@@ -1,8 +1,14 @@
 {
     "mode": 0,
+    "title": "Your Final Test",
+    "subtitle": "Until next one!",
+    "date": "2049-01-01",
     "theme": {
         "code": "T_PLN",
-        "options": {}
+        "options": {
+            "primaryColor": "#0074d9",
+            "secondaryColor": "#239dad"
+        }
     },
     "exercises": [
         { "code": "Q_MAT_AAD", "seed": 42, "level": 6, "length": 5 },

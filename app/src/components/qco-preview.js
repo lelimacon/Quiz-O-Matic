@@ -31,15 +31,28 @@ const init = async () =>
     await add("/entities.typ")
     await add("/generator.typ")
     await add("/random.typ")
-    await add("/theme.typ")
     await add("/utils.typ")
 
     for (const exercise of metadata.exercises)
+    {
         await add(exercise.path)
+    }
 
     for (const theme of metadata.themes)
+    {
         await add(theme.path)
-    
+
+        if (theme.assets)
+        {
+            for (const assetName of theme.assets.split(","))
+            {
+                const themeDir = theme.path.substring(0, theme.path.lastIndexOf("/") + 1)
+                const assetPath = `${themeDir}${assetName}`
+                await add(assetPath)
+            }
+        }
+    }
+
     console.log("typst ready")
 }
 
@@ -80,9 +93,6 @@ customElements.define("qco-preview", class extends QComponent
 
     generateData()
     {
-        const mode = parseInt(qsQuiz.state.mode)
-        const theme = qsQuiz.state.theme
-
         const exercises = qsQuiz.state.exercises.map(e =>
         { return {
             code: e.code,
@@ -91,7 +101,15 @@ customElements.define("qco-preview", class extends QComponent
             length: lengths[e.selectedLength],
         }})
 
-        const data = { theme, mode, exercises }
+        const data =
+        {
+            mode: parseInt(qsQuiz.state.mode),
+            theme: qsQuiz.state.theme,
+            title: qsQuiz.state.title,
+            subtitle: qsQuiz.state.subtitle,
+            date: qsQuiz.state.date,
+            exercises,
+        }
 
         return data
     }

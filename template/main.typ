@@ -3,10 +3,18 @@
 
 #let data = json("data.json")
 
-#import "themes/" + data.theme.code + ".typ" as theme
+#import "themes/" + data.theme.code + "/" + data.theme.code + ".typ" as theme
 
-#show: theme.apply
+#show: theme.apply.with(
+  options: data.theme.options
+)
 
+#show: theme.cover.with(
+  length: data.exercises.map(e => e.length).sum(default: 0),
+  title: data.title,
+  subtitle: data.subtitle,
+  date: data.date,
+)
 
 #let mode = (
   questions-then-answers: 0,
