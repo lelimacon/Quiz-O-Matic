@@ -1,0 +1,12 @@
+code = "T_PDM"
+name = "Public Domain Mouse"
+description = "Public domain Mickey Mouse (Steamboat Willie)."
+tags = "color"
+assets = [
+    "mouse-head-1.svg",
+    "mouse-sitting-1.svg",
+]
+
+[defaults]
+primaryColor = "#c92118" # dark red
+secondaryColor = "#2118c9" # deep blue
