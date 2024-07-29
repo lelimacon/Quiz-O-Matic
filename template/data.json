@@ -4,15 +4,15 @@
     "subtitle": "Until next one!",
     "date": "2049-01-01",
     "theme": {
-        "code": "T_PLN",
+        "path": "themes/T_PLN/T_PLN.typ",
         "options": {
             "primaryColor": "#0074d9",
             "secondaryColor": "#239dad"
         }
     },
     "exercises": [
-        { "code": "Q_MAT_AAD", "seed": 42, "level": 6, "length": 5 },
-        { "code": "Q_MAT_POP", "seed": 42, "level": 6, "length": 1 },
-        { "code": "Q_MAT_SIC", "seed": 42, "level": 6, "length": 5 }
+        { "path": "exercises/MAT/Q_MAT_AAD/Q_MAT_AAD.typ", "seed": 42, "level": 6, "length": 5 },
+        { "path": "exercises/MAT/Q_MAT_POP/Q_MAT_POP.typ", "seed": 42, "level": 6, "length": 1 },
+        { "path": "exercises/MAT/Q_MAT_SIC/Q_MAT_SIC.typ", "seed": 42, "level": 6, "length": 5 }
     ]
 }

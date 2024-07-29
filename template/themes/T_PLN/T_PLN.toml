@@ -1,7 +1,7 @@
 code = "T_PLN"
 name = "Plain"
 description = "Default print-friendly theme."
-tags = "plain,print-friendly,bw"
+tags = ["plain", "print_friendly", "bw"]
 assets = []
 
 [defaults]

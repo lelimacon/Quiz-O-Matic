@@ -1,0 +1,12 @@
+code = "Q_MAT_SIC"
+subject = "mat"
+name = "Sharing is caring"
+description = "Practical problem about multiplications and multiples."
+tags = ["practical", "closed_answers", "problem", "traps", "plot", "arithmetic"]
+levelScale = "grades"
+supportedLevels = ["g5", "g6"]
+supportedLengths = ["medium", "long"]
+
+[defaults]
+level = "g5"
+length = "medium"

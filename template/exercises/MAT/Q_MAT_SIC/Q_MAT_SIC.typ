@@ -1,16 +1,7 @@
-// code=Q_MAT_SIC
-// subject=mat
-// name=Sharing is caring
-// description=Practical problem about multiplications and multiples.
-// tags=practical,closed_answers,problem,traps,plot,arithmetic
-// levelScale=grades
-// supportedLevels=g5,g6
-// supportedLengths=medium,long
-
-#import "../../entities.typ"
-#import "../../constants.typ": *
-#import "../../random.typ": *
-#import "../../utils.typ": *
+#import "../../../entities.typ"
+#import "../../../constants.typ": *
+#import "../../../random.typ": *
+#import "../../../utils.typ": *
 
 
 #let generate-title(
@@ -145,7 +136,7 @@
         [
           How many does #f-v(edible, n: 2) did #f-v(person) eat?
         ],
-        [
+        block[
           $ #special-eat-count $
         ]
       ),

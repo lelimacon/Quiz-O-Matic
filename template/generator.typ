@@ -4,10 +4,7 @@
   exercise,
   shouldExcludeAnswers,
 ) = {
-  let subject = exercise.code.slice(2, count: 3)
-  let path = "quizzes/" + subject + "/" + exercise.code + ".typ"
-
-  import path as ex
+  import exercise.path as ex
 
   show <answer>: it => {
     if shouldExcludeAnswers { it }
@@ -34,10 +31,7 @@
   theme,
   exercise,
 ) = {
-  let subject = exercise.code.slice(2, count: 3)
-  let path = "quizzes/" + subject + "/" + exercise.code + ".typ"
-
-  import path as ex
+  import exercise.path as ex
 
   let filterInputs(
     content

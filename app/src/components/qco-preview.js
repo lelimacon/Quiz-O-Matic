@@ -1,29 +1,46 @@
-import "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
+import {
+    $typst,
+    preloadRemoteFonts,
+} from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
 // DOC: https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
 
-import metadata from "../metadata.js"
+import sources from "../sources.js"
 import { elementFromHTML } from "../lib/utils.js"
 import { lengths, getLevelIndex } from "../lib/constants.js"
 import QComponent from "../lib/QComponent.js"
-import qsQuiz from "../store/QsQuiz.js"
 import qsPreview from "../store/QsPreview.js"
+import qsQuiz from "../store/QsQuiz.js"
 
 
 const init = async () =>
 {
     console.log("typst init")
 
-    $typst.setCompilerInitOptions(
-    {
+    $typst.setCompilerInitOptions
+    ({
+        beforeBuild:
+        [
+            preloadRemoteFonts
+            ([
+                "/template/res/LuckiestGuy-Regular.ttf",
+                "/template/res/Quicksand-Regular.ttf",
+                "/template/res/Quicksand-Bold.ttf",
+            ]),
+        ],
         getModule: () => "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm",
     })
-    $typst.setRendererInitOptions(
-    {
+    $typst.setRendererInitOptions
+    ({
         getModule: () => "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer_bg.wasm",
     })
 
-    const getDoc = (path) => fetch(`template${path}`).then(r => r.text())
-    const add = async (path) => $typst.addSource(path, await getDoc(path))
+    const fetchText = (path) => fetch(path).then(r => r.text())
+    const add = async (path) =>
+    {
+        const text = await fetchText(`/template${path}`)
+        //console.log("ADD", path, text)
+        await $typst.addSource(path, text)
+    }
 
     await add("/main.typ")
 
@@ -33,22 +50,33 @@ const init = async () =>
     await add("/random.typ")
     await add("/utils.typ")
 
-    for (const exercise of metadata.exercises)
+    for (const source of sources.sources)
     {
-        await add(exercise.path)
-    }
-
-    for (const theme of metadata.themes)
-    {
-        await add(theme.path)
-
-        if (theme.assets)
+        const add = async (path) =>
         {
-            for (const assetName of theme.assets.split(","))
+            const text = await fetchText(`${source.baseUrl}${path}`)
+            //console.log("ADD", path)
+            return $typst.addSource(`/${path}`, text)
+        }
+
+        for (const exercise of source.exercises)
+        {
+            //console.log("exercise", exercise)
+            await add(exercise.path)
+        }
+
+        for (const theme of source.themes)
+        {
+            await add(theme.path)
+
+            if (theme.assets)
             {
-                const themeDir = theme.path.substring(0, theme.path.lastIndexOf("/") + 1)
-                const assetPath = `${themeDir}${assetName}`
-                await add(assetPath)
+                for (const assetName of theme.assets)
+                {
+                    const themeDir = theme.path.substring(0, theme.path.lastIndexOf("/") + 1)
+                    const assetPath = `${themeDir}${assetName}`
+                    await add(assetPath)
+                }
             }
         }
     }
@@ -95,7 +123,7 @@ customElements.define("qco-preview", class extends QComponent
     {
         const exercises = qsQuiz.state.exercises.map(e =>
         { return {
-            code: e.code,
+            path: e.path,
             seed: e.seed,
             level: getLevelIndex(e.levelScale, e.selectedLevel),
             length: lengths[e.selectedLength],

@@ -1,9 +1,3 @@
-// code=T_PDM
-// name=Public Domain Mouse
-// description=Public domain Mickey Mouse (Steamboat Willie).
-// tags=color
-// assets=mouse-head-1.svg,mouse-sitting-1.svg
-
 #let state-index = state("exercise-index", 1)
 
 
@@ -26,7 +20,7 @@
     ),
 
     [
-      #title
+      #text(font: "Luckiest Guy", title)
       #h(1fr)
       #length minutes
     ]
@@ -47,7 +41,7 @@
     ),
 
     [
-      #title
+      #text(font: "Luckiest Guy", title)
       #h(1fr)
       #counter(page).display(
         "1/1",
@@ -139,6 +133,8 @@
 
       #set align(center)
 
+      #set text(font: "Luckiest Guy")
+
       #block(text(
         size: 32pt,
         weight: "extrabold",
@@ -181,6 +177,7 @@
     #set text(
       size: 20pt,
       fill: primary-color,
+      font: "Luckiest Guy",
     )
 
     // Hide numbering.
@@ -190,7 +187,10 @@
   show heading.where(level: 2): set text(
     size: 14pt,
     fill: primary-color,
+    font: "Luckiest Guy",
   )
+
+  set text(font: "Quicksand")
 
   set text(
     size: 12pt,
@@ -259,7 +259,7 @@
 
     box(
       width: 100%,
-      height: 20pt,
+      height: 18pt,
       fill: polkaPattern,
 
       place(
@@ -289,7 +289,7 @@
     //box(width: 10pt),
     box(
       width: 100%,
-      height: 20pt,
+      height: 18pt,
       fill: polkaPattern,
 
       place(

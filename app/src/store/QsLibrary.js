@@ -1,4 +1,4 @@
-import metadata from "../metadata.js"
+import sources from "../sources.js"
 import QStore from "../lib/QStore.js"
 
 
@@ -53,7 +53,7 @@ const effects =
             // Demo sleep.
             //await new Promise(r => setTimeout(r, 500))
 
-            const exercises = metadata.exercises
+            const exercises = sources.exercises
 
             store.dispatch(actions.loaded, { exercises })
         },

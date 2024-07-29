@@ -1,9 +1,8 @@
 #import "generator.typ" as generator
 
-
 #let data = json("data.json")
 
-#import "themes/" + data.theme.code + "/" + data.theme.code + ".typ" as theme
+#import data.theme.path as theme
 
 #show: theme.apply.with(
   options: data.theme.options

@@ -1,15 +1,6 @@
-// code=Q_MAT_POP
-// subject=mat
-// name=Pop-Quiz!
-// description=Theoretical questions about multiples and divisors.
-// tags=theoretical,closed_answers,arithmetic
-// levelScale=grades
-// supportedLevels=g5,g6
-// supportedLengths=instant,quick,medium
-
-#import "../../constants.typ": *
-#import "../../random.typ": *
-#import "../../utils.typ": *
+#import "../../../constants.typ": *
+#import "../../../random.typ": *
+#import "../../../utils.typ": *
 
 
 #let generate-title(

@@ -1,7 +1,7 @@
 code = "T_PDM"
 name = "Public Domain Mouse"
 description = "Public domain Mickey Mouse (Steamboat Willie)."
-tags = "color"
+tags = ["color"]
 assets = [
     "mouse-head-1.svg",
     "mouse-sitting-1.svg",

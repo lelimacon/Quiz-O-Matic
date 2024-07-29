@@ -1,0 +1,12 @@
+code = "Q_MAT_POP"
+subject = "mat"
+name = "Pop-Quiz!"
+description = "Theoretical questions about multiples and divisors."
+tags = ["theoretical", "closed_answers", "arithmetic"]
+levelScale = "grades"
+supportedLevels = ["g5", "g6"]
+supportedLengths = ["instant", "quick", "medium"]
+
+[defaults]
+level = "g5"
+length = "quick"

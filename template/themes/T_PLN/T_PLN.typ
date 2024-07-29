@@ -1,8 +1,3 @@
-// code=T_PLN
-// name=Plain
-// description=Default print-friendly theme.
-// tags=plain,print-friendly,bw
-
 #let state-index = state("exercise-index", 1)
 
 

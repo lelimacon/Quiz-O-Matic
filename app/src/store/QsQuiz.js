@@ -1,20 +1,27 @@
+import sources from "../sources.js"
 import QStore from "../lib/QStore.js"
 
+
+const themeStateFromThemeCode = (themeCode) =>
+    sources.themes
+        .filter(theme => theme.code === themeCode)
+        .map(theme =>
+        { return {
+            code: theme.code,
+            path: theme.path,
+            options: {
+                primaryColor: theme.defaults.primaryColor,
+                secondaryColor: theme.defaults.secondaryColor,
+            },
+        }})[0]
 
 const initialState =
 {
     mode: 0,
     title: "Your Final Test",
     subtitle: "Until next one!",
-    date: "2049-01-01",
-    theme:
-    {
-        code: "T_PLN",
-        options: {
-            primaryColor: "#0074d9",
-            secondaryColor: "#239dad",
-        },
-    },
+    date: new Date().toISOString().split("T")[0], // "2049-01-01"
+    theme: themeStateFromThemeCode("T_PLN"),
     exercises: [],
 }
 
@@ -42,11 +49,7 @@ const reducers =
 
     setTheme: (state, payload) =>
     {
-        state.theme =
-        {
-            code: payload.code,
-            options: payload.options,
-        }
+        state.theme = themeStateFromThemeCode(payload.themeCode)
         return state
     },
 
@@ -104,9 +107,9 @@ class QsQuiz extends QStore
         this.dispatch(actions.setMode, { mode })
     }
 
-    setTheme(code, options)
+    setTheme(themeCode)
     {
-        this.dispatch(actions.setTheme, { code, options })
+        this.dispatch(actions.setTheme, { themeCode })
     }
 
     setTitle(title)

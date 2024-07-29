@@ -1,17 +1,17 @@
 /*
-    Generates JSON metadata.
-    - Library: all quizzes information
+    Generates JSON source metadata.
+    - Exercises
     - Themes
     Call from root folder.
 
-    Usage: deno run --allow-read --allow-write .\ops\gen-metadata.mjs
+    Usage: deno run --allow-read --allow-write .\ops\gen-source.mjs
 */
 
 import * as toml from "jsr:@std/toml"
 
-const exercisesDir = "template/quizzes"
+const exercisesDir = "template/exercises"
 const themesDir = "template/themes"
-const outputPath = "./out/www/metadata.json"
+const outputPath = "./out/www/source.json"
 
 
 Array.prototype.takeUntil = function (predicate)
@@ -60,20 +60,24 @@ const readMetadata = async (path) =>
 {
     const content = await Deno.readTextFile(path)
     const metadata = toml.parse(content)
-    //console.log(content)
+
+    // Add path to metadata.
+    metadata.path = `${path.substring(9, path.length - 5)}.typ`
     return metadata
 }
 
 
 const themePaths = await listPaths(themesDir, ".toml")
-console.log("themePaths", themePaths)
 const themes = await themePaths.mapAsync(path => readMetadata(path))
 
 const exercisePaths = await listPaths(exercisesDir, ".toml")
 const exercises = await exercisePaths.mapAsync(path => readMetadata(path))
 
-const metadata = { themes, exercises }
-//console.log(metdata)
-const json = JSON.stringify(metadata, null, "  ")
-//fs.writeFile(outputPath, json)
+const source =
+{
+    themes,
+    exercises,
+}
+
+const json = JSON.stringify(source, null, "  ")
 Deno.writeTextFileSync(outputPath, json);

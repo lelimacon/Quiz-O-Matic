@@ -1,6 +1,6 @@
-import metadata from "../metadata.js"
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
+import sources from "../sources.js"
 import qsQuiz from "../store/QsQuiz.js"
 
 
@@ -35,7 +35,7 @@ window.customElements.define("qco-configuration", class extends QComponent
                 selected-values="${qsQuiz.state.theme.code}"
             >
                 ${
-                    metadata.themes.map(theme =>
+                    sources.themes.map(theme =>
                         html`
                         <qca-select.item
                             value="${theme.code}"
@@ -46,7 +46,6 @@ window.customElements.define("qco-configuration", class extends QComponent
                             <div class="tags">
                                 ${
                                     theme.tags
-                                        .split(",")
                                         .map(tag => html`<div class="tag">${tag}</div>`)
                                         .join("")
                                 }
@@ -60,6 +59,7 @@ window.customElements.define("qco-configuration", class extends QComponent
         this.$mode = this.querySelector("[name='mode']")
         this.$theme = this.querySelector("[name='theme']")
 
+        //qsLibrary.events.subscribe("qe_stateChanged", () => this.render())
         //qsQuiz.events.subscribe("qe_stateChanged", () => this.render())
     }
 

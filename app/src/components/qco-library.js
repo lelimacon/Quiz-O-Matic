@@ -44,11 +44,12 @@ window.customElements.define("qco-library", class extends QComponent
 
                 const outlineExercise =
                 {
-                    ...libraryExercise,
+                    // TODO: Only expose uid (source + code or absolute URI) then from sources.
+                    ... libraryExercise,
 
                     seed: Math.floor(Math.random() * 1000),
-                    selectedLevel: libraryExercise.supportedLevels.split(",")[0],
-                    selectedLength: libraryExercise.supportedLengths.split(",")[0],
+                    selectedLevel: libraryExercise.defaults.level,
+                    selectedLength: libraryExercise.defaults.length,
                 }
 
                 qsQuiz.addItem(outlineExercise)
@@ -63,10 +64,10 @@ window.customElements.define("qco-library", class extends QComponent
             subject="${item.subject}"
             name="${item.name}"
             description="${item.description}"
-            tags="${item.tags}"
+            tags="${item.tags.join(",")}"
             levelScale="${item.levelScale}"
-            supportedLevels="${item.supportedLevels}"
-            supportedLengths="${item.supportedLengths}"
+            supportedLevels="${item.supportedLevels.join(",")}"
+            supportedLengths="${item.supportedLengths.join(",")}"
         >
             <qca-ex-info.header-rhs>
                 <button name="addItem" aria-label="Add exercise to quiz">

@@ -1,14 +1,5 @@
-// code=Q_MAT_AAD
-// subject=mat
-// name=Arithm-Addict
-// description=Practical quiz for Maths beginners, where every question is an operation to solve.
-// tags=practical,closed_answers,arithmetic
-// levelScale=grades
-// supportedLevels=g5,g6
-// supportedLengths=medium,long,full,double
-
-#import "../../constants.typ": *
-#import "../../random.typ": *
+#import "../../../constants.typ": *
+#import "../../../random.typ": *
 
 
 #let generate-title(
