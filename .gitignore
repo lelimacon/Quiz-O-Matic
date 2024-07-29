@@ -2,6 +2,9 @@
 # Taskfile.
 .task/
 
+# Deno.
+deno.lock
+
 # Output folder.
 out/
 

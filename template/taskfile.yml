@@ -7,7 +7,7 @@ tasks:
     cmds:
       - '{{.SHELL}} mkdir -p out/www/'
       - '{{.SHELL}} cp -ar template/ out/www/'
-      - node ops/gen-metadata.mjs
+      - deno run --allow-read --allow-write .\ops\gen-metadata.mjs
 
   generate:
     desc: Generate Quiz PDF from CSV
