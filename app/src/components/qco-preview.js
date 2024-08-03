@@ -25,6 +25,9 @@ const init = async () =>
                 "/template/res/LuckiestGuy-Regular.ttf",
                 "/template/res/Quicksand-Regular.ttf",
                 "/template/res/Quicksand-Bold.ttf",
+
+                // Emoji font is automatically used.
+                "/template/res/NotoEmoji-VariableFont_wght.ttf",
             ]),
         ],
         getModule: () => "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm",
