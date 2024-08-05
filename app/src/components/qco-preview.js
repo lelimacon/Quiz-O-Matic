@@ -45,12 +45,12 @@ const init = async () =>
         await $typst.addSource(path, text)
     }
 
-    await add("/main.typ")
-
-    await add("/constants.typ")
+    await add("/builder.typ")
     await add("/entities.typ")
-    await add("/generator.typ")
+    await add("/constants.typ")
+    await add("/main.typ")
     await add("/random.typ")
+    await add("/resolver.typ")
     await add("/utils.typ")
 
     for (const source of sources.sources)

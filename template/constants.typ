@@ -1,5 +1,3 @@
-#import "@preview/suiji:0.3.0"
-
 
 // Scale: USA grades.
 #let level-grades = (

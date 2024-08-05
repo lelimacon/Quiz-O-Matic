@@ -1,15 +1,21 @@
-#import "generator.typ" as generator
+#import "resolver.typ" as resolver
+#import "builder.typ" as builder
+
 
 #let data = json("data.json")
 
 #import data.theme.path as theme
 
 #show: theme.apply.with(
-  options: data.theme.options
+  options: data.theme.options,
+  title: data.title,
+  length: length,
 )
 
-#show: theme.cover.with(
-  length: data.exercises.map(e => e.length).sum(default: 0),
+#let lentgh = data.exercises.map(e => e.length).sum(default: 0)
+
+#builder.cover(
+  length: length,
   title: data.title,
   subtitle: data.subtitle,
   date: data.date,
@@ -29,7 +35,7 @@
   let shouldExcludeAnswers = data.mode != mode.questions-with-answers
 
   data.exercises
-    .map(ex => generator.generate-exercise(theme, ex, shouldExcludeAnswers))
+    .map(ex => resolver.generate-exercise(ex, shouldExcludeAnswers))
     .join()
 }
 
@@ -52,6 +58,6 @@
   text(size: 20pt, align(center, [Answers]))
 
   data.exercises
-    .map(ex => generator.generate-answers(theme, ex))
+    .map(ex => resolver.generate-answers(ex))
     .join()
 }

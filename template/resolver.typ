@@ -1,6 +1,7 @@
+#import "builder.typ" as builder
+
 
 #let generate-exercise(
-  theme,
   exercise,
   shouldExcludeAnswers,
 ) = {
@@ -11,7 +12,7 @@
     else { hide(it) }
   }
 
-  theme.exercise(
+  builder.exercise(
     exercise.length,
     ex.generate-title(
       seed: exercise.seed,
@@ -19,7 +20,6 @@
       length: exercise.length,
     ),
     ex.generate(
-      theme,
       seed: exercise.seed,
       level: exercise.level,
       length: exercise.length,
@@ -28,7 +28,6 @@
 }
 
 #let generate-answers(
-  theme,
   exercise,
 ) = {
   import exercise.path as ex
@@ -82,7 +81,6 @@
 
     let inputs = filterInputs(
       ex.generate(
-        theme,
         seed: exercise.seed,
         level: exercise.level,
         length: exercise.length,

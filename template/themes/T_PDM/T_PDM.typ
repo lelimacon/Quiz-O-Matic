@@ -1,3 +1,6 @@
+#import "../../utils.typ": *
+
+
 #let state-index = state("exercise-index", 1)
 
 
@@ -6,6 +9,7 @@
 
 
 #let header(
+  options,
   title,
   length,
 ) = {
@@ -28,6 +32,7 @@
 }
 
 #let footer(
+  options,
   title,
 ) = {
   set text(weight: "bold")
@@ -52,21 +57,12 @@
 }
 
 #let cover(
-  length: "",
-  title: "",
-  subtitle: "",
-  date: "",
-  body,
+  options,
+  length,
+  title,
+  subtitle,
+  date,
 ) = {
-  set page(
-    header: context {
-      if counter(page).get().first() > 1 {
-        header(title, length)
-      }
-    },
-    footer: footer(title),
-  )
-
   block(height: 60pt)
 
   box(
@@ -103,7 +99,7 @@
               thickness: 1pt,
             ),
           ),
-          fill: red,
+          fill: options.primary-color,
         )
       )
 
@@ -138,7 +134,7 @@
       #block(text(
         size: 32pt,
         weight: "extrabold",
-        fill: red,
+        fill: options.primary-color,
         stroke: black,
         smallcaps(title)
       ))
@@ -146,110 +142,22 @@
       #block(text(
         size: 20pt,
         weight: "light",
-        fill: red.lighten(20%),
+        fill: options.primary-color.lighten(20%),
         smallcaps(subtitle)
       ))
     ]
   )
-
-  body
-}
-
-#let apply(
-  options: (),
-  body,
-) = {
-  let primary-color = rgb(options.primaryColor)
-  let secondary-color = rgb(options.secondaryColor)
-
-  set page(
-    margin: (
-      top: 60pt,
-      bottom: 60pt,
-      left: 56pt,
-      right: 56pt,
-    ),
-  )
-
-  show heading.where(level: 1): set heading(numbering: "A")
-  show heading.where(level: 1): it => [
-    #set align(center)
-    #set text(
-      size: 20pt,
-      fill: primary-color,
-      font: "Luckiest Guy",
-    )
-
-    // Hide numbering.
-    #it.body
-  ]
-
-  show heading.where(level: 2): set text(
-    size: 14pt,
-    fill: primary-color,
-    font: "Luckiest Guy",
-  )
-
-  set text(font: "Quicksand")
-
-  set text(
-    size: 12pt,
-  )
-
-  show emph: it => {
-    text(
-      fill: secondary-color,
-      weight: "semibold",
-      it.body,
-    )
-  }
-
-  show <t-label>: set text(fill: secondary-color, weight: "bold")
-  //show <t-input-outline>: set box(
-  //  stroke: (
-  //    paint: gray,
-  //  )
-  //)
-  show <t-inline-input-outline>: it => {
-    //set box(
-    //  stroke: (
-    //    paint: gray,
-    //  )
-    //)
-    box(
-      stroke: (
-        bottom: (
-          paint: secondary-color,
-          thickness: 1pt,
-        ),
-      ),
-      inset: (
-        //top: 2pt,
-        bottom: 4pt,
-        left: 2pt,
-        right: 2pt,
-      ),
-      it.body
-    )
-  }
-  show <t-test>: it => {
-    //it.fields()
-    let a = it.children.at(0)
-    let b = it.children.at(1)
-    [ #a -- #b ]
-  }
-
-  body
 }
 
 #let exercise(
+  options,
   points,
   title,
   body,
 ) = {
   let polkaPattern = pattern(size: (12pt, 12pt))[
-    #place(dx: 2pt, dy: 8pt, top + left, circle(radius: 1.6pt, fill: red))
-    #place(dx: 8pt, dy: 2pt, top + left, circle(radius: 1.6pt, fill: red))
+    #place(dx: 2pt, dy: 8pt, top + left, circle(radius: 1.6pt, fill: options.primary-color))
+    #place(dx: 8pt, dy: 2pt, top + left, circle(radius: 1.6pt, fill: options.primary-color))
   ]
 
   grid(
@@ -325,6 +233,7 @@
 }
 
 #let answer(
+  options,
   body,
 ) = {
   set text(fill: green)
@@ -333,6 +242,7 @@
 }
 
 #let input(
+  options,
   points,
   label,
   expected,
@@ -359,11 +269,14 @@
 
         text(
           size: 10pt,
+          fill: options.secondary-color,
+          weight: "bold",
+
           [
             Q#context state-index.get()
           ]
         )
-      ) <t-label>
+      )
 
       // Input score.
       #place(
@@ -373,23 +286,22 @@
 
         text(
           size: 10pt,
+          fill: options.secondary-color,
+          weight: "bold",
+
           range(points).map(_ => "♥").join()
         )
-      ) <t-label>
-
-      #text(weight: "bold",
-        [
-          #label <label>
-        ]
       )
 
-      #answer(expected) <input-body>
+      #text(weight: "bold", label) <input-label>
+      #answer(options, expected) <input-body>
     ]
   ) <input>
   #context state-index.update(x => x + 1)
 ]
 
 #let input-inline(
+  options,
   points,
   label,
   expected,
@@ -403,11 +315,6 @@
       //right: 2pt,
     ),
     [
-      //#grid(
-      //  [toto],
-      //  [tata],
-      //) <t-test>
-
       // Input counter.
       #place(
         dx: 0pt,
@@ -416,11 +323,14 @@
 
         text(
           size: 10pt,
+          fill: options.secondary-color,
+          weight: "bold",
+
           [
             Q#context state-index.get()
           ]
         )
-      ) <t-label>
+      )
 
       // Input score.
       #place(
@@ -430,34 +340,51 @@
 
         text(
           size: 10pt,
+          fill: options.secondary-color,
+          weight: "bold",
+
           range(points).map(_ => "♥").join()
         )
-      ) <t-label>
+      )
 
       // Underlined input.
       #box(
+        stroke: (
+          bottom: (
+            paint: options.secondary-color,
+            thickness: 1pt,
+          ),
+        ),
+        inset: (
+          //top: 2pt,
+          bottom: 4pt,
+          left: 2pt,
+          right: 2pt,
+        ),
         [
-          #(text(label)) <label>
-          #box(inset: (left: 3pt, right: 3pt), answer(expected)) <input-body>
+          #text(label) <input-label>
+          #box(inset: (left: 3pt, right: 3pt), answer(options, expected)) <input-body>
         ]
-      ) <t-inline-input-outline>
+      )
     ]
   ) <input>
+  //
   #context state-index.update(x => x + 1)
 ]
 
 #let hint(
+  options,
   body,
 ) = {
   let minSize = 0pt
   let vMargin = 6pt
 
-  set text(fill: blue)
+  set text(fill: options.secondary-color)
 
   box(
     width: 100%,
     stroke: (
-      paint: blue,
+      paint: options.secondary-color,
       thickness: 1pt,
     ),
     inset: (
@@ -483,6 +410,108 @@
 }
 
 
+#let apply(
+  options: (),
+  title: "",
+  length: "",
+  body,
+) = {
+  let options = (
+    primary-color: rgb(options.primaryColor),
+    secondary-color: rgb(options.secondaryColor),
+  )
+
+  set page(
+    margin: (
+      top: 60pt,
+      bottom: 60pt,
+      left: 56pt,
+      right: 56pt,
+    ),
+    header: context {
+      if counter(page).get().first() > 1 {
+        header(options, title, length)
+      }
+    },
+    footer: footer(options, title),
+  )
+
+  show heading.where(level: 1): set heading(numbering: "A")
+  show heading.where(level: 1): it => [
+    #set align(center)
+    #set text(
+      size: 20pt,
+      fill: options.primary-color,
+      font: "Luckiest Guy",
+    )
+
+    // Hide numbering.
+    #it.body
+  ]
+
+  show heading.where(level: 2): set text(
+    size: 14pt,
+    fill: options.primary-color,
+    font: "Luckiest Guy",
+  )
+
+  set text(font: "Quicksand")
+
+  set text(
+    size: 12pt,
+  )
+
+  show emph: it => {
+    text(
+      fill: options.secondary-color,
+      weight: "semibold",
+      it.body,
+    )
+  }
+
+  show <q-cover>: it => {
+    let length = it.children.at(0).body
+    let title = it.children.at(1).body
+    let subtitle = it.children.at(2).body
+    let date = it.children.at(3).body
+    cover(options, length, title, subtitle, date)
+  }
+
+  show <q-exercise>: it => {
+    let points = int(content-to-string(it.children.at(0).body))
+    let title = it.children.at(1).body
+    let body = it.children.at(2).body
+    exercise(options, points, title, body)
+  }
+
+  show <q-answer>: it => {
+    let body = it.children.at(0).body
+    answer(options, body)
+  }
+
+  show <q-input>: it => {
+    let points = int(content-to-string(it.children.at(0).body))
+    let label = it.children.at(1).body
+    let expected = it.children.at(2).body
+    input(options, points, label, expected)
+  }
+
+  show <q-input-inline>: it => {
+    let points = int(content-to-string(it.children.at(0).body))
+    let label = it.children.at(1).body
+    let expected = it.children.at(2).body
+    input-inline(options, points, label, expected)
+  }
+
+  show <q-hint>: it => {
+    let body = it.children.at(0).body
+    hint(options, body)
+  }
+
+  body
+}
+
+
 // Preview.
 #let preview() = {
   import "../../demo/dummy-quiz.typ" as dummy
@@ -490,16 +519,12 @@
   let metadata = toml("T_PDM.toml")
 
   show: apply.with(
-    options: metadata.defaults
+    options: metadata.defaults,
+    title: "Preview",
+    length: 20,
   )
 
-  dummy.generate((
-    cover: cover,
-    exercise: exercise,
-    input: input,
-    input-inline: input-inline,
-    hint: hint,
-  ))
+  dummy.generate()
 }
 
 // Keep commented to avoid breaking imports.

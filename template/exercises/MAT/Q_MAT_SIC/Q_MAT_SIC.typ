@@ -1,3 +1,4 @@
+#import "../../../builder.typ" as builder
 #import "../../../entities.typ"
 #import "../../../constants.typ": *
 #import "../../../random.typ": *
@@ -29,7 +30,6 @@
 // - 3x 1p question
 // - 1x 2p questions
 #let generate(
-  theme,
   seed: 0,
   level: none,
   length: none,
@@ -64,11 +64,11 @@
     has #f-vc(edible, n: rest) left for #reflexive(person).
   ]
 
-  theme.hint[Be aware that some questions may not require any calculation!]
+  builder.hint[Be aware that some questions may not require any calculation!]
 
   let questions = array-take(question-indices,
     (
-      theme.input(1,
+      builder.input(1,
         [
           How many #f-v(edible, n: 2) does #f-v(person) have left?
         ],
@@ -76,7 +76,7 @@
           $ #rest $
         ],
       ),
-      theme.input(1,
+      builder.input(1,
         [
           How many #f-v(edible, n: 2) do each of #f-v(person)'s
           #f-v(relation, n: relation-count) receive?
@@ -85,7 +85,7 @@
           $ #pack-size $
         ],
       ),
-      theme.input(1,
+      builder.input(1,
         [
           How many #f-v(edible, n: 2) do #f-v(person)'s #f-v(relation, n: relation-count) have
           in total?
@@ -99,7 +99,7 @@
   )
   questions.join()
 
-  theme.input(2,
+  builder.input(2,
     [
       How many #f-v(edible, n: 2) are there in total?
     ],
@@ -132,7 +132,7 @@
 
   questions = array-take(startAt: 3, question-indices,
     (
-      theme.input(1,
+      builder.input(1,
         [
           How many does #f-v(edible, n: 2) did #f-v(person) eat?
         ],
@@ -140,7 +140,7 @@
           $ #special-eat-count $
         ]
       ),
-      theme.input(1,
+      builder.input(1,
         [
           How many does #f-v(edible, n: 2) does #f-v(person) have left?
         ],
@@ -149,7 +149,7 @@
           #math.eq #(rest - special-eat-count) $
         ]
       ),
-      theme.input(1,
+      builder.input(1,
         [
           How many #f-v(edible, n: 2) do each of #f-v(person)'s
           #f-v(relation, n: 2) have left?
@@ -159,7 +159,7 @@
           #math.eq #(pack-size - eat-count) $
         ]
       ),
-      theme.input(1,
+      builder.input(1,
         [
           How many #f-v(edible, n: 2) do #f-v(person)'s
           #f-v(relation, n: 2) have in total?
@@ -173,7 +173,7 @@
   )
   questions.join()
 
-  theme.input(2,
+  builder.input(2,
     [
       How many #f-v(edible, n: 2) are there in total?
     ],
@@ -195,10 +195,10 @@
 
   show: theme.apply
 
-  theme.exercise(
+  builder.exercise(
     length,
     generate-title(seed: seed, level: level, length: length),
-    generate(theme, seed: seed, level: level, length: length),
+    generate(seed: seed, level: level, length: length),
   )
 }
 

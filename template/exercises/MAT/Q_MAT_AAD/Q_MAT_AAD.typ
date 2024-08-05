@@ -1,3 +1,4 @@
+#import "../../../builder.typ" as builder
 #import "../../../constants.typ": *
 #import "../../../random.typ": *
 
@@ -34,7 +35,6 @@
 }
 
 #let generate-question(
-  theme,
   random,
   level,
 ) = {
@@ -43,7 +43,7 @@
 
   (random, operation, result) = generate-operation(random, level)
 
-  let input = theme.input(1,
+  let input = builder.input(1,
     block[ $ #operation $ ],
     block[ $ #result $ ],
   )
@@ -52,7 +52,6 @@
 }
 
 #let generate(
-  theme,
   seed: 0,
   level: none,
   length: none,
@@ -64,7 +63,7 @@
 
   🧮 Calculate the result of the following operations :
 
-  #theme.hint[Try writing the operations down to avoid making mistakes!]
+  #builder.hint[Try writing the operations down to avoid making mistakes!]
 
   #grid(
     gutter: 40pt,
@@ -73,19 +72,19 @@
 
     {
       for _ in range(operation-count, step: 3) {
-        (random, input) = generate-question(theme, random, level)
+        (random, input) = generate-question(random, level)
         input
       }
     },
     {
       for _ in range(operation-count, step: 3) {
-        (random, input) = generate-question(theme, random, level)
+        (random, input) = generate-question(random, level)
         input
       }
     },
     {
       for _ in range(operation-count, step: 3) {
-        (random, input) = generate-question(theme, random, level)
+        (random, input) = generate-question(random, level)
         input
       }
     }
@@ -99,14 +98,13 @@
   let level = level-grades.kindergarten
   let length = lengths.medium
 
-  import "../../themes/T_PLN/T_PLN.typ" as theme
-
+  import "../../../themes/T_PLN/T_PLN.typ" as theme
   show: theme.apply
 
-  theme.exercise(
+  builder.exercise(
     length,
     generate-title(seed: seed, level: level, length: length),
-    generate(theme, seed: seed, level: level, length: length),
+    generate(seed: seed, level: level, length: length),
   )
 }
 
