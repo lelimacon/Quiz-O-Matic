@@ -50,7 +50,7 @@ const init = async () =>
     await add("/constants.typ")
     await add("/main.typ")
     await add("/random.typ")
-    await add("/resolver.typ")
+    await add("/theme-answers.typ")
     await add("/utils.typ")
 
     for (const source of sources.sources)
