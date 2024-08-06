@@ -35,8 +35,8 @@ window.customElements.define("qco-outline", class extends QComponent
         {
             $input.oninput = e =>
             {
-                console.log("SEED INPUT", e)
-                qsQuiz.changeSeed(index, e.target.value)
+                const seed = parseInt(e.target.value)
+                qsQuiz.changeSeed(index, seed)
             }
         })
         this.$exercises.querySelectorAll("[name='removeExercise']").forEach(($button, index) =>
