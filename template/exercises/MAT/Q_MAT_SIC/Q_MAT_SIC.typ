@@ -10,15 +10,7 @@
   level: none,
   length: none,
 ) = {
-  let random = random(seed)
-
-  let person = none
-  (random, person) = pick(random, entities.persons)
-  let relation = none
-  (random, relation) = pick(random, entities.relations)
-
   return [
-    #f(person)'s #f(relation, n: 2) agree:
     Sharing is caring
   ]
 }
