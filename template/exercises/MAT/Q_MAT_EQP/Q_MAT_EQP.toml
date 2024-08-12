@@ -1,0 +1,12 @@
+code = "Q_MAT_EQP"
+subject = "mat"
+name = "Simple equation with 1 unknown (percentage)"
+description = "Problem to solve a single unknown equation by applying a percentage."
+tags = ["practical", "closed_answers", "problem", "plot", "algebra", "equation"]
+levelScale = "grades"
+supportedLevels = ["g6"]
+supportedLengths = ["quick"]
+
+[defaults]
+level = "g6"
+length = "quick"

@@ -43,7 +43,7 @@
     }
 
     if (emoji) {
-      s-emoji = [ #entity.emoji]
+      s-emoji = [#entity.emoji]
     }
 
     if (variable) {
@@ -148,6 +148,9 @@
     }
     else { return "itself" }
 }
+
+
+#let up(str) = str.replace(count: 1, regex("^\w"), m => upper(m.text))
 
 
 #let content-to-string(content) = {

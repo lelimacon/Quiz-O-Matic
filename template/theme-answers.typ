@@ -123,14 +123,14 @@
     inset: 4pt,
 
     [
-  #text(
-    size: 10pt,
-    [\##context state-index.get()]
-  )
-  #text(
-    size: 10pt,
-    [\/#points]
-  )
+      #text(
+        size: 10pt,
+        [\##context state-index.get()]
+      )
+      #text(
+        size: 10pt,
+        [\/#points]
+      )
     ]
   )
   #box(

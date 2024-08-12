@@ -1,0 +1,12 @@
+code = "Q_MAT_EQS"
+subject = "mat"
+name = "Simple equation with 1 unknown (substraction)"
+description = "Problem to solve a single unknown equation by applying a substraction."
+tags = ["practical", "closed_answers", "problem", "plot", "algebra", "equation"]
+levelScale = "grades"
+supportedLevels = ["g6"]
+supportedLengths = ["quick"]
+
+[defaults]
+level = "g6"
+length = "quick"
