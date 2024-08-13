@@ -4,6 +4,8 @@
 #import "../../../random.typ": *
 #import "../../../utils.typ": *
 
+#import "@preview/oxifmt:0.2.1": strfmt
+
 
 #let generate-title(
   seed: 0,
@@ -12,12 +14,19 @@
 ) = {
   let random = random(seed)
 
-  let person = none
-  (random, person) = pick(random, entities.persons)
+  let (random, person) = pick(random, entities.persons)
 
-  return [
-    #f(person)'s toy collection
-  ]
+  let sex = if (person.sex == "m") { "boy" } else { "girl" }
+
+  let (random, title) = pick(random, (
+    [#f(person)'s toy collection],
+    [#f(person)'s models],
+    [#f(person) the collector],
+    [Model collector #f(person)],
+    [Collector #sex #f(person)],
+  ))
+
+  return title
 }
 
 
@@ -30,24 +39,38 @@
 ) = {
   let random = random(seed)
 
-  let person = none
-  (random, person) = pick(random, entities.persons)
-  let object = none
-  (random, object) = pick(random, entities.objects.filter(o => o.size == "l"))
+  let (random, person) = pick(random, entities.persons)
+  let (random, object) = pick(random, entities.objects.filter(o => o.size == "l"))
 
-  let object-price = none
-  (random, object-price) = integer(random, 1, 100)
+  let (random, object-price) = integer(random, 1, 100)
   object-price = object-price / 10.0
-  let rest = none
-  (random, rest) = integer(random, 1, 100)
+  let (random, rest) = integer(random, 1, 100)
   rest = rest / 10.0
   let total = object-price + rest
 
-  par[
-    #f-ve(person) is an avid toy collector.
-    After buying a #emph($\$#object-price$) #f-ve(object),
-    he now has #emph($\$rest$) left.
-  ]
+  let rest-format = emph($\$strfmt("{:.2}", #rest)$)
+  let object-price-format = emph($\$strfmt("{:.2}", #object-price)$)
+  let total-format = emph($\$strfmt("{:.2}", #total)$)
+
+  let statement = none
+  let (random, statement) = pick(random, (
+    par[
+      #f-ve(person) is an avid model collector.
+      After buying a #object-price-format #f-ve(object),
+      #subject(person) now has #rest-format left.
+    ],
+    par[
+      For #possessive(person) model collection,
+      #f-ve(person) has just bought a #f-ve(object) for #object-price-format
+      and is left with #rest-format.
+    ],
+    par[
+      #f-ve(person) has #rest-format left
+      after buying a #object-price-format #f-ve(object)
+      to complete #possessive(person) model collection.
+    ],
+  ))
+  statement
 
   builder.input(2,
     [
@@ -65,12 +88,11 @@
 
 // Preview.
 #let preview() = {
-  let seed = 42
+  let seed = 429
   let level = level-grades.g6
   let length = lengths.quick
 
   import "../../../themes/T_PLN/T_PLN.typ" as theme
-
   show: theme.apply
 
   builder.exercise(

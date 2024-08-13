@@ -60,8 +60,7 @@
 ) = {
   let random = random(seed)
 
-  let questions = none
-  (random, questions) = sample(random, length, all-questions())
+  let (random, questions) = sample(random, length, all-questions())
   questions.join()
 }
 
@@ -73,7 +72,6 @@
   let length = lengths.quick
 
   import "../../themes/T_PLN/T_PLN.typ" as theme
-
   show: theme.apply
 
   builder.exercise(

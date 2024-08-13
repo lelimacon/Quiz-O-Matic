@@ -28,24 +28,17 @@
 ) = {
   let random = random(seed)
 
-  let person = none
-  (random, person) = pick(random, entities.persons)
-  let relation = none
-  (random, relation) = pick(random, entities.relations)
-  let container = none
-  (random, container) = pick(random, entities.containers.filter(v => v.size == "s"))
-  let edible = none
-  (random, edible) = pick(random, entities.edibles)
+  let (random, person) = pick(random, entities.persons)
+  let (random, relation) = pick(random, entities.relations)
+  let (random, container) = pick(random, entities.containers.filter(v => v.size == "s"))
+  let (random, edible) = pick(random, entities.edibles)
 
-  let relation-count = none
-  (random, relation-count) = integer(random, 3, 10)
-  let pack-size = none
-  (random, pack-size) = integer(random, 3, 10)
+  let (random, relation-count) = integer(random, 3, 10)
+  let (random, pack-size) = integer(random, 3, 10)
   let rest = 5
   let total-edibles = rest + relation-count * pack-size
 
-  let question-indices = none
-  (random, question-indices) = sample(random, length - 4, range(7))
+  let (random, question-indices) = sample(random, length - 4, range(7))
 
   par[
     #f-ve(person) has #f-vae(container) full of #f-ve(edible, n: total-edibles),
@@ -184,7 +177,6 @@
   let length = lengths.medium
 
   import "../../themes/T_PLN/T_PLN.typ" as theme
-
   show: theme.apply
 
   builder.exercise(

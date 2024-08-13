@@ -51,6 +51,12 @@
   (type: "object", size: "l", article: "a", singular: "bus", plural: "buses", emoji: "🚌"),
   (type: "object", size: "l", article: "a", singular: "tram", plural: "trams", emoji: "🚋"),
   (type: "object", size: "l", article: "a", singular: "train", plural: "trains", emoji: "🚂"),
+  (type: "object", size: "l", article: "a", singular: "helicopter", plural: "helicopters", emoji: "🚁"),
+  (type: "object", size: "l", article: "a", singular: "airplane", plural: "airplanes", emoji: "🛩"),
+  (type: "object", size: "l", article: "a", singular: "flying saucer", plural: "flying saucers", emoji: "🛸"),
+  (type: "object", size: "l", article: "a", singular: "kayak", plural: "kayaks", emoji: "🛶"),
+  (type: "object", size: "l", article: "a", singular: "speedboat", plural: "speedboats", emoji: "🚤"),
+  (type: "object", size: "l", article: "a", singular: "rocket", plural: "rockets", emoji: "🚀"),
 )
 
 #let containers = (
