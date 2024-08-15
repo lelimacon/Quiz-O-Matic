@@ -111,40 +111,6 @@
   #context state-index.update(x => x + 1)
 ]
 
-#let input-inline(
-  options,
-  points,
-  label,
-  expected,
-) = [
-  #box(
-    width: auto,
-    stroke: 1pt + gray,
-    inset: 4pt,
-
-    [
-      #text(
-        size: 10pt,
-        [\##context state-index.get()]
-      )
-      #text(
-        size: 10pt,
-        [\/#points]
-      )
-    ]
-  )
-  #box(
-    width: auto,
-    stroke: 1pt + black,
-    inset: 4pt,
-
-    [
-      #answer(options, expected)
-    ]
-  )
-  #context state-index.update(x => x + 1)
-]
-
 
 #let apply(
   options: (),
@@ -189,22 +155,37 @@
       return ()
     }
 
-    if label in content.fields() and content.label == <q-input> {
-      return (content,)
+    if content.has("label") {
+      if content.label == <q-input> {
+        return (content,)
+      }
+      if content.label == <q-input-inline> {
+        return (content,)
+      }
+      return ()
     }
 
-    if label in content.fields() and content.label == <q-input-inline> {
-      return (content,)
+    if content.has("text") {
+      if type(content.text) == "string" {
+        return ()
+      }
+      return filter-inputs(content.text)
     }
 
-    if "body" in content.fields() {
+    if content.has("body") {
       return filter-inputs(content.body)
         .flatten()
     }
 
-    if "children" in content.fields() {
+    if content.has("children") {
       return content.children
         .map(item => filter-inputs(item))
+        .flatten()
+    }
+
+    // styled().
+    if content.has("child") {
+      return filter-inputs(content.child)
         .flatten()
     }
 
@@ -228,17 +209,17 @@
   }
 
   show <q-input>: it => {
-    let points = int(content-to-string(it.children.at(0).body))
+    let points = float(content-to-string(it.children.at(0).body))
     let label = it.children.at(1).body
     let expected = it.children.at(2).body
     input(options, points, label, expected)
   }
 
   show <q-input-inline>: it => {
-    let points = int(content-to-string(it.children.at(0).body))
+    let points = float(content-to-string(it.children.at(0).body))
     let label = it.children.at(1).body
     let expected = it.children.at(2).body
-    input-inline(options, points, label, expected)
+    input(options, points, label, expected)
   }
 
   show <q-hint>: it => {
@@ -247,3 +228,16 @@
 
   body
 }
+
+
+// Preview.
+#let preview() = {
+  import "demo/dummy-quiz.typ" as dummy
+
+  show: apply
+
+  dummy.generate()
+}
+
+// Keep commented to avoid breaking imports.
+//#preview()

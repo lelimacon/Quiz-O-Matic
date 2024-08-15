@@ -211,8 +211,13 @@
   label,
   expected,
 ) = [
+  #let body = [
+    #label <input-label>
+    #box(inset: (left: 3pt, right: 3pt), answer(options, expected)) <input-body>
+  ]
+  // ← No spacing to avoid new block.
   #box(
-    baseline: 12pt,
+    baseline: 11pt,
     inset: (
       top: 2pt,
       bottom: 8pt,
@@ -223,8 +228,8 @@
     [
       // Input counter.
       #place(
-        dx: 0pt,
-        dy: 12pt,
+        dx: -1pt,
+        dy: 13pt,
         bottom + left,
 
         box(
@@ -241,8 +246,8 @@
 
       // Input score.
       #place(
-        dx: 0pt,
-        dy: 12pt,
+        dx: 1pt,
+        dy: 13pt,
         bottom + right,
 
         box(
@@ -257,24 +262,40 @@
         )
       )
 
-      // Underlined input.
-      #box(
-        stroke: (
-          bottom: (
+      // Bounding box.
+      #place(
+        dx: 0pt,
+        dy: 1pt,
+        bottom + right,
+
+        box(
+          stroke: (
             paint: black,
             thickness: 2pt,
           ),
-        ),
+          inset: (
+            top: 5pt,
+            bottom: 5pt,
+            left: 6pt,
+            right: 6pt,
+          ),
+          hide(body)
+        )
+      )
+
+      // Underlined input.
+      #box(
+        //stroke: (
+        //  paint: black,
+        //  thickness: 2pt,
+        //),
         inset: (
-          //top: 2pt,
-          bottom: 5pt,
-          left: 4pt,
-          right: 8pt,
+          top: 3pt,
+          bottom: 3pt,
+          left: 6pt,
+          right: 6pt,
         ),
-        [
-          #label <input-label>
-          #box(inset: (left: 3pt, right: 3pt), answer(options, expected)) <input-body>
-        ]
+        body
       )
     ]
   ) <input>
@@ -313,10 +334,10 @@
   length: "",
   body,
 ) = {
-  // Allow empty options exclusively for this default theme.
-  let options = if options != none { options }
-    else { toml("T_PLN.toml").defaults }
+  // Load default options.
+  let options = if options != none { options } else { toml("T_PLN.toml").defaults }
 
+  // Parse colors.
   let options = (
     primary-color: rgb(options.primaryColor),
     secondary-color: rgb(options.secondaryColor),
@@ -371,6 +392,12 @@
     )
   }
 
+  show figure.caption: it => [
+    #text(weight: "semibold", it.body)
+  ]
+
+  set list(marker: ([▪], [•], [--]))
+
   show <q-cover>: it => {
     let length = it.children.at(0).body
     let title = it.children.at(1).body
@@ -392,14 +419,14 @@
   }
 
   show <q-input>: it => {
-    let points = int(content-to-string(it.children.at(0).body))
+    let points = float(content-to-string(it.children.at(0).body))
     let label = it.children.at(1).body
     let expected = it.children.at(2).body
     input(options, points, label, expected)
   }
 
   show <q-input-inline>: it => {
-    let points = int(content-to-string(it.children.at(0).body))
+    let points = float(content-to-string(it.children.at(0).body))
     let label = it.children.at(1).body
     let expected = it.children.at(2).body
     input-inline(options, points, label, expected)

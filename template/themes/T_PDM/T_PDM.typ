@@ -241,6 +241,20 @@
   [ #body <answer> ]
 }
 
+#let points-as-hearts(
+  points,
+) = {
+  range(int(points)).map(_ => "♥").join()
+  let remainder = calc.rem(points, 1)
+  if (remainder > 0.1 and remainder < 0.9) {
+    box(
+      width: (8 * remainder) * 1pt,
+      clip: true,
+      align(left, "♥")
+    )
+  }
+}
+
 #let input(
   options,
   points,
@@ -289,7 +303,7 @@
           fill: options.secondary-color,
           weight: "bold",
 
-          range(points).map(_ => "♥").join()
+          points-as-hearts(points)
         )
       )
 
@@ -343,7 +357,7 @@
           fill: options.secondary-color,
           weight: "bold",
 
-          range(points).map(_ => "♥").join()
+          points-as-hearts(points)
         )
       )
 
@@ -411,11 +425,15 @@
 
 
 #let apply(
-  options: (),
+  options: none,
   title: "",
   length: "",
   body,
 ) = {
+  // Load default options.
+  let options = if options != none { options } else { toml("T_PDM.toml").defaults }
+
+  // Parse colors.
   let options = (
     primary-color: rgb(options.primaryColor),
     secondary-color: rgb(options.secondaryColor),
@@ -469,6 +487,12 @@
     )
   }
 
+  show figure.caption: it => [
+    #text(weight: "semibold", it.body)
+  ]
+
+  set list(marker: ([👉], [--], [▪]))
+
   show <q-cover>: it => {
     let length = it.children.at(0).body
     let title = it.children.at(1).body
@@ -490,14 +514,14 @@
   }
 
   show <q-input>: it => {
-    let points = int(content-to-string(it.children.at(0).body))
+    let points = float(content-to-string(it.children.at(0).body))
     let label = it.children.at(1).body
     let expected = it.children.at(2).body
     input(options, points, label, expected)
   }
 
   show <q-input-inline>: it => {
-    let points = int(content-to-string(it.children.at(0).body))
+    let points = float(content-to-string(it.children.at(0).body))
     let label = it.children.at(1).body
     let expected = it.children.at(2).body
     input-inline(options, points, label, expected)

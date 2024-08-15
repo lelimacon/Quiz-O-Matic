@@ -53,19 +53,19 @@
         gutter: 6pt,
 
         {
-          builder.input(1,
+          builder.input(0.5,
             box(height: 34pt)[$ 5! $],
             box($ 120 $),
           )
         },
         {
-          builder.input(1,
+          builder.input(0.5,
             box(height: 34pt)[$ \l\c\m(3, 40) $],
             box[$ 120 $],
           )
         },
         {
-          builder.input(1,
+          builder.input(2,
             box(height: 34pt)[$ sum_(k=0)^15 k $],
             box[$ 120 $],
           )
@@ -77,7 +77,7 @@
         gutter: 6pt,
 
         {
-          builder.input(1,
+          builder.input(0.5,
             box(height: 34pt)[$ -x^2+80x+4800 = 0 $],
             box($ 120 $),
           )
@@ -89,7 +89,7 @@
           )
         },
         {
-          builder.input(2,
+          builder.input(2.5,
             box(height: 34pt)[$ integral_1^2 32x^3 dif x $],
             box[$ 120 $],
           )
@@ -99,10 +99,10 @@
       == English soup
       Action #builder.input-inline(1, [🙊], [speaks]) louder than words.
       Children should be #builder.input-inline(1, [🙈], [seen]) and not #builder.input-inline(1, [🙉], [heard]).
-      Flattery, like perfume, should #builder.input-inline(1, [be], [smelled]) but not swallowed.
-      A good #builder.input-inline(1, [], [listener]) is a silent flatterer.
+      Flattery, like perfume, should #builder.input-inline(0.5, [be], [smelled]) but not swallowed.
+      A good #builder.input-inline(1.5, [], [listener]) is a silent flatterer.
       As #builder.input-inline(2, [], [snug]) as a bug.
-      An #builder.input-inline(1, [🍎], [apple]) a day keeps the doctor away.
+      An #builder.input-inline(1.5, [🍎], [apple]) a day keeps the doctor away.
     ]
   )
 }

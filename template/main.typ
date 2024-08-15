@@ -95,7 +95,9 @@
 
   text(size: 20pt, align(center, [Answers]))
 
+  let shouldExcludeAnswers = false
+
   data.exercises
-    .map(ex => generate-exercise(ex, false))
+    .map(ex => generate-exercise(ex, shouldExcludeAnswers))
     .join()
 }

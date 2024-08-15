@@ -156,15 +156,22 @@
 #let content-to-string(content) = {
   if content.has("text") {
     if type(content.text) == "string" {
-      content.text
-    } else {
-      content-to-string(content.text)
+      return content.text
     }
-  } else if content.has("children") {
-    content.children.map(content-to-string).join("")
-  } else if content.has("body") {
-    content-to-string(content.body)
-  } else if content == [ ] {
-    " "
+    return content-to-string(content.text)
+  }
+  if content.has("children") {
+    return content.children
+      .map(content-to-string)
+      .join("")
+  }
+  if content.has("child") {
+    return content-to-string(content.child)
+  }
+  if content.has("body") {
+    return content-to-string(content.body)
+  }
+  if content == [ ] {
+    return " "
   }
 }
