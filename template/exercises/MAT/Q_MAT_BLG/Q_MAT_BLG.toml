@@ -1,0 +1,12 @@
+code = "Q_MAT_BLG"
+subject = "mat"
+name = "Side hustle at school - Read a line graph with 1 measurement"
+description = "Questions on a broken line graph with the days of the week and random vertical scale."
+tags = ["practical", "closed_answers", "problem", "plot", "graph", "line_graph"]
+levelScale = "grades"
+supportedLevels = ["g6"]
+supportedLengths = ["quick", "medium", "long"]
+
+[defaults]
+level = "g6"
+length = "medium"
