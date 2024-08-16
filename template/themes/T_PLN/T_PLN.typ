@@ -127,6 +127,50 @@
   [ #body <answer> ]
 }
 
+#let counter-box(
+  inset: 4pt,
+  outset: 0pt,
+) = {
+  box(
+    fill: black,
+    stroke: (
+      paint: black,
+      thickness: 2pt,
+    ),
+    inset: inset,
+    outset: outset,
+
+    text(
+      fill: white, 
+      size: 10pt,
+      [\##context state-index.get()]
+    )
+  )
+  context state-index.update(x => x + 1)
+}
+
+#let points-box(
+  points,
+  inset: 4pt,
+  outset: 0pt,
+) = {
+  box(
+    fill: black,
+    stroke: (
+      paint: black,
+      thickness: 2pt,
+    ),
+    inset: inset,
+    outset: outset,
+
+    text(
+      fill: white, 
+      size: 10pt,
+      [\/#points]
+    )
+  )
+}
+
 #let input(
   options,
   points,
@@ -140,26 +184,7 @@
     gutter: 2pt,
     align: top,
 
-    box(
-      fill: black,
-      stroke: (
-        paint: black,
-        thickness: 2pt,
-      ),
-      inset: (
-        top: 4pt,
-        bottom: 4pt,
-        left: 4pt,
-        right: 4pt,
-      ),
-
-      text(
-        fill: white, 
-        size: 10pt,
-        [\##context state-index.get()]
-      )
-    ),
-
+    counter-box(outset: (right: 1pt)),
     [
       #box(
         width: 100%,
@@ -179,28 +204,7 @@
         }
       ) <input-body>
     ],
-
-    box(
-      fill: black,
-      stroke: (
-        paint: black,
-        thickness: 2pt,
-      ),
-      inset: (
-        top: 4pt,
-        bottom: 4pt,
-        left: 4pt,
-        right: 4pt,
-      ),
-
-      text(
-        fill: white, 
-        size: 10pt,
-        [\/#points]
-      )
-    ),
-
-    context state-index.update(x => x + 1)
+    points-box(points, outset: (left: 1pt)),
 
   ) <input>
 ]
@@ -211,96 +215,65 @@
   label,
   expected,
 ) = [
-  #let body = [
-    #label <input-label>
-    #box(inset: (left: 3pt, right: 3pt), answer(options, expected)) <input-body>
-  ]
-  // ← No spacing to avoid new block.
-  #box(
-    baseline: 11pt,
+  #let inline-inset = (
+    top: 2pt,
+    bottom: 0pt,
+    left: 2pt,
+    right: 2pt,
+  )
+  #let inline-outset = (
+    top: 2pt,
+    bottom: 3pt,
+    left: 2pt,
+    right: 2pt,
+  )
+  #let counter = [\##context state-index.get()]
+  #let counter = counter-box(inset: inline-inset, outset: inline-outset)
+  #let score = [\/#points]
+  #let score = points-box(points, inset: inline-inset, outset: inline-outset)
+  #let body = box(
+    stroke: (
+      bottom: (
+        paint: black,
+        thickness: 2pt,
+      ),
+    ),
+    outset: (
+      bottom: 3pt,
+    ),
     inset: (
-      top: 2pt,
-      bottom: 8pt,
-      //left: 2pt,
-      //right: 2pt,
+      top: 0pt,
+      bottom: 0pt,
+      left: 6pt,
+      right: 8pt,
+    ),
+    [
+      #label <input-label>
+      #box(inset: (left: 3pt, right: 3pt), answer(options, expected)) <input-body>
+    ]
+  )
+  //
+  #box(
+    //baseline: 11pt,
+    inset: (
+      top: 0pt,
+      bottom: 0pt,
+      left: 4pt,
+      right: 4pt,
     ),
 
-    [
-      // Input counter.
-      #place(
-        dx: -1pt,
-        dy: 13pt,
-        bottom + left,
-
-        box(
-          fill: black,
-          inset: 3pt,
-
-          text(
-            size: 10pt,
-            fill: white,
-            [\##context state-index.get()]
-          )
-        )
-      )
-
-      // Input score.
-      #place(
-        dx: 1pt,
-        dy: 13pt,
-        bottom + right,
-
-        box(
-          fill: black,
-          inset: 3pt,
-
-          text(
-            size: 10pt,
-            fill: white,
-            [\/#points]
-          )
-        )
-      )
-
-      // Bounding box.
-      #place(
-        dx: 0pt,
-        dy: 1pt,
-        bottom + right,
-
-        box(
-          stroke: (
-            paint: black,
-            thickness: 2pt,
-          ),
-          inset: (
-            top: 5pt,
-            bottom: 5pt,
-            left: 6pt,
-            right: 6pt,
-          ),
-          hide(body)
-        )
-      )
-
-      // Underlined input.
-      #box(
-        //stroke: (
-        //  paint: black,
-        //  thickness: 2pt,
-        //),
-        inset: (
-          top: 3pt,
-          bottom: 3pt,
-          left: 6pt,
-          right: 6pt,
-        ),
+    box(
+      inset: (
+        left: 0pt,
+        right: 0pt,
+      ),
+      {
+        counter
         body
-      )
-    ]
+        score
+      }
+    )
   ) <input>
-  //
-  #context state-index.update(x => x + 1)
 ]
 
 #let hint(
