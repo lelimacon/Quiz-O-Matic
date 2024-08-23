@@ -29,6 +29,7 @@ const actions =
 {
     setMode: "setMode",
     setTheme: "setTheme",
+    setThemeOption: "setThemeOption",
     setTitle: "setTitle",
     setSubtitle: "setSubtitle",
     setDate: "setDate",
@@ -49,7 +50,14 @@ const reducers =
 
     setTheme: (state, payload) =>
     {
+        // Reset options from default.
         state.theme = themeStateFromThemeCode(payload.themeCode)
+        return state
+    },
+
+    setThemeOption: (state, payload) =>
+    {
+        state.theme.options[payload.field] = payload.value
         return state
     },
 
@@ -110,6 +118,11 @@ class QsQuiz extends QStore
     setTheme(themeCode)
     {
         this.dispatch(actions.setTheme, { themeCode })
+    }
+
+    setThemeOption(field, value)
+    {
+        this.dispatch(actions.setThemeOption, { field, value })
     }
 
     setTitle(title)

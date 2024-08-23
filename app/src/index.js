@@ -1,3 +1,4 @@
+import "./components/qca-color-picker.js"
 import "./components/qca-ex-info.js"
 import "./components/qca-input.js"
 import "./components/qca-list.js"

@@ -16,14 +16,14 @@ window.customElements.define("qco-library-filters", class extends QComponent
 
         this.innerHTML =
             html`
-            <label for="filter">Filter</label>
+            <label class="label" for="filter">Filter</label>
             <input
                 id="filter"
                 name="filter"
                 value="${this.filter}"
             />
 
-            <label for="lengths">Length</label>
+            <label class="label" for="lengths">Length</label>
             <input
                 id="lengths"
                 name="lengths"

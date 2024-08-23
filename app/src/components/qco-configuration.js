@@ -14,7 +14,7 @@ window.customElements.define("qco-configuration", class extends QComponent
 
         this.innerHTML =
             html`
-            <label for="mode">Mode</label>
+            <label class="label" for="mode">Mode</label>
             <qca-select
                 id="mode"
                 name="mode"
@@ -27,7 +27,7 @@ window.customElements.define("qco-configuration", class extends QComponent
                 <qca-select.item value="3">Answers only</qca-select.item>
             </qca-select>
 
-            <label for="theme">Theme</label>
+            <label class="label" for="theme">Theme</label>
             <qca-select
                 id="theme"
                 name="theme"
@@ -54,10 +54,29 @@ window.customElements.define("qco-configuration", class extends QComponent
                     )
                 }
             </qca-select>
+
+            <label class="label" for="primaryColor">Primary color</label>
+            <qca-color-picker
+                id="primaryColor"
+                name="primaryColor"
+                trailing-icon="edit-pencil"
+            ></qca-color-picker>
+
+            <label class="label" for="secondaryColor">Secondary color</label>
+            <qca-color-picker
+                id="secondaryColor"
+                name="secondaryColor"
+                trailing-icon="edit-pencil"
+            ></qca-color-picker>
             `
 
         this.$mode = this.querySelector("[name='mode']")
         this.$theme = this.querySelector("[name='theme']")
+        this.$primaryColor = this.querySelector("#primaryColor")
+        this.$secondaryColor = this.querySelector("#secondaryColor")
+
+        this.$primaryColor.value = qsQuiz.state.theme.options.primaryColor
+        this.$secondaryColor.value = qsQuiz.state.theme.options.secondaryColor
 
         //qsLibrary.events.subscribe("qe_stateChanged", () => this.render())
         //qsQuiz.events.subscribe("qe_stateChanged", () => this.render())
@@ -80,6 +99,16 @@ window.customElements.define("qco-configuration", class extends QComponent
             const options = qsQuiz.state.theme.options
             qsQuiz.setTheme(code, options)
         })
+        this.$primaryColor.addEventListener("qe_valueChanged", (e) =>
+        {
+            const primaryColor = e.detail.value
+            qsQuiz.setThemeOption("primaryColor", primaryColor)
+        })
+        this.$secondaryColor.addEventListener("qe_valueChanged", (e) =>
+        {
+            const secondaryColor = e.detail.value
+            qsQuiz.setThemeOption("secondaryColor", secondaryColor)
+        })
 
         qsQuiz.events.subscribe("qe_setMode", (e) =>
         {
@@ -88,6 +117,8 @@ window.customElements.define("qco-configuration", class extends QComponent
         qsQuiz.events.subscribe("qe_setTheme", (e) =>
         {
             this.$mode.setAttribute("selected-value", e.theme)
+            this.$primaryColor.value = qsQuiz.state.theme.options.primaryColor
+            this.$secondaryColor.value = qsQuiz.state.theme.options.secondaryColor
         })
     }
 })

@@ -62,8 +62,9 @@
 }
 
 
-label {
+label.label {
     display: block;
+    margin: 3px 0 0 0;
 }
 
 button {
@@ -281,7 +282,7 @@ qca-ex-info > .body {
     background-color: var(--qs-bg-strong);
 }
 qca-ex-info .name {
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: var(--qs-fg-strong);
 }
 qca-ex-info .description {
@@ -550,4 +551,22 @@ qco-configuration qca-select\.item > .tags > .tag {
     border-radius: 3px;
     font-size: 0.9em;
     color: var(--qs-fg-soft);
+}
+
+
+qca-color-picker .colorPicker {
+    width: 100%;
+    margin: inherit;
+    background: white;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: -3px;
+}
+
+qca-color-picker qca-input .leadingIcon {
+    color: var(--leading-icon-color);
+}
+
+qca-color-picker qca-popover\.body {
+    min-width: unset;
 }

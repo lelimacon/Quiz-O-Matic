@@ -20,7 +20,7 @@ window.customElements.define("qco-preview-toolbar", class extends QComponent
                 is-multi-select="false"
                 selected-values="${qsPreview.state.zoom}"
             >
-                <qca-select.item value="-1">Stretch</qca-select.item>
+                <qca-select.item value="-1">Fit</qca-select.item>
                 <qca-select.item value="25">25%</qca-select.item>
                 <qca-select.item value="50">50%</qca-select.item>
                 <qca-select.item value="75">75%</qca-select.item>
