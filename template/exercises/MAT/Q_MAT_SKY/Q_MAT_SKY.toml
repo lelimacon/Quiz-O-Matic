@@ -1,0 +1,20 @@
+code = "Q_MAT_SKY"
+subject = "mat"
+name = "Skylines - Comparisons with fractions"
+description = "Calculating fractions based on comparisons of 2 structure heights."
+tags = ["practical", "closed_answers", "culture", "traps"]
+levelScale = "grades"
+supportedLevels = ["g6"]
+supportedLengths = ["quick", "medium"]
+assets = [
+    "skyline-burj-khalifa.svg",
+    "skyline-eiffel-tower.svg",
+    "skyline-giza.svg",
+    "skyline-bank-of-china-tower.svg",
+    "skyline-marina-bay-sands.svg",
+    "skyline-sydney-opera-house.svg"
+]
+
+[defaults]
+level = "g6"
+length = "medium"

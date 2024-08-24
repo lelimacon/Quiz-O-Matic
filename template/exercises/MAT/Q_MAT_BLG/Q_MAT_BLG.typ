@@ -78,7 +78,8 @@
 
       The broken line graph on the right shows the number
       of #f-v(object, n: 2) sold last week.
-      #f-ve(person)'s school is closed on the weekends so he didn't sell any.
+      #f-ve(person)'s school is closed on the weekends
+      so #subject(person) didn't sell any.
 
       Complete the statements below with the information from the graph.
     ],
