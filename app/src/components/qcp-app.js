@@ -233,7 +233,7 @@ window.customElements.define("qcp-app", class extends QComponent
                             <h1>Download</h1>
                         </div>
                         <div class="panelBody">
-                            </qca-router.page>
+                            <qco-downloads></qco-downloads>
                         </div>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.settings}">

@@ -9,6 +9,7 @@ import "./components/qca-switch.js"
 import "./components/qca-tabs.js"
 
 import "./components/qco-configuration.js"
+import "./components/qco-downloads.js"
 import "./components/qco-library.js"
 import "./components/qco-library-filters.js"
 import "./components/qco-outline.js"
