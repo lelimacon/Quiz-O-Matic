@@ -45,6 +45,8 @@ const init = async () =>
         await $typst.addSource(path, text)
     }
 
+    const dirFromPath = (path) => path.substring(0, path.lastIndexOf("/") + 1)
+
     await add("/builder.typ")
     await add("/entities.typ")
     await add("/constants.typ")
@@ -62,25 +64,29 @@ const init = async () =>
             return $typst.addSource(`/${path}`, text)
         }
 
+        const addAssets = async (assets, baseDir) =>
+        {
+            if (!assets)
+                return
+    
+            for (const assetName of assets)
+            {
+                const assetPath = `${baseDir}${assetName}`
+                await add(assetPath)
+            }
+        }
+
         for (const exercise of source.exercises)
         {
             //console.log("exercise", exercise)
             await add(exercise.path)
+            await addAssets(exercise.assets, dirFromPath(exercise.path))
         }
 
         for (const theme of source.themes)
         {
             await add(theme.path)
-
-            if (theme.assets)
-            {
-                for (const assetName of theme.assets)
-                {
-                    const themeDir = theme.path.substring(0, theme.path.lastIndexOf("/") + 1)
-                    const assetPath = `${themeDir}${assetName}`
-                    await add(assetPath)
-                }
-            }
+            await addAssets(theme.assets, dirFromPath(theme.path))
         }
     }
 
