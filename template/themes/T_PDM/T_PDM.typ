@@ -402,17 +402,17 @@
       thickness: 1pt,
     ),
     inset: (
-      left: 40pt,
-      right: 12pt,
+      //left: 40pt,
+      left: 10pt,
+      right: 10pt,
     ),
     [
-      #place(
-        dx: -86pt,
-        dy: 20pt,
-        bottom + left,
-
-        image-mouse-head,
-      )
+      //#place(
+      //  dx: -86pt,
+      //  dy: 20pt,
+      //  bottom + left,
+      //  image-mouse-head,
+      //)
 
       #context(block(height: calc.max(0pt, minSize - measure(body).height + vMargin) / 2))
 

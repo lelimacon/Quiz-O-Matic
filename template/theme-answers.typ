@@ -136,7 +136,6 @@
 
   show emph: it => {
     text(
-      fill: blue,
       weight: "semibold",
       it.body,
     )

@@ -286,8 +286,8 @@
     inset: (
       top: 12pt,
       bottom: 12pt,
-      left: 12pt,
-      right: 12pt,
+      left: 10pt,
+      right: 10pt,
     ),
 
     {
