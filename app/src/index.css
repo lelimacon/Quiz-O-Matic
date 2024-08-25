@@ -212,14 +212,28 @@ qcp-app > .content {
 */
 
 
-qco-preview {
+qco-preview > .banner {
+    margin: 6px 0 0 0;
+    border: 1px solid var(--qs-emphasis);
+    background: repeating-linear-gradient(45deg, var(--qs-bg-strong), var(--qs-bg-strong) 10px, var(--qs-emphasis) 10px, var(--qs-emphasis) 20px );
+    text-align: center;
+    font-weight: bold;
+    color: var(--qs-bg-strong);
+}
+    qco-preview > .banner > span {
+        padding: 0 4px;
+        background-color: var(--qs-bg-strong);
+        color: var(--qs-fg-strong);
+    }
+
+qco-preview > .pages {
     padding: 8px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
 }
-    qco-preview > .page {
+    qco-preview > .pages > .page {
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         margin: 4px 8px;

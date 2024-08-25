@@ -3,18 +3,15 @@ import {
     preloadRemoteFonts,
 }
 from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
-//from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts@0.5.0-rc7/dist/esm/contrib/snippet.mjs"
 // DOC: https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
-
-//import {
-//    preloadRemoteFonts,
-//} from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts@0.5.0-rc7/dist/esm/options.init.mjs"
 
 import { elementFromHTML } from "./utils.js"
 import { lengths, getLevelIndex } from "./constants.js"
 
 
 let isInitialized = false
+let isLoading = false
+
 
 const fetchText = (path) => fetch(path).then(r => r.text())
 const dirFromPath = (path) => path.substring(0, path.lastIndexOf("/") + 1)
@@ -27,6 +24,7 @@ const init = async () =>
         return
     }
 
+    isLoading = true
     console.log("Renderer: Initializing")
 
     $typst.setCompilerInitOptions
@@ -66,6 +64,7 @@ const init = async () =>
     await add("/utils.typ")
 
     isInitialized = true
+    isLoading = false
     console.log("Renderer: Initialized")
 }
 
@@ -77,6 +76,13 @@ const loadSource = async (source) =>
         return
     }
 
+    if (isLoading)
+    {
+        console.error("Renderer: Already loading")
+        return
+    }
+
+    isLoading = true
     console.log(`Renderer: Loading source from '${source.baseUrl}'`)
 
     const add = async (path) =>
@@ -111,6 +117,7 @@ const loadSource = async (source) =>
         await addAssets(theme.assets, dirFromPath(theme.path))
     }
 
+    isLoading = false
     console.log("Renderer: Source loaded")
 }
 
@@ -214,7 +221,7 @@ const renderSvgSeparatePages = async (qsQuizState) =>
 
 
 export default {
-    isInitialized: () => isInitialized,
+    isReady: () => isInitialized && !isLoading,
     init: init,
     loadSource: loadSource,
     renderPdf: renderPdf,

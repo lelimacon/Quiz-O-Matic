@@ -51,27 +51,27 @@ window.customElements.define("qco-downloads", class extends QComponent
         this.innerHTML =
             html`
             <button class="button-icon" id="pdf" name="pdf" aria-label="PDF download">
-                <span class="iconoir-multiple-pages"></span>
+                <span class="iconoir-page-flip"></span>
                 Download as PDF
             </button>
             <button class="button-icon" id="svg" name="svg" aria-label="SVG download">
-                <span class="iconoir-curve-array"></span>
+                <span class="iconoir-journal"></span>
                 Download as SVG
             </button>
-            <button class="button-icon" id="svgByPage" name="svgByPage" aria-label="SVG by page download">
-                <span class="iconoir-media-image"></span>
+            <button class="button-icon" id="svgSeparatePages" name="svgSeparatePages" aria-label="SVG by page download">
+                <span class="iconoir-archive"></span>
                 Download as SVG separate pages
             </button>
             `
 
         this.$downloadPdf = this.querySelector("#pdf")
         this.$downloadSvg = this.querySelector("#svg")
-        this.$downloadSvgByPage = this.querySelector("#svgByPage")
+        this.$downloadSvgSeparatePages = this.querySelector("#svgSeparatePages")
     }
 
     $downloadPdf = undefined
     $downloadSvg = undefined
-    $downloadSvgByPage = undefined
+    $downloadSvgSeparatePages = undefined
 
     connectedCallback()
     {
@@ -93,7 +93,7 @@ window.customElements.define("qco-downloads", class extends QComponent
             download(svg, fileName)
         })
 
-        this.$downloadSvgByPage.addEventListener("click", async (e) =>
+        this.$downloadSvgSeparatePages.addEventListener("click", async (e) =>
         {
             const quiz = qsQuiz.state
             const svgs = await renderer.renderSvgSeparatePages(quiz)

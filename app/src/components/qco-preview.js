@@ -10,15 +10,24 @@ const sleep = (ms) => new Promise((resolve) =>
     setTimeout(resolve, ms)
 })
 
-const expensive = () => new Promise((resolve) =>
+const waitForRenderer = async () =>
 {
-    let x = 1
-    for (let i = 0; i < 1000000000; i++)
+    let count = 0
+
+    while (!renderer.isReady())
     {
-        x /= 37
+        if (count++ > 100)
+        {
+            console.error("Renderer did not initialize")
+            return false
+        }
+
+        await sleep(200)
     }
-    resolve(x)
-})
+
+    return true
+}
+
 
 customElements.define("qco-preview", class extends QComponent
 {
@@ -38,83 +47,28 @@ customElements.define("qco-preview", class extends QComponent
 
     async render()
     {
-        if (!renderer.isInitialized())
+        if (this.isRendering)
         {
             return
         }
 
-        //return
+        this.isRendering = true
+        this.innerHTML = html`<div class="banner"><span>LOADING</span></div>` + this.innerHTML
 
-        //const $workerIframe = document.querySelector("#worker-iframe")
-        //const message =
-        //{
-        //    action: "renderSvg",
-        //    payload: qsQuiz.state,
-        //}
-        //$workerIframe.contentWindow.postMessage(JSON.stringify(message))
-
-        //if ($workerIframe.contentWindow.workerChannel)
-        //    $workerIframe.contentWindow.workerChannel.renderSvg(qsQuiz.state)
-
-        //return
-
-        if (this.isRendering)
+        if (!await waitForRenderer())
         {
-            return;
+            return
         }
 
-        this.isRendering = true
-
-        console.log("LOADING")
-        this.innerHTML = html`<div>LOADING</div>`
-
-        //await sleep(4000)
-        //await expensive()
-        //this.innerHTML = html`<div>DONE</div>`
-
-        const svgs = await renderer.renderSvgSeparatePages(qsQuiz.state)
-        this.innerHTML = svgs.join("")
-        console.log("DONE")
-
-        this.isRendering = false
-
-        /*
+        // Run asynchronously to allow HTML to refresh.
         setTimeout(async () =>
         {
-            const svgs = await renderSvgSeparatePages(qsQuiz.state)
-    
-            this.innerHTML = svgs.join("")
-            console.log("DONE")
+            const svgs = await renderer.renderSvgSeparatePages(qsQuiz.state)
+
+            this.innerHTML = `<div class="pages">${svgs.join("")}</div>`
     
             this.isRendering = false
         }, 0)
-        */
-
-        /*
-        renderSvgSeparatePages(qsQuiz.state).then(svgs =>
-        {
-            this.innerHTML = svgs.join("")
-            console.log("DONE")
-
-            this.isRendering = false
-        })
-        */
-
-        /*
-        window.requestIdleCallback(async () =>
-        {
-            await sleep(3000)
-            console.log("SLEPT")
-            await expensive()
-            this.innerHTML = html`<div>DONE</div>`
-
-            //const svgs = await renderSvgSeparatePages(qsQuiz.state)
-            //this.innerHTML = svgs.join("")
-            console.log("DONE")
-    
-            this.isRendering = false
-        }, { timeout: 30000 });
-        */
     }
 
     updateZoom(zoom)
