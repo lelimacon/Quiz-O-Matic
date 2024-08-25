@@ -11,7 +11,7 @@ import * as toml from "jsr:@std/toml"
 
 const exercisesDir = "template/exercises"
 const themesDir = "template/themes"
-const outputPath = "./out/www/source.json"
+const outputPath = "./out/www/Quiz-O-Matic/source.json"
 
 
 Array.prototype.takeUntil = function (predicate)

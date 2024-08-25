@@ -5,8 +5,8 @@ tasks:
   build:
     desc: Generate indexes and copy templates to output folder
     cmds:
-      - '{{.SHELL}} mkdir -p out/www/'
-      - '{{.SHELL}} cp -ar template/ out/www/'
+      - '{{.SHELL}} mkdir -p out/www/Quiz-O-Matic/'
+      - '{{.SHELL}} cp -ar template/ out/www/Quiz-O-Matic/'
       - deno run --allow-read --allow-write ./ops/gen-source.mjs
 
   generate:

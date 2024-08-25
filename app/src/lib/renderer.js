@@ -33,12 +33,12 @@ const init = async () =>
         [
             preloadRemoteFonts
             ([
-                "/template/res/LuckiestGuy-Regular.ttf",
-                "/template/res/Quicksand-Regular.ttf",
-                "/template/res/Quicksand-Bold.ttf",
+                "template/res/LuckiestGuy-Regular.ttf",
+                "template/res/Quicksand-Regular.ttf",
+                "template/res/Quicksand-Bold.ttf",
 
                 // Emoji font is automatically used.
-                "/template/res/NotoEmoji-VariableFont_wght.ttf",
+                "template/res/NotoEmoji-VariableFont_wght.ttf",
             ]),
         ],
         getModule: () => "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm",
@@ -51,7 +51,7 @@ const init = async () =>
     const add = async (path) =>
     {
         //console.log("ADD", path)
-        const text = await fetchText(`/template${path}`)
+        const text = await fetchText(`template${path}`)
         await $typst.addSource(path, text)
     }
 
