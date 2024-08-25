@@ -2,7 +2,7 @@ import "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"
 
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
-import { renderPdf, renderSvg, renderSvgSeparatePages } from "../lib/renderer.js"
+import renderer from "../lib/renderer.js"
 import qsQuiz from "../store/QsQuiz.js"
 
 
@@ -78,7 +78,7 @@ window.customElements.define("qco-downloads", class extends QComponent
         this.$downloadPdf.addEventListener("click", async (e) =>
         {
             const quiz = qsQuiz.state
-            const pdf = await renderPdf(quiz)
+            const pdf = await renderer.renderPdf(quiz)
             const fileName = `${quiz.date} ${quiz.title}.pdf`
 
             download(pdf, fileName)
@@ -87,7 +87,7 @@ window.customElements.define("qco-downloads", class extends QComponent
         this.$downloadSvg.addEventListener("click", async (e) =>
         {
             const quiz = qsQuiz.state
-            const svg = await renderSvg(quiz)
+            const svg = await renderer.renderSvg(quiz)
             const fileName = `${quiz.date} ${quiz.title}.svg`
 
             download(svg, fileName)
@@ -96,7 +96,7 @@ window.customElements.define("qco-downloads", class extends QComponent
         this.$downloadSvgByPage.addEventListener("click", async (e) =>
         {
             const quiz = qsQuiz.state
-            const svgs = await renderSvgSeparatePages(quiz)
+            const svgs = await renderer.renderSvgSeparatePages(quiz)
             const files = svgs.map((svg, index) =>
             { return {
                 name: `${quiz.date} ${quiz.title} ${index}.svg`,

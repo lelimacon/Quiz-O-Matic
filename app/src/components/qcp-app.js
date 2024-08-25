@@ -1,6 +1,43 @@
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"
+import sources from "../sources.js"
+import renderer from "../lib/renderer.js"
 
+
+const registerServiceWorker = async () =>
+{
+    if (!("serviceWorker" in navigator))
+    {
+        console.error("Browser does not support service workers")
+        return
+    }
+
+    try
+    {
+        const registration = await navigator.serviceWorker.register("/sw.js",
+        {
+            type: "module",
+            scope: "/",
+        });
+
+        if (registration.installing)
+        {
+            console.log("Service worker installing")
+        }
+        else if (registration.waiting)
+        {
+            console.log("Service worker installed")
+        }
+        else if (registration.active)
+        {
+            console.log("Service worker active")
+        }
+    }
+    catch (error)
+    {
+        console.error(`Registration failed with ${error}`)
+    }
+};
 
 const routes =
 {
@@ -290,5 +327,62 @@ window.customElements.define("qcp-app", class extends QComponent
                 }
             })
         })
+
+    }
+
+    async connectedCallback()
+    {
+        //await registerServiceWorker()
+
+        await renderer.init()
+        /*
+
+        for (const source of sources.sources)
+        {
+            await renderer.loadSource(source)
+        }
+        */
+
+        /*
+        const workerHtml = await fetch("/worker.html").then(r => r.text())
+
+        const $workerIframe = document.querySelector("#worker-iframe")
+        $workerIframe.srcdoc = workerHtml
+
+        window.workerChannel =
+        {
+            ready: async () => await this.loadSources()
+        }
+        */
+
+        /*
+        window.addEventListener("message", async (e) =>
+        //setTimeout(async () =>
+        {
+            console.log("setTimeout")
+            const message = JSON.parse(e.data)
+            if (message.action == "ready")
+            {
+                //await this.loadSources()
+            }
+        }, 2000)
+        */
+    }
+
+    async loadSources()
+    {
+        const $workerIframe = document.querySelector("#worker-iframe")
+
+        for (const source of sources.sources)
+        {
+            $workerIframe.contentWindow.workerChannel.loadSource(source)
+            //const message =
+            //{
+            //    action: "loadSource",
+            //    payload: source,
+            //}
+            //$workerIframe.contentWindow.postMessage(JSON.stringify(message))
+            //$workerIframe.contentWindow.testing("alibaba")
+        }
     }
 })

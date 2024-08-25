@@ -1,33 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+</head>
+
+<body>
+    <div id="toto">Still here</div>
+
+</body>
+
+<script type="module">
 import {
     $typst,
     preloadRemoteFonts,
-}
-from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
-//from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts@0.5.0-rc7/dist/esm/contrib/snippet.mjs"
+} from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts/dist/esm/contrib/all-in-one-lite.bundle.js"
 // DOC: https://myriad-dreamin.github.io/typst.ts/cookery/guide/all-in-one.html
 
-//import {
-//    preloadRemoteFonts,
-//} from "https://cdn.jsdelivr.net/npm/@myriaddreamin/typst.ts@0.5.0-rc7/dist/esm/options.init.mjs"
-
-import { elementFromHTML } from "./utils.js"
-import { lengths, getLevelIndex } from "./constants.js"
+import { elementFromHTML } from "./lib/utils.js"
+import { lengths, getLevelIndex } from "./lib/constants.js"
 
 
-let isInitialized = false
+let isReady = false
 
 const fetchText = (path) => fetch(path).then(r => r.text())
 const dirFromPath = (path) => path.substring(0, path.lastIndexOf("/") + 1)
 
 const init = async () =>
 {
-    if (isInitialized)
-    {
-        console.error("Renderer: Already initialized")
-        return
-    }
-
-    console.log("Renderer: Initializing")
+    console.log("Typst initializing")
 
     $typst.setCompilerInitOptions
     ({
@@ -65,19 +69,12 @@ const init = async () =>
     await add("/theme-answers.typ")
     await add("/utils.typ")
 
-    isInitialized = true
-    console.log("Renderer: Initialized")
+    console.log("Typst ready")
 }
 
 const loadSource = async (source) =>
 {
-    if (!isInitialized)
-    {
-        console.error("Renderer: Not initialized")
-        return
-    }
-
-    console.log(`Renderer: Loading source from '${source.baseUrl}'`)
+    console.log("Source loading", `Base URL: ${source.baseUrl}`)
 
     const add = async (path) =>
     {
@@ -111,9 +108,8 @@ const loadSource = async (source) =>
         await addAssets(theme.assets, dirFromPath(theme.path))
     }
 
-    console.log("Renderer: Source loaded")
+    console.log("Source loaded")
 }
-
 
 const generateData = (quiz) =>
 {
@@ -138,19 +134,13 @@ const generateData = (quiz) =>
     return data
 }
 
-const renderPdf = async (quiz) =>
+export const renderSvg = async (quiz) =>
 {
-    const data = generateData(quiz)
+    if (!isReady)
+    {
+        return;
+    }
 
-    const encoder = new TextEncoder()
-    $typst.mapShadow('/data.json', encoder.encode(JSON.stringify(data)))
-
-    const pdf = await $typst.pdf()
-    return pdf
-}
-
-const renderSvg = async (quiz) =>
-{
     const data = generateData(quiz)
 
     const encoder = new TextEncoder()
@@ -160,64 +150,38 @@ const renderSvg = async (quiz) =>
     return svg
 }
 
-const splitSvgByPage = (svg) =>
+window.addEventListener("message", async (e) =>
 {
-    const $svg = elementFromHTML(svg)
-    $svg.classList.add("page")
-    $svg.setAttribute("viewBox", "0 0 596.000 842.000")
-    $svg.removeAttribute("width")
-    $svg.removeAttribute("height")
-    $svg.removeAttribute("data-width")
-    $svg.removeAttribute("data-height")
+    console.log("Received message")
 
-    const $pages = $svg.querySelectorAll(".typst-page")
-
-    if ($pages.length === 1)
+    const message = JSON.parse(e.data)
+    if (message.action == "loadSource")
     {
-        return $svg.outerHTML
+        await loadSource(message.payload)
+    }
+    if (message.action == "renderSvg")
+    {
+        await renderSvg(message.payload)
     }
 
-    for (const $page of $pages)
-    {
-        $svg.removeChild($page)
-    }
+    //e.source.postMessage({ result }, '*')
+})
 
-    const emptySvg = $svg.outerHTML
-    //console.log("emptySvg", emptySvg)
 
-    const svgs = []
-
-    for (const $page of $pages)
-    {
-        $page.removeAttribute("transform")
-
-        const $pageSvg = elementFromHTML(emptySvg)
-        $pageSvg.append($page)
-
-        svgs.push($pageSvg.outerHTML)
-    }
-
-    return svgs
-}
-
-const renderSvgSeparatePages = async (qsQuizState) =>
+window.workerChannel =
 {
-    const data = generateData(qsQuizState)
-
-    const encoder = new TextEncoder()
-    $typst.mapShadow('/data.json', encoder.encode(JSON.stringify(data)))
-
-    const svg = await $typst.svg()
-    const svgs = splitSvgByPage(svg)
-    return svgs
+    loadSource: async (source) => await loadSource(source),
+    renderSvg: async (quiz) => await renderSvg(quiz),
 }
 
+/*
+await init()
+isReady = true
 
-export default {
-    isInitialized: () => isInitialized,
-    init: init,
-    loadSource: loadSource,
-    renderPdf: renderPdf,
-    renderSvg: renderSvg,
-    renderSvgSeparatePages: renderSvgSeparatePages,
-}
+//parent.postMessage(JSON.stringify({ action: "ready" }))
+parent.workerChannel.ready()
+*/
+
+</script>
+
+</html>
