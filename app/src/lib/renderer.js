@@ -16,6 +16,31 @@ let isLoading = false
 const fetchText = (path) => fetch(path).then(r => r.text())
 const dirFromPath = (path) => path.substring(0, path.lastIndexOf("/") + 1)
 
+const sleep = (ms) => new Promise((resolve) =>
+{
+    setTimeout(resolve, ms)
+})
+
+const isReady = () => isInitialized && !isLoading
+
+const waitUntilReady = async () =>
+{
+    let count = 0
+
+    while (!isReady())
+    {
+        if (count++ > 100)
+        {
+            console.error("Renderer did not initialize")
+            return false
+        }
+
+        await sleep(200)
+    }
+
+    return true
+}
+
 const init = async () =>
 {
     if (isInitialized)
@@ -207,9 +232,9 @@ const splitSvgByPage = (svg) =>
     return svgs
 }
 
-const renderSvgSeparatePages = async (qsQuizState) =>
+const renderSvgSeparatePages = async (quiz) =>
 {
-    const data = generateData(qsQuizState)
+    const data = generateData(quiz)
 
     const encoder = new TextEncoder()
     $typst.mapShadow('/data.json', encoder.encode(JSON.stringify(data)))
@@ -221,7 +246,8 @@ const renderSvgSeparatePages = async (qsQuizState) =>
 
 
 export default {
-    isReady: () => isInitialized && !isLoading,
+    isReady: isReady,
+    waitUntilReady: waitUntilReady,
     init: init,
     loadSource: loadSource,
     renderPdf: renderPdf,

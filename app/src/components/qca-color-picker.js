@@ -15,8 +15,6 @@ window.customElements.define("qca-color-picker", class extends QComponent
             hasEarlyRender: true,
         })
 
-        this.$items = [... this.querySelectorAll("qca-select\\.item")]
-
         this.innerHTML =
             html`
             <qca-popover>

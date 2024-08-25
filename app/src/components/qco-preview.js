@@ -5,30 +5,6 @@ import qsQuiz from "../store/QsQuiz.js"
 import renderer from "../lib/renderer.js"
 
 
-const sleep = (ms) => new Promise((resolve) =>
-{
-    setTimeout(resolve, ms)
-})
-
-const waitForRenderer = async () =>
-{
-    let count = 0
-
-    while (!renderer.isReady())
-    {
-        if (count++ > 100)
-        {
-            console.error("Renderer did not initialize")
-            return false
-        }
-
-        await sleep(200)
-    }
-
-    return true
-}
-
-
 customElements.define("qco-preview", class extends QComponent
 {
     constructor()
@@ -37,13 +13,53 @@ customElements.define("qco-preview", class extends QComponent
         ({
         })
 
-        this.updateZoom(50)
+        this.innerHTML =
+            html`
+            <div class="banner">
+                <span>LOADING</span>
+            </div>
+            <div class="background">
+                <img alt="Logo" src="logo.svg">
+                <div>
+                    An endless stream of tests<br />
+                    for the selfish brats you spawned to replace yourselves
+                </div>
+            </div>
+            <div class="pages">
+            </div>
+            `
 
+        this.$pages = this.querySelector(".pages")
+        this.isEmpty = true
+        this.isRendering = false
+
+        this.updateZoom(50)
+    }
+
+    connectedCallback()
+    {
         qsQuiz.events.subscribe("qe_stateChanged", (e) => this.render())
         qsPreview.events.subscribe("qe_setZoom", (e) => this.updateZoom(e.zoom))
     }
 
-    isRendering = false
+    $pages = undefined
+
+    _isEmpty = true
+    _isRendering = false
+
+    get isEmpty() { return this._isEmpty }
+    set isEmpty(value)
+    {
+        this._isEmpty = value
+        this.setAttribute("is-empty", value)
+    }
+
+    get isRendering() { return this._isRendering }
+    set isRendering(value)
+    {
+        this._isRendering = value
+        this.setAttribute("is-rendering", value)
+    }
 
     async render()
     {
@@ -53,9 +69,8 @@ customElements.define("qco-preview", class extends QComponent
         }
 
         this.isRendering = true
-        this.innerHTML = html`<div class="banner"><span>LOADING</span></div>` + this.innerHTML
 
-        if (!await waitForRenderer())
+        if (!await renderer.waitUntilReady())
         {
             return
         }
@@ -65,7 +80,16 @@ customElements.define("qco-preview", class extends QComponent
         {
             const svgs = await renderer.renderSvgSeparatePages(qsQuiz.state)
 
-            this.innerHTML = `<div class="pages">${svgs.join("")}</div>`
+            if (qsQuiz.state.exercises.length > 0)
+            {
+                this.$pages.innerHTML = svgs.join("")
+                this.isEmpty = false
+            }
+            else
+            {
+                this.$pages.innerHTML = null
+                this.isEmpty = true
+            }
     
             this.isRendering = false
         }, 0)

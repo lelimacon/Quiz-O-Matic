@@ -213,6 +213,7 @@ qcp-app > .content {
 
 
 qco-preview > .banner {
+    display: none;
     margin: 6px 0 0 0;
     border: 1px solid var(--qs-emphasis);
     background: repeating-linear-gradient(45deg, var(--qs-bg-strong), var(--qs-bg-strong) 10px, var(--qs-emphasis) 10px, var(--qs-emphasis) 20px );
@@ -224,6 +225,23 @@ qco-preview > .banner {
         padding: 0 4px;
         background-color: var(--qs-bg-strong);
         color: var(--qs-fg-strong);
+    }
+    qco-preview[is-rendering=true] > .banner {
+        display: block;
+    }
+
+qco-preview > .background {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    color: var(--qs-fg-soft);
+    font-size: 1.4em;
+}
+    qco-preview[is-empty=true] > .background {
+        display: block;
+    }
+    qco-preview > .background > img {
+        margin: 20px 0;
     }
 
 qco-preview > .pages {
