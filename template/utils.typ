@@ -43,7 +43,7 @@
     }
 
     if (emoji) {
-      s-emoji = [#entity.emoji]
+      s-emoji = [ #entity.emoji]
     }
 
     if (variable) {

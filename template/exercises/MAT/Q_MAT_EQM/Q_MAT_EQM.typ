@@ -75,7 +75,7 @@
 
   let (random, statement) = pick(random, (
     par[
-      #f-ve(person) is an hobby model collector.
+      #f-ve(person) is a hobby model collector.
       If #subject(person) had #emph[$#factor$] times more #f-ve(object2, n: 2),
       #subject(person) would have #emph[$#difference$] #f-ve(object1, n: 2)
       less than #f-v(object2, n: 2).
