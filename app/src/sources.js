@@ -1,5 +1,6 @@
 // TODO: Move to library store.
-const mainSource = JSON.parse(await fetch(`source.json`).then(r => r.text()))
+const sourcePath = "template/source.json"
+const mainSource = JSON.parse(await fetch(sourcePath).then(r => r.text()))
 mainSource.baseUrl = `${window.location}template/`
 //console.log("mainSource.baseUrl", mainSource.baseUrl)
 

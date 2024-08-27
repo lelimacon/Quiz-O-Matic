@@ -10,28 +10,16 @@ vars:
 
 tasks:
 
+  serve:
+    desc: Alias for app:serve
+    cmds:
+      - task: app:serve
+
   build:
     desc: Build the app to out folder
     cmds:
-      - task: app:build
       - task: template:build
-
-  watch:
-    desc: Rebuild when sources change
-    watch: true
-    sources:
-      - app/src/**/*
-      - template/**/*
-    generates:
-      - out/www/app.js
-    cmds:
-      - task: build
-
-  serve:
-    desc: Serve the output app (requires serve-handler)
-    cmds:
-      - task: build
-      - serve --no-clipboard "out/www/"
+      - task: app:build
 
   clean:
     desc: Remove ALL generated files

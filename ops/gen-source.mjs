@@ -4,14 +4,14 @@
     - Themes
     Call from root folder.
 
-    Usage: deno run --allow-read --allow-write .\ops\gen-source.mjs
+    Usage: deno run --allow-read --allow-write ./ops/gen-source.mjs
 */
 
 import * as toml from "jsr:@std/toml"
 
 const exercisesDir = "template/exercises"
 const themesDir = "template/themes"
-const outputPath = "./out/www/Quiz-O-Matic/source.json"
+const outputPath = "./template/source.json"
 
 
 Array.prototype.takeUntil = function (predicate)
