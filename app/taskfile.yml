@@ -8,10 +8,11 @@ tasks:
       - deno run --allow-read --allow-net --watch ./ops/serve.ts
 
   build:
-    desc: Build the app to out folder
+    desc: Build the app and copy templates to output folder
     cmds:
       - '{{.SHELL}} mkdir -p out/www/Quiz-O-Matic/'
       - '{{.SHELL}} cp -ar app/src/. out/www/Quiz-O-Matic/'
+      - '{{.SHELL}} cp -ar template/ out/www/Quiz-O-Matic/'
 
   build-docker:
     desc: Run the app with Docker
