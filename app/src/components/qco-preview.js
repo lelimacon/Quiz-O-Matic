@@ -90,7 +90,7 @@ customElements.define("qco-preview", class extends QComponent
                 this.$pages.innerHTML = null
                 this.isEmpty = true
             }
-    
+
             this.isRendering = false
         }, 0)
     }

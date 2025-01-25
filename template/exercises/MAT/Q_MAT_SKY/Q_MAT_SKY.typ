@@ -261,7 +261,7 @@
 
   // Question 2.
   if length == lengths.medium {
-    // (result - 1) OR (1 - result)  
+    // (result - 1) OR (1 - result)
     let comparison = if height1 >= height2 { "taller" } else { "shorter" }
     let operation = if height1 >= height2 { $#result - 1$ } else { $1 - #result$ }
     let n = if height1 >= height2 { n - d } else { d - n }

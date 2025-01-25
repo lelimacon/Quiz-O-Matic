@@ -31,7 +31,7 @@ export default class QComponent extends HTMLElement
 
         if (oldValue === newValue)
             return
-    
+
         if (hasSetter(this, name))
         {
             //console.log(`ATTRIBUTE changed: ${name} (${oldValue} -> ${newValue})`)

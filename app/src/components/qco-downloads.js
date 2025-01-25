@@ -1,4 +1,5 @@
 import "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"
+//var JSZip = require("jszip")
 
 import { html } from "../lib/utils.js"
 import QComponent from "../lib/QComponent.js"

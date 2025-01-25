@@ -141,7 +141,7 @@
     outset: outset,
 
     text(
-      fill: white, 
+      fill: white,
       size: 10pt,
       [\##context state-index.get()]
     )
@@ -164,7 +164,7 @@
     outset: outset,
 
     text(
-      fill: white, 
+      fill: white,
       size: 10pt,
       [\/#points]
     )
