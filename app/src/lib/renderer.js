@@ -208,7 +208,7 @@ const splitSvgByPage = (svg) =>
 
     if ($pages.length === 1)
     {
-        return $svg.outerHTML
+        return [$svg.outerHTML]
     }
 
     for (const $page of $pages)
