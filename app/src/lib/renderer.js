@@ -58,6 +58,8 @@ const init = async () =>
         [
             preloadRemoteFonts
             ([
+                "template/res/LibertinusSerif-Regular.ttf",
+                "template/res/LibertinusSans-Regular.ttf",
                 "template/res/LuckiestGuy-Regular.ttf",
                 "template/res/Quicksand-Regular.ttf",
                 "template/res/Quicksand-Bold.ttf",

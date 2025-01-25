@@ -4,6 +4,10 @@
 #let state-index = state("exercise-index", 1)
 
 
+#let title-font = "Libertinus Sans"
+#set text(font: "Libertinus Serif")
+
+
 #let header(
   options,
   title,
@@ -20,7 +24,7 @@
     ),
 
     [
-      #title
+      #text(font: title-font, title)
       #h(1fr)
       #length minutes
     ]
@@ -42,7 +46,7 @@
     ),
 
     [
-      #title
+      #text(font: title-font, title)
       #h(1fr)
       #counter(page).display(
         "1/1",
@@ -82,6 +86,8 @@
       ]
 
       #set align(center)
+
+      #set text(font: title-font)
 
       #v(12pt)
       #block(text(
@@ -336,6 +342,7 @@
     set text(
       size: 22pt,
       fill: options.primary-color,
+      font: title-font,
     )
 
     v(0.6em)
@@ -348,6 +355,7 @@
     set text(
       size: 14pt,
       fill: options.primary-color,
+      font: title-font,
     )
 
     v(0.2em)

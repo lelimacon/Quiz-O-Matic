@@ -8,6 +8,10 @@
 #let image-mouse-sitting = image("mouse-sitting-1.svg", width: 140pt)
 
 
+#let title-font = "Luckiest Guy"
+#set text(font: "Quicksand")
+
+
 #let header(
   options,
   title,
@@ -24,7 +28,7 @@
     ),
 
     [
-      #text(font: "Luckiest Guy", title)
+      #text(font: title-font, title)
       #h(1fr)
       #length minutes
     ]
@@ -46,7 +50,7 @@
     ),
 
     [
-      #text(font: "Luckiest Guy", title)
+      #text(font: title-font, title)
       #h(1fr)
       #counter(page).display(
         "1/1",
@@ -129,7 +133,7 @@
 
       #set align(center)
 
-      #set text(font: "Luckiest Guy")
+      #set text(font: title-font)
 
       #block(text(
         size: 32pt,
@@ -460,7 +464,7 @@
     #set text(
       size: 20pt,
       fill: options.primary-color,
-      font: "Luckiest Guy",
+      font: title-font,
     )
 
     // Hide numbering.
@@ -470,10 +474,8 @@
   show heading.where(level: 2): set text(
     size: 14pt,
     fill: options.primary-color,
-    font: "Luckiest Guy",
+    font: title-font,
   )
-
-  set text(font: "Quicksand")
 
   set text(
     size: 12pt,
