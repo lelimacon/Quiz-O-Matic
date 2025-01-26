@@ -1,9 +1,11 @@
 .theme-light,
 .theme-dark .theme-inverted {
-    --qs-action: blueviolet;
-    --qs-action-bg: rgb(233, 216, 250);
-    --qs-emphasis: crimson;
-    --qs-emphasis-bg: #ffbfcc;
+    --qs-logo: #efb614;
+
+    --qs-action: #1598ef;
+    --qs-action-bg: #89c5ed;
+    --qs-emphasis: #2415ef;
+    --qs-emphasis-bg: #7d75ea;
 
     --qs-fg-strong: #09090b;
     --qs-fg: #27272a;
@@ -14,15 +16,16 @@
     --qs-bg-soft: #d4d4d8;
 
     --qs-b-strong: #3f3f46;
-    --qs-b-soft: #a1a1aa;
+    --qs-b: #a1a1aa;
+    --qs-b-soft: #e4e4e7;
 }
 
 .theme-dark,
 .theme-light .theme-inverted {
-    --qs-action: blueviolet;
-    --qs-action-bg: rgb(43, 1, 82);
-    --qs-emphasis: crimson;
-    --qs-emphasis-bg: #79031b;
+    --qs-action: #1598ef;
+    --qs-action-bg: #385060;
+    --qs-emphasis: #2415ef;
+    --qs-emphasis-bg: #3a3768;
 
     --qs-fg-strong: #fafafa;
     --qs-fg: #f4f4f5;
@@ -121,58 +124,76 @@ input {
 qcp-app {
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: var(--qs-bg);
     font-family: "Roboto Condensed", Verdana;
     font-size: 12px;
 }
 
-qcp-app > .content {
+qcp-app > .appbar {
+    width: 56px;
+    min-width: 56px;
     display: flex;
-    flex-direction: row;
-    height: calc(100vh - 40px);
-    max-height: calc(100vh - 40px);
+    flex-direction: column;
+    padding: 4px 0;
 }
-
-qcp-app > .content > .preview {
-    flex-grow: 1;
-}
-
-qcp-app > .content > .column {
-    overflow-y: auto;
-}
-
-qcp-app > .content > .drawer > .hidden {
-    display: none;
-}
-
-qcp-app > .header {
-    height: 40px;
-    min-height: 40px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 4px;
-}
-    qcp-app > .header > qca-tabs > qca-tabs\.tab {
+    qcp-app > .appbar > qca-tabs > qca-tabs\.tab {
+        display: flex;
+        flex-direction: column;
         margin: 0;
         padding: 6px 6px;
         display: flex;
         justify-content: center;
         color: var(--qs-action);
-        font-size: 1.8em;
     }
-    qcp-app > .header > .space {
+    qcp-app > .appbar > .space {
         flex-grow: 1;
     }
+    qcp-app > .appbar > .header {
+        margin: 8px 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+        qcp-app > .appbar > .header > .logo {
+            height: 36px;
+        }
+    qcp-app > .appbar > qca-tabs > qca-tabs\.tab > .tabIcon {
+        font-size: 1.8em;
+        margin-top: 4px;
+    }
+    qcp-app > .appbar > qca-tabs > qca-tabs\.tab > .tabTitle {
+        font-size: 0.8em;
+        margin-top: 8px;
+        text-transform: uppercase;
+        letter-spacing: -0.6px;
+    }
 
-qcp-app > .content > .drawer {
+qcp-app > .drawer {
     width: 400px;
     min-width: 400px;
+    background-color: var(--qs-bg-strong);
+    border-left: 1px solid var(--qs-b);
+    border-right: 1px solid var(--qs-b);
 }
-    qcp-app > .content > .drawer.hidden {
+    qcp-app > .drawer.hidden {
         display: none;
     }
+
+qcp-app > .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+qcp-app > .content > .preview {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+qcp-app > .content > .column {
+    overflow-y: auto;
+}
 
 qcp-app > .content > .separator {
     position: relative;
@@ -201,16 +222,17 @@ qcp-app .panelHeader {
     }
 
 qcp-app .panelBody {
-    padding: 3px 6px;
+    padding: 3px 0;
 }
 
-/*
-qcp-app > .content {
-    flex-grow: 1;
-    max-width: calc(100% - 440px);
+qcp-app .form {
+    padding: 4px 8px;
 }
-*/
 
+
+qco-preview {
+    display: contents;
+}
 
 qco-preview > .banner {
     display: none;
@@ -231,17 +253,21 @@ qco-preview > .banner {
     }
 
 qco-preview > .background {
+    flex-grow: 1;
     display: none;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
     color: var(--qs-fg-soft);
-    font-size: 1.4em;
+    font-size: 1.8em;
 }
     qco-preview[is-empty=true] > .background {
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
     qco-preview > .background > img {
         margin: 20px 0;
+        max-width: 200px;
     }
 
 qco-preview > .pages {
@@ -268,6 +294,42 @@ qco-preview-toolbar {
     qco-preview-toolbar > .zoom {
         width: 80px;
     }
+
+
+qco-library .libraryList {
+    background-color: var(--qs-bg-strong);
+    border-top: 1px solid var(--qs-b-soft);
+}
+
+qco-library .libraryList > .libraryRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--qs-b-soft);
+    background-color: var(--qs-bg-strong);
+}
+
+    qco-library .libraryList > .libraryRow:hover {
+        background-color: var(--qs-bg);
+    }
+
+    qco-library .libraryList > .libraryRow > .name {
+        font-size: 1.0em;
+        color: var(--qs-fg-strong);
+        margin: 6px 0;
+    }
+
+    qco-library .libraryList > .libraryRow > .space {
+        flex-grow: 1;
+    }
+
+    qco-library .libraryList > .libraryRow > .actions {
+        display: none;
+    }
+        qco-library .libraryList > .libraryRow:hover > .actions {
+            display: block;
+        }
 
 
 qca-ex-info {
@@ -339,7 +401,7 @@ qca-ex-info .tags {
 qca-ex-info .tag {
     margin-right: 3px;
     padding: 1px 3px;
-    border: 1px solid var(--qs-b-soft);
+    border: 1px solid var(--qs-b);
     border-radius: 3px;
     font-size: 0.9em;
     color: var(--qs-fg-soft);
@@ -573,23 +635,23 @@ qca-select > .body {
         }
 
 
-qco-configuration qca-select\.item > .name {
+qco-options qca-select\.item > .name {
     font-size: 1.4em;
     color: var(--qs-fg-strong);
 }
-qco-configuration qca-select\.item > .description {
+qco-options qca-select\.item > .description {
     font-size: 0.9em;
     color: var(--qs-fg-soft);
     margin-bottom: 6px;
 }
-qco-configuration qca-select\.item > .tags {
+qco-options qca-select\.item > .tags {
     display: flex;
     flex-wrap: wrap;
 }
-qco-configuration qca-select\.item > .tags > .tag {
+qco-options qca-select\.item > .tags > .tag {
     margin-right: 3px;
     padding: 1px 3px;
-    border: 1px solid var(--qs-b-soft);
+    border: 1px solid var(--qs-b);
     border-radius: 3px;
     font-size: 0.9em;
     color: var(--qs-fg-soft);
@@ -599,7 +661,7 @@ qco-configuration qca-select\.item > .tags > .tag {
 qca-color-picker .colorPicker {
     width: 100%;
     margin: inherit;
-    background: white;
+    background-color: var(--qs-bg-strong);
     border: none;
     border-radius: 2px;
     margin-bottom: -3px;

@@ -23,14 +23,13 @@ window.customElements.define("qco-library", class extends QComponent
     render()
     {
         this.innerHTML =
+            qsLibrary.state.isLoading ? html`<p>Loading...</p>` :
             html`
-            ${qsLibrary.state.isLoading ? html`<p>loading...</p>` : ""}
-
-            <div>
+            <div class="libraryList">
                 ${qsLibrary.state.exercises.length === 0
                     ? html`<p>Nothing here</p>`
                     : qsLibrary.state.exercises
-                        .map(item => this.renderExercise(item))
+                        .map(item => this.renderRow(item))
                         .join('')
                 }
             </div>
@@ -57,23 +56,36 @@ window.customElements.define("qco-library", class extends QComponent
         })
     }
 
-    renderExercise = (item) =>
+    //renderExercise = (item) =>
+    //    html`
+    //    <qca-ex-info
+    //        code="${item.code}"
+    //        subject="${item.subject}"
+    //        name="${item.name}"
+    //        description="${item.description}"
+    //        tags="${item.tags.join(",")}"
+    //        levelScale="${item.levelScale}"
+    //        supportedLevels="${item.supportedLevels.join(",")}"
+    //        supportedLengths="${item.supportedLengths.join(",")}"
+    //    >
+    //        <qca-ex-info.header-rhs>
+    //            <button name="addItem" aria-label="Add exercise to quiz">
+    //                <span class="iconoir-plus"></span>
+    //            </button>
+    //        </qca-ex-info.header-rhs>
+    //    </qca-ex-info>
+    //    `
+
+    renderRow = (item) =>
         html`
-        <qca-ex-info
-            code="${item.code}"
-            subject="${item.subject}"
-            name="${item.name}"
-            description="${item.description}"
-            tags="${item.tags.join(",")}"
-            levelScale="${item.levelScale}"
-            supportedLevels="${item.supportedLevels.join(",")}"
-            supportedLengths="${item.supportedLengths.join(",")}"
-        >
-            <qca-ex-info.header-rhs>
+        <div class="libraryRow">
+            <div class="name">${item.name}</div>
+            <div class="space"></div>
+            <div class="actions">
                 <button name="addItem" aria-label="Add exercise to quiz">
                     <span class="iconoir-plus"></span>
                 </button>
-            </qca-ex-info.header-rhs>
-        </qca-ex-info>
+            </div>
+        </div>
         `
 })

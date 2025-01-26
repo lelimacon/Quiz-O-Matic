@@ -22,7 +22,8 @@ customElements.define("qco-preview", class extends QComponent
                 <img alt="Logo" src="logo.svg">
                 <div>
                     An endless stream of tests<br />
-                    for the selfish brats you spawned to replace yourselves
+                    For the selfish brats<br />
+                    You spawned to replace yourselves.
                 </div>
             </div>
             <div class="pages">

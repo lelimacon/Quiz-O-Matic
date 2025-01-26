@@ -10,12 +10,14 @@ window.customElements.define("qco-settings", class extends QComponent
 
         this.innerHTML =
             html`
-            <qca-switch
-                name="themeSwitch"
-                iconOn="moon-sat"
-                iconOff="sea-and-sun"
-                title="Light switch"
-            ></qca-switch>
+            <div class="form">
+                <qca-switch
+                    name="themeSwitch"
+                    iconOn="moon-sat"
+                    iconOff="sea-and-sun"
+                    title="Light switch"
+                ></qca-switch>
+            </div>
             `
 
         this.$themeSwitch = this.querySelector("[name='themeSwitch']")
