@@ -15,7 +15,12 @@ window.customElements.define("qco-outline", class extends QComponent
 
         this.innerHTML =
             html`
-            <div name="exercises"></div>
+            <div class="panelHeader">
+                <h1>Outline</h1>
+            </div>
+            <div class="panelBody">
+                <div name="exercises"></div>
+            </div>
             `
 
         this.$exercises = this.querySelector("[name='exercises']")

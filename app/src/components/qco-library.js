@@ -23,22 +23,35 @@ window.customElements.define("qco-library", class extends QComponent
     render()
     {
         this.innerHTML =
-            qsLibrary.state.isLoading ? html`<p>Loading...</p>` :
-            html`
-            <div class="libraryList">
-                ${qsLibrary.state.exercises.length === 0
-                    ? html`<p>Nothing here</p>`
-                    : qsLibrary.state.exercises
-                        .map(item => this.renderRow(item))
-                        .join('')
-                }
+            qsLibrary.state.isLoading
+            ? html`<p>Loading...</p>`
+            : html`
+            <div class="panelHeader">
+                <h1>Library</h1>
+            </div>
+            <div class="panelBody">
+                <!--
+                <qco-library-filters></qco-library-filters>
+                -->
+                <div class="libraryList">
+                    ${qsLibrary.state.exercises.length === 0
+                        ? html`<p>Nothing here</p>`
+                        : this.renderExerciseList(qsLibrary.state.exercises)
+                    }
+                </div>
+                <div class="space"></div>
+                <div class="exerciseDetails hidden"></div>
             </div>
             `
 
+        const $exerciseDetails = this.querySelector(".exerciseDetails")
+
         this.querySelectorAll("[name='addItem']").forEach((button, index) =>
         {
-            button.addEventListener("click", () =>
+            button.addEventListener("click", (e) =>
             {
+                e.stopPropagation();
+
                 const libraryExercise = qsLibrary.state.exercises[index]
 
                 const outlineExercise =
@@ -54,32 +67,60 @@ window.customElements.define("qco-library", class extends QComponent
                 qsQuiz.addItem(outlineExercise)
             })
         })
+
+        const $exerciseList = this.querySelector("[name='exerciseList']")
+
+        if ($exerciseList)
+        {
+            $exerciseList.addEventListener("qe_selectedIndicesChanged", (e) =>
+            {
+                const index = e.detail.selectedIndices[0]
+
+                // Unselected.
+                if (!index)
+                {
+                    this.selectedExercise = undefined
+                    $exerciseDetails.classList.add("hidden")
+                    return
+                }
+
+                const exercise = qsLibrary.state.exercises[index]
+                $exerciseDetails.innerHTML = this.renderExerciseDetails(exercise)
+                $exerciseDetails.classList.remove("hidden")
+            })
+        }
     }
 
-    //renderExercise = (item) =>
-    //    html`
-    //    <qca-ex-info
-    //        code="${item.code}"
-    //        subject="${item.subject}"
-    //        name="${item.name}"
-    //        description="${item.description}"
-    //        tags="${item.tags.join(",")}"
-    //        levelScale="${item.levelScale}"
-    //        supportedLevels="${item.supportedLevels.join(",")}"
-    //        supportedLengths="${item.supportedLengths.join(",")}"
-    //    >
-    //        <qca-ex-info.header-rhs>
-    //            <button name="addItem" aria-label="Add exercise to quiz">
-    //                <span class="iconoir-plus"></span>
-    //            </button>
-    //        </qca-ex-info.header-rhs>
-    //    </qca-ex-info>
-    //    `
+    renderExerciseList = (exercises) =>
+        html`
+        <qca-list
+            id="exerciseList"
+            name="exerciseList"
+            is-multi-select="false"
+            can-unselect="true"
+        >
+            ${exercises
+                .map(exercise =>
+                html`
+                <qca-list.item value="0" class="libraryRow">
+                    <div class="name">${exercise.name}</div>
+                    <div class="space"></div>
+                    <div class="actions">
+                        <button name="addItem" aria-label="Add exercise to quiz">
+                            <span class="iconoir-plus"></span>
+                        </button>
+                    </div>
+                </qca-list.item>
+                `
+                )
+                .join('')}
+        </qca-list>
+        `
 
-    renderRow = (item) =>
+    renderExerciseRow = (exercise) =>
         html`
         <div class="libraryRow">
-            <div class="name">${item.name}</div>
+            <div class="name">${exercise.name}</div>
             <div class="space"></div>
             <div class="actions">
                 <button name="addItem" aria-label="Add exercise to quiz">
@@ -87,5 +128,20 @@ window.customElements.define("qco-library", class extends QComponent
                 </button>
             </div>
         </div>
+        `
+
+    renderExerciseDetails = (exercise) =>
+        html`
+        <qca-ex-info
+            code="${exercise.code}"
+            subject="${exercise.subject}"
+            name="${exercise.name}"
+            description="${exercise.description}"
+            tags="${exercise.tags.join(",")}"
+            levelScale="${exercise.levelScale}"
+            supportedLevels="${exercise.supportedLevels.join(",")}"
+            supportedLengths="${exercise.supportedLengths.join(",")}"
+        >
+        </qca-ex-info>
         `
 })

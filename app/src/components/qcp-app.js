@@ -80,65 +80,28 @@ window.customElements.define("qcp-app", class extends QComponent
 
             </div>
 
-            <div class="drawer column">
+            <div class="drawer">
 
-                <qca-router
-                    class="drawer"
-                    selected-route="${routes.library}"
-                >
+                <qca-router selected-route="${routes.library}">
                     <qca-router.page match-route="${routes.library}">
-                        <div class="panelHeader">
-                            <h1>Library</h1>
-                        </div>
-                        <div class="panelBody">
-                            <!--
-                            <qco-library-filters></qco-library-filters>
-                            -->
-                            <qco-library></qco-library>
-                        </div>
+                        <qco-library></qco-library>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.outline}">
-                        <div class="panelHeader">
-                            <h1>Outline</h1>
-                        </div>
-                        <div class="panelBody">
-                            <qco-outline></qco-outline>
-                        </div>
+                        <qco-outline></qco-outline>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.options}">
-                        <div class="panelHeader">
-                            <h1>Options</h1>
-                        </div>
-                        <div class="panelBody">
-                            <qco-options></qco-options>
-                        </div>
+                        <qco-options></qco-options>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.preview}">
-                        <div class="panelHeader">
-                            <h1>Preview (TODO: mobile only)</h1>
-                        </div>
-                        <div class="panelBody">
-                        </div>
+                        <h1>Preview (TODO: mobile only)</h1>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.download}">
-                        <div class="panelHeader">
-                            <h1>Download</h1>
-                        </div>
-                        <div class="panelBody">
-                            <qco-downloads></qco-downloads>
-                        </div>
+                        <qco-downloads></qco-downloads>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.settings}">
-                        <div class="panelHeader">
-                            <h1>Settings</h1>
-                        </div>
-                        <div class="panelBody">
-                            <qco-settings></qco-settings>
-                        </div>
+                        <qco-settings></qco-settings>
                     </qca-router.page>
                 </qca-router>
-
-                <div class="space"></div>
 
             </div>
 
@@ -150,7 +113,7 @@ window.customElements.define("qcp-app", class extends QComponent
                 <div class="separator"><div class="hover"></div></div>
                 -->
 
-                <div class="preview column">
+                <div class="preview">
                     <qco-preview></qco-preview>
                 </div>
 

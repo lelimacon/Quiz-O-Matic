@@ -23,11 +23,17 @@ window.customElements.define("qca-list", class extends QComponent
         {
             $item.addEventListener("click", (e) =>
             {
-                const selectedIndices = !this["is-multi-select"]
-                    ? [index]
-                    : this._selectedIndices.includes(index)
-                    ? this._selectedIndices.filter(i => i != index)
-                    : this._selectedIndices.concat([index])
+                let selectedIndices = [index]
+                if (this["is-multi-select"])
+                {
+                    selectedIndices = this._selectedIndices.includes(index)
+                        ? this._selectedIndices.filter(i => i != index)
+                        : this._selectedIndices.concat([index])
+                }
+                else if (this["can-unselect"] && this._selectedIndices.includes(index))
+                {
+                    selectedIndices = []
+                }
 
                 this.updateSelectedIndices(selectedIndices)
             })
@@ -39,6 +45,8 @@ window.customElements.define("qca-list", class extends QComponent
     _selectedIndices = []
 
     get "is-multi-select"() { return this.getAttribute("is-multi-select") == "true" }
+
+    get "can-unselect"() { return this.getAttribute("can-unselect") == "true" }
 
     get "selected-indices"() { return this.getAttribute("selected-indices") }
     set "selected-indices"(value)

@@ -3,9 +3,9 @@
     --qs-logo: #efb614;
 
     --qs-action: #1598ef;
-    --qs-action-bg: #89c5ed;
+    --qs-action-bg: #cae3f4;
     --qs-emphasis: #2415ef;
-    --qs-emphasis-bg: #7d75ea;
+    --qs-emphasis-bg: #c6c3f5;
 
     --qs-fg-strong: #09090b;
     --qs-fg: #27272a;
@@ -23,9 +23,9 @@
 .theme-dark,
 .theme-light .theme-inverted {
     --qs-action: #1598ef;
-    --qs-action-bg: #385060;
+    --qs-action-bg: #364249;
     --qs-emphasis: #2415ef;
-    --qs-emphasis-bg: #3a3768;
+    --qs-emphasis-bg: #343349;
 
     --qs-fg-strong: #fafafa;
     --qs-fg: #f4f4f5;
@@ -169,6 +169,8 @@ qcp-app > .appbar {
     }
 
 qcp-app > .drawer {
+    display: flex;
+    flex-direction: column;
     width: 400px;
     min-width: 400px;
     background-color: var(--qs-bg-strong);
@@ -177,6 +179,9 @@ qcp-app > .drawer {
 }
     qcp-app > .drawer.hidden {
         display: none;
+    }
+    qcp-app > .drawer > qca-router {
+        flex-grow: 1;
     }
 
 qcp-app > .content {
@@ -187,12 +192,9 @@ qcp-app > .content {
 
 qcp-app > .content > .preview {
     flex-grow: 1;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-}
-
-qcp-app > .content > .column {
-    overflow-y: auto;
 }
 
 qcp-app > .content > .separator {
@@ -222,7 +224,9 @@ qcp-app .panelHeader {
     }
 
 qcp-app .panelBody {
+    flex-grow: 1;
     padding: 3px 0;
+    overflow-y: auto;
 }
 
 qcp-app .form {
@@ -296,39 +300,55 @@ qco-preview-toolbar {
     }
 
 
+qco-library {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+    qco-library > .panelBody {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
 qco-library .libraryList {
     background-color: var(--qs-bg-strong);
     border-top: 1px solid var(--qs-b-soft);
 }
 
-qco-library .libraryList > .libraryRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 6px 12px;
-    border-bottom: 1px solid var(--qs-b-soft);
-    background-color: var(--qs-bg-strong);
-}
-
-    qco-library .libraryList > .libraryRow:hover {
-        background-color: var(--qs-bg);
+    qco-library .libraryList .libraryRow {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 18px 12px; /* TODO: what is going on */
+        border-bottom: 1px solid var(--qs-b-soft);
     }
 
-    qco-library .libraryList > .libraryRow > .name {
-        font-size: 1.0em;
-        color: var(--qs-fg-strong);
-        margin: 6px 0;
-    }
+        qco-library .libraryList .libraryRow > .name {
+            font-size: 1.0em;
+            color: var(--qs-fg-strong);
+            margin: 6px 0;
+        }
+        qco-library .libraryList .libraryRow > .space {
+            flex-grow: 1;
+        }
+        qco-library .libraryList .libraryRow > .actions {
+            display: none;
+        }
+            qco-library .libraryList .libraryRow:hover > .actions {
+                display: block;
+            }
 
-    qco-library .libraryList > .libraryRow > .space {
+    qco-library .space {
         flex-grow: 1;
     }
 
-    qco-library .libraryList > .libraryRow > .actions {
-        display: none;
+    qco-library .exerciseDetails {
+        padding: 6px 12px;
+        border-top: 1px solid var(--qs-b);
     }
-        qco-library .libraryList > .libraryRow:hover > .actions {
-            display: block;
+        qco-library .exerciseDetails.hidden {
+            display: none;
         }
 
 
@@ -502,8 +522,6 @@ qca-input .trailingIcon {
 
 qca-list {
     display: block;
-    border: 1px solid var(--qs-action);
-    border-radius: 2px;
     background-color: var(--qs-bg-strong);
 }
 
@@ -552,9 +570,19 @@ qca-tabs > qca-tabs\.tab {
         border-right: 2px solid var(--qs-emphasis);
     }
 
-qca-router > qca-router\.page.hidden {
-    display: none;
+qca-router {
+    display: flex;
+    flex-direction: column;
 }
+
+qca-router > qca-router\.page {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+    qca-router > qca-router\.page.hidden {
+        display: none;
+    }
 
 
 qca-popover {
