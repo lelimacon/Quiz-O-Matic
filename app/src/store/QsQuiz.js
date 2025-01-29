@@ -9,7 +9,8 @@ const themeStateFromThemeCode = (themeCode) =>
         { return {
             code: theme.code,
             path: theme.path,
-            options: {
+            options:
+            {
                 primaryColor: theme.defaults.primaryColor,
                 secondaryColor: theme.defaults.secondaryColor,
             },

@@ -307,16 +307,14 @@ qco-library {
 }
     qco-library > .panelBody {
         flex-grow: 1;
-        display: flex;
-        flex-direction: column;
     }
 
-qco-library .libraryList {
+qco-library .exerciseList {
     background-color: var(--qs-bg-strong);
     border-top: 1px solid var(--qs-b-soft);
 }
 
-    qco-library .libraryList .libraryRow {
+    qco-library .exerciseList .row {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -324,18 +322,18 @@ qco-library .libraryList {
         border-bottom: 1px solid var(--qs-b-soft);
     }
 
-        qco-library .libraryList .libraryRow > .name {
+        qco-library .exerciseList .row > .name {
             font-size: 1.0em;
             color: var(--qs-fg-strong);
             margin: 6px 0;
         }
-        qco-library .libraryList .libraryRow > .space {
+        qco-library .exerciseList .row > .space {
             flex-grow: 1;
         }
-        qco-library .libraryList .libraryRow > .actions {
+        qco-library .exerciseList .row > .actions {
             display: none;
         }
-            qco-library .libraryList .libraryRow:hover > .actions {
+            qco-library .exerciseList .row:hover > .actions {
                 display: block;
             }
 
@@ -344,7 +342,6 @@ qco-library .libraryList {
     }
 
     qco-library .exerciseDetails {
-        padding: 6px 12px;
         border-top: 1px solid var(--qs-b);
     }
         qco-library .exerciseDetails.hidden {
@@ -352,11 +349,62 @@ qco-library .libraryList {
         }
 
 
+qco-outline {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+    qco-outline > .panelBody {
+        flex-grow: 1;
+    }
+
+qco-outline .exerciseList {
+    background-color: var(--qs-bg-strong);
+    border-top: 1px solid var(--qs-b-soft);
+}
+
+    qco-outline .exerciseList .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 18px 12px; /* TODO: what is going on */
+        border-bottom: 1px solid var(--qs-b-soft);
+    }
+
+        qco-outline .exerciseList .row > .index {
+            margin-right: 6px;
+            font-size: 1.0em;
+            font-weight: bold;
+        }
+        qco-outline .exerciseList .row > .name {
+            font-size: 1.0em;
+            color: var(--qs-fg-strong);
+            margin: 6px 0;
+        }
+        qco-outline .exerciseList .row > .space {
+            flex-grow: 1;
+        }
+        qco-outline .exerciseList .row > .actions {
+            display: none;
+        }
+            qco-outline .exerciseList .row:hover > .actions {
+                display: block;
+            }
+
+    qco-outline .space {
+        flex-grow: 1;
+    }
+
+    qco-outline .exerciseDetails {
+        border-top: 1px solid var(--qs-b);
+    }
+        qco-outline .exerciseDetails.hidden {
+            display: none;
+        }
+
+
 qca-ex-info {
     display: block;
-    margin: 4px 0 6px 0;
-    border: 1px solid var(--qs-b-soft);
-    border-radius: 4px;
 }
 qca-ex-info .header {
     display: flex;
@@ -364,7 +412,6 @@ qca-ex-info .header {
     align-items: center;
     padding: 6px 12px;
     border-bottom: 1px solid var(--qs-b-soft);
-    border-radius: 4px 4px 0 0;
     background-color: var(--qs-bg-soft);
     color: var(--qs-fg-strong);
 }
@@ -375,10 +422,6 @@ qca-ex-info .header {
     qca-ex-info .header .space {
         flex-grow: 1;
     }
-qca-ex-info .index {
-    font-weight: bold;
-    margin: 0 8px 0 0;
-}
 qca-ex-info .subject {
     font-weight: bold;
 }
@@ -402,7 +445,6 @@ qca-ex-info .selectable {
     }
 qca-ex-info > .body {
     padding: 6px 6px 8px 6px;
-    border-radius: 0 0 4px 4px;
     background-color: var(--qs-bg-strong);
 }
 qca-ex-info .name {
