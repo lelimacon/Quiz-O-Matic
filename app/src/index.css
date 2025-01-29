@@ -130,44 +130,6 @@ qcp-app {
     font-size: 12px;
 }
 
-qcp-app > .appbar {
-    width: 56px;
-    min-width: 56px;
-    display: flex;
-    flex-direction: column;
-    padding: 4px 0;
-}
-    qcp-app > .appbar > qca-tabs > qca-tabs\.tab {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        padding: 6px 6px;
-        display: flex;
-        justify-content: center;
-        color: var(--qs-action);
-    }
-    qcp-app > .appbar > .space {
-        flex-grow: 1;
-    }
-    qcp-app > .appbar > .header {
-        margin: 8px 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-        qcp-app > .appbar > .header > .logo {
-            height: 36px;
-        }
-    qcp-app > .appbar > qca-tabs > qca-tabs\.tab > .tabIcon {
-        font-size: 1.8em;
-        margin-top: 4px;
-    }
-    qcp-app > .appbar > qca-tabs > qca-tabs\.tab > .tabTitle {
-        font-size: 0.8em;
-        margin-top: 8px;
-        text-transform: uppercase;
-        letter-spacing: -0.6px;
-    }
-
 qcp-app > .drawer {
     display: flex;
     flex-direction: column;
@@ -177,6 +139,43 @@ qcp-app > .drawer {
     border-left: 1px solid var(--qs-b);
     border-right: 1px solid var(--qs-b);
 }
+
+    qcp-app > .drawer > qca-tabs > qca-tabs\.tab {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 6px 6px;
+        display: flex;
+        justify-content: center;
+        color: var(--qs-action);
+    }
+    qcp-app > .drawer > .header {
+        display: flex;
+        align-items: center;
+        margin: 8px 12px;
+    }
+        qcp-app > .drawer > .header > .logo {
+            margin-right: 8px;
+            height: 28px;
+        }
+        qcp-app > .drawer > .header > .title {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+    qcp-app > .drawer > qca-tabs > qca-tabs\.tab {
+        flex-grow: 1;
+    }
+        qcp-app > .drawer > qca-tabs > qca-tabs\.tab > .tabIcon {
+            font-size: 1.4em;
+            margin-top: 4px;
+        }
+        qcp-app > .drawer > qca-tabs > qca-tabs\.tab > .tabTitle {
+            font-size: 0.8em;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: -0.6px;
+        }
+
     qcp-app > .drawer.hidden {
         display: none;
     }
@@ -609,7 +608,7 @@ qca-tabs > qca-tabs\.tab {
         border-bottom: 2px solid var(--qs-emphasis);
     }
     qca-tabs[orientation='vertical'] > qca-tabs\.tab.selected {
-        border-right: 2px solid var(--qs-emphasis);
+        border-left: 2px solid var(--qs-emphasis);
     }
 
 qca-router {

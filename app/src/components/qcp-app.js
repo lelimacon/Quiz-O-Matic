@@ -22,14 +22,15 @@ window.customElements.define("qcp-app", class extends QComponent
 
         this.innerHTML =
             html`
-            <div class="appbar">
+            <div class="drawer">
 
                 <div class="header" title="Quiz-O-Matic">
                     <img class="logo" alt="Logo" src="logo.svg">
+                    <span class="title">Quiz-O-Matic</span>
                 </div>
 
                 <qca-tabs
-                    orientation="vertical"
+                    orientation="horizontal"
                     selected-index="0"
                     can-unselect="true"
                 >
@@ -78,10 +79,6 @@ window.customElements.define("qcp-app", class extends QComponent
                     </qca-tabs.tab>
                 </qca-tabs>
 
-            </div>
-
-            <div class="drawer">
-
                 <qca-router selected-route="${routes.library}">
                     <qca-router.page match-route="${routes.library}">
                         <qco-library></qco-library>
@@ -118,7 +115,6 @@ window.customElements.define("qcp-app", class extends QComponent
                 </div>
 
             </div>
-
             `
 
         const $drawers = this.querySelectorAll("qcp-app > .drawer")
