@@ -1,7 +1,7 @@
 code = "Q_MAT_EQS"
 subject = "mat"
-name = "Model collection - 1 unknown equation (substraction)"
-description = "Problem to solve a single unknown equation by applying a substraction."
+name = "Model collection - 1 unknown eq. (substraction)"
+description = "Solve a single unknown equation by applying a substraction."
 tags = ["practical", "closed_answers", "problem", "plot", "algebra", "equation"]
 levelScale = "grades"
 supportedLevels = ["g6"]

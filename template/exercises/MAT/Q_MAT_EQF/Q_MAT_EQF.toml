@@ -1,7 +1,7 @@
 code = "Q_MAT_EQF"
 subject = "mat"
-name = "Model collection - 1 unknown equation (fraction)"
-description = "Problem to solve a single unknown equation by applying a fraction."
+name = "Model collection - 1 unknown eq. (fraction)"
+description = "Solve a single unknown equation by applying a fraction."
 tags = ["practical", "closed_answers", "problem", "plot", "algebra", "equation"]
 levelScale = "grades"
 supportedLevels = ["g6"]
