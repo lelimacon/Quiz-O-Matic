@@ -81,22 +81,22 @@ window.customElements.define("qcp-app", class extends QComponent
 
                 <qca-router selected-route="${routes.library}">
                     <qca-router.page match-route="${routes.library}">
-                        <qco-library></qco-library>
+                        <qco-library class="page"></qco-library>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.outline}">
-                        <qco-outline></qco-outline>
+                        <qco-outline class="page"></qco-outline>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.options}">
-                        <qco-options></qco-options>
+                        <qco-options class="page"></qco-options>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.preview}">
                         <h1>Preview (TODO: mobile only)</h1>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.download}">
-                        <qco-downloads></qco-downloads>
+                        <qco-downloads class="page"></qco-downloads>
                     </qca-router.page>
                     <qca-router.page match-route="${routes.settings}">
-                        <qco-settings></qco-settings>
+                        <qco-settings class="page"></qco-settings>
                     </qca-router.page>
                 </qca-router>
 

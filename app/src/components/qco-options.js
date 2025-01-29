@@ -14,66 +14,61 @@ window.customElements.define("qco-options", class extends QComponent
 
         this.innerHTML =
             html`
-            <div class="panelHeader">
-                <h1>Options</h1>
-            </div>
-            <div class="panelBody">
-                <div class="form">
-                    <label class="label" for="mode">Mode</label>
-                    <qca-select
-                        id="mode"
-                        name="mode"
-                        is-multi-select="false"
-                        selected-indices="${qsQuiz.state.mode}"
-                    >
-                        <qca-select.item value="0">Questions then Answers</qca-select.item>
-                        <qca-select.item value="1">Questions with Answers</qca-select.item>
-                        <qca-select.item value="2">Questions only</qca-select.item>
-                        <qca-select.item value="3">Answers only</qca-select.item>
-                    </qca-select>
+            <div class="form">
+                <label class="label" for="mode">Mode</label>
+                <qca-select
+                    id="mode"
+                    name="mode"
+                    is-multi-select="false"
+                    selected-indices="${qsQuiz.state.mode}"
+                >
+                    <qca-select.item value="0">Questions then Answers</qca-select.item>
+                    <qca-select.item value="1">Questions with Answers</qca-select.item>
+                    <qca-select.item value="2">Questions only</qca-select.item>
+                    <qca-select.item value="3">Answers only</qca-select.item>
+                </qca-select>
 
-                    <label class="label" for="theme">Theme</label>
-                    <qca-select
-                        id="theme"
-                        name="theme"
-                        is-multi-select="false"
-                        selected-values="${qsQuiz.state.theme.code}"
-                    >
-                        ${
-                            sources.themes.map(theme =>
-                                html`
-                                <qca-select.item
-                                    value="${theme.code}"
-                                    label="${theme.name}"
-                                >
-                                    <div class="name">${theme.name}</div>
-                                    <div class="description">${theme.description}</div>
-                                    <div class="tags">
-                                        ${
-                                            theme.tags
-                                                .map(tag => html`<div class="tag">${tag}</div>`)
-                                                .join("")
-                                        }
-                                    </div>
-                                </qca-select.item>`
-                            )
-                        }
-                    </qca-select>
+                <label class="label" for="theme">Theme</label>
+                <qca-select
+                    id="theme"
+                    name="theme"
+                    is-multi-select="false"
+                    selected-values="${qsQuiz.state.theme.code}"
+                >
+                    ${
+                        sources.themes.map(theme =>
+                            html`
+                            <qca-select.item
+                                value="${theme.code}"
+                                label="${theme.name}"
+                            >
+                                <div class="name">${theme.name}</div>
+                                <div class="description">${theme.description}</div>
+                                <div class="tags">
+                                    ${
+                                        theme.tags
+                                            .map(tag => html`<div class="tag">${tag}</div>`)
+                                            .join("")
+                                    }
+                                </div>
+                            </qca-select.item>`
+                        )
+                    }
+                </qca-select>
 
-                    <label class="label" for="primaryColor">Primary color</label>
-                    <qca-color-picker
-                        id="primaryColor"
-                        name="primaryColor"
-                        trailing-icon="edit-pencil"
-                    ></qca-color-picker>
+                <label class="label" for="primaryColor">Primary color</label>
+                <qca-color-picker
+                    id="primaryColor"
+                    name="primaryColor"
+                    trailing-icon="edit-pencil"
+                ></qca-color-picker>
 
-                    <label class="label" for="secondaryColor">Secondary color</label>
-                    <qca-color-picker
-                        id="secondaryColor"
-                        name="secondaryColor"
-                        trailing-icon="edit-pencil"
-                    ></qca-color-picker>
-                </div>
+                <label class="label" for="secondaryColor">Secondary color</label>
+                <qca-color-picker
+                    id="secondaryColor"
+                    name="secondaryColor"
+                    trailing-icon="edit-pencil"
+                ></qca-color-picker>
             </div>
             `
 

@@ -51,24 +51,19 @@ window.customElements.define("qco-downloads", class extends QComponent
 
         this.innerHTML =
             html`
-            <div class="panelHeader">
-                <h1>Download</h1>
-            </div>
-            <div class="panelBody">
-                <div class="form">
-                    <button class="button-icon" id="pdf" name="pdf" aria-label="PDF download">
-                        <span class="iconoir-page-flip"></span>
-                        Download as PDF
-                    </button>
-                    <button class="button-icon" id="svg" name="svg" aria-label="SVG download">
-                        <span class="iconoir-journal"></span>
-                        Download as SVG
-                    </button>
-                    <button class="button-icon" id="svgSeparatePages" name="svgSeparatePages" aria-label="SVG by page download">
-                        <span class="iconoir-archive"></span>
-                        Download as SVG separate pages
-                    </button>
-                </div>
+            <div class="form">
+                <button class="button-icon" id="pdf" name="pdf" aria-label="PDF download">
+                    <span class="iconoir-page-flip"></span>
+                    Download as PDF
+                </button>
+                <button class="button-icon" id="svg" name="svg" aria-label="SVG download">
+                    <span class="iconoir-journal"></span>
+                    Download as SVG
+                </button>
+                <button class="button-icon" id="svgSeparatePages" name="svgSeparatePages" aria-label="SVG by page download">
+                    <span class="iconoir-archive"></span>
+                    Download as SVG separate pages
+                </button>
             </div>
             `
 

@@ -15,28 +15,25 @@ window.customElements.define("qco-outline", class extends QComponent
 
         this.innerHTML =
             html`
-            <div class="panelHeader">
-                <h1>Outline</h1>
-            </div>
-            <div class="panelBody">
+            <div class="exerciseListContainer">
             </div>
             <div class="space"></div>
             <div class="exerciseDetails hidden"></div>
             `
 
-        this.$panelBody = this.querySelector(".panelBody")
+        this.$exerciseListContainer = this.querySelector(".exerciseListContainer")
     }
 
     selectedIndex = undefined
-    $panelBody = undefined
+    $exerciseListContainer = undefined
 
     _refreshList()
     {
-        this.$panelBody.innerHTML = qsQuiz.state.exercises.length === 0
+        this.$exerciseListContainer.innerHTML = qsQuiz.state.exercises.length === 0
             ? html`<p>Add exercises from the library</p>`
             : this._renderExerciseList(qsQuiz.state.exercises)
 
-        this.$panelBody.querySelectorAll("[name='removeExercise']").forEach(($button, index) =>
+        this.$exerciseListContainer.querySelectorAll("[name='removeExercise']").forEach(($button, index) =>
         {
             $button.addEventListener("click", () =>
             {

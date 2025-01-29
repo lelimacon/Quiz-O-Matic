@@ -173,13 +173,15 @@ qcp-app > .drawer {
             font-size: 0.8em;
             margin-top: 8px;
             text-transform: uppercase;
-            letter-spacing: -0.6px;
         }
 
     qcp-app > .drawer.hidden {
         display: none;
     }
     qcp-app > .drawer > qca-router {
+        flex-grow: 1;
+    }
+    qcp-app > .drawer > qca-router .page {
         flex-grow: 1;
     }
 
@@ -213,20 +215,6 @@ qcp-app > .content > .separator > .hover {
     qcp-app > .content > .separator > .hover:hover {
         background-color: var(--qs-action);
     }
-
-qcp-app .panelHeader {
-    padding: 8px 12px;
-}
-    qcp-app .panelHeader > h1 {
-        font-size: 0.9em;
-        text-transform: uppercase;
-    }
-
-qcp-app .panelBody {
-    flex-grow: 1;
-    padding: 3px 0;
-    overflow-y: auto;
-}
 
 qcp-app .form {
     padding: 4px 8px;
@@ -293,6 +281,7 @@ qco-preview-toolbar {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 4px 8px;
 }
     qco-preview-toolbar > .zoom {
         width: 80px;
@@ -300,20 +289,21 @@ qco-preview-toolbar {
 
 
 qco-library {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
-    qco-library > .panelBody {
-        flex-grow: 1;
-    }
 
-qco-library .exerciseList {
+qco-library > .exerciseListContainer {
+    flex-grow: 1;
+    height: 100%; /* TODO: Why is this needed? */
+}
+
+qco-library > .exerciseListContainer > .exerciseList {
     background-color: var(--qs-bg-strong);
     border-top: 1px solid var(--qs-b-soft);
 }
 
-    qco-library .exerciseList .row {
+    qco-library > .exerciseListContainer > .exerciseList .row {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -321,18 +311,19 @@ qco-library .exerciseList {
         border-bottom: 1px solid var(--qs-b-soft);
     }
 
-        qco-library .exerciseList .row > .name {
+        qco-library > .exerciseListContainer > .exerciseList .row > .name {
             font-size: 1.0em;
             color: var(--qs-fg-strong);
             margin: 6px 0;
         }
-        qco-library .exerciseList .row > .space {
+        qco-library > .exerciseListContainer > .exerciseList .row > .space {
             flex-grow: 1;
         }
-        qco-library .exerciseList .row > .actions {
+        qco-library > .exerciseListContainer > .exerciseList .row > .actions {
             display: none;
         }
-            qco-library .exerciseList .row:hover > .actions {
+            qco-library > .exerciseListContainer > .exerciseList .row:hover > .actions,
+            qco-library > .exerciseListContainer > .exerciseList .row.selected > .actions {
                 display: block;
             }
 
@@ -353,16 +344,18 @@ qco-outline {
     display: flex;
     flex-direction: column;
 }
-    qco-outline > .panelBody {
-        flex-grow: 1;
-    }
 
-qco-outline .exerciseList {
+qco-outline > .exerciseListContainer {
+    flex-grow: 1;
+    height: 100%; /* TODO: Why is this needed? */
+}
+
+qco-outline > .exerciseListContainer > .exerciseList {
     background-color: var(--qs-bg-strong);
     border-top: 1px solid var(--qs-b-soft);
 }
 
-    qco-outline .exerciseList .row {
+    qco-outline > .exerciseListContainer > .exerciseList .row {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -370,23 +363,24 @@ qco-outline .exerciseList {
         border-bottom: 1px solid var(--qs-b-soft);
     }
 
-        qco-outline .exerciseList .row > .index {
+        qco-outline > .exerciseListContainer > .exerciseList .row > .index {
             margin-right: 6px;
             font-size: 1.0em;
             font-weight: bold;
         }
-        qco-outline .exerciseList .row > .name {
+        qco-outline > .exerciseListContainer > .exerciseList .row > .name {
             font-size: 1.0em;
             color: var(--qs-fg-strong);
             margin: 6px 0;
         }
-        qco-outline .exerciseList .row > .space {
+        qco-outline > .exerciseListContainer > .exerciseList .row > .space {
             flex-grow: 1;
         }
-        qco-outline .exerciseList .row > .actions {
+        qco-outline > .exerciseListContainer > .exerciseList .row > .actions {
             display: none;
         }
-            qco-outline .exerciseList .row:hover > .actions {
+            qco-outline > .exerciseListContainer > .exerciseList .row:hover > .actions,
+            qco-outline > .exerciseListContainer > .exerciseList .row.selected > .actions {
                 display: block;
             }
 

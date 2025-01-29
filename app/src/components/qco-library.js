@@ -26,13 +26,10 @@ window.customElements.define("qco-library", class extends QComponent
             qsLibrary.state.isLoading
             ? html`<p>Loading...</p>`
             : html`
-            <div class="panelHeader">
-                <h1>Library</h1>
-            </div>
-            <div class="panelBody">
-                <!--
-                <qco-library-filters></qco-library-filters>
-                -->
+            <!--
+            <qco-library-filters></qco-library-filters>
+            -->
+            <div class="exerciseListContainer">
                 ${qsLibrary.state.exercises.length === 0
                     ? html`<p>Nothing here</p>`
                     : this._renderExerciseList(qsLibrary.state.exercises)
